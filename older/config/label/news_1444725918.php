@@ -1,0 +1,1 @@
+<?php $news_label = unserialize('a:7:{s:4:"name";s:18:"首页头条新闻";s:3:"num";s:2:"10";s:5:"catid";s:1:"2";s:10:"news_statu";s:3:"top";s:5:"image";s:1:"1";s:4:"time";i:1444725918;s:8:"template";s:26:"defind_news_1444725918.htm";}');?>

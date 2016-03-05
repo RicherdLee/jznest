@@ -1,0 +1,25 @@
+<link href="<{$config.weburl}>/module/brand/templates/brand.css" rel="stylesheet" type="text/css" />
+<div class="w">
+    <div class="detailnav">
+        <strong><a href="#">首页</a></strong>
+        <span> >  全部品牌</span>
+    </div>
+</div>
+<div class="w w1">
+    <{foreach item=list key=num from=$bcat}>
+    <{foreach item=slist from=$list.list key=nums}>
+    	<{if $slist.brand}>
+        <div class="item clearfix">
+            <div class="left">
+            	<b><{$slist.catname}></b>
+            </div>
+            <div class="right">
+            	<{foreach item=clist from=$slist.brand}>
+                	<li> <a target="_blank" href="<{$config.weburl}>/?m=product&s=list&brand=<{$clist.name}>"><img width="130" height="80" src="<{$clist.logo}>" /></a></li>
+    			<{/foreach}>
+            </div>
+        </div>
+        <{/if}>
+    <{/foreach}>
+    <{/foreach}>
+</div>

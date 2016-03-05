@@ -1,0 +1,42 @@
+<div class="w">
+    <div class="news">
+        <div class="title">
+            <h1><{if $de.title}><{$de.title}><{else}><{$de.ftitle}><{/if}></h1>
+            <div class="summary">时间：<{$de.uptime|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></div>
+        </div>
+        <div class="content">
+        	<{$de.con}>
+            <{if $vote}>
+            <div class="vote">
+               <form target="_blank" action="<{$config.weburl}>/?m=vote&s=vote&id=<{$smarty.get.id}>" method="post">				
+                <{foreach item=list key=num from=$vote}>
+                <dl>
+                    <dt>
+                        <{$num+1}>、<{$list.title}>
+                         
+                        <{if $list.end==1}><font color="#FF0000">(<{$lang.closed}>)</font><{/if}>
+                        <{if $list.ip==1}><font color="#FF0000">(<{$lang.voted}>)</font><{/if}>
+                    </dt>
+                    <dd>
+                    <{foreach item=slist key=n from=$list.item}>
+                    <div>
+                    <{if $list.end!=1 and $list.ip!=1}>
+                    <input id="vote_<{$list.id}><{$n}>" type="<{if $list.votetype==0}>radio<{else}>checkbox<{/if}>" value="<{$n+1}>" name="vote<{$list.id}>[]">
+                    <{/if}>
+                    <label for="vote_<{$list.id}><{$n}>"><{$slist.0}></label>
+                    </div>
+                    <{/foreach}>
+                    </dd>
+                </dl>
+                <{/foreach}>
+              
+                <input type="submit" value="<{$lang.vote}>" name="submit">&nbsp;&nbsp;
+                <input type="button" onClick="javascript:window.open('<{$config.weburl}>/?m=vote&id=<{$smarty.get.id}>')" value="<{$lang.view}>" name="button">
+            
+              
+                </form>
+            </div>
+            <{/if}> 
+        </div>
+    </div>
+</div>

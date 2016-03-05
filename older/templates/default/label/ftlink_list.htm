@@ -1,0 +1,13 @@
+<div class="bottom_service_link">
+	<{foreach item=link from=$links}>
+		<dl>
+			<dt style="background:url(<{$link.logo}>) no-repeat left center;">
+                <strong><{$link.title}></strong>
+            </dt>
+            <{foreach item=list from=$link.list}>
+            <dd><a href="<{$list.con_linkaddr}>"><{$list.con_title}></a></dd>
+            <{/foreach}>
+		</dl>
+	<{/foreach}>
+	<div class="clear"></div>
+</div>

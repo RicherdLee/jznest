@@ -1,0 +1,276 @@
+<div class="path">
+    <div>
+    	<a href="main.php?cg_u_type=1">我的商城</a> <span>&gt;</span> 
+    	<a href="main.php?m=product&s=admin_buyorder">订单管理</a> <span>&gt;</span> 
+        订单付款
+    </div>
+</div>
+<div class="main">
+	<div class="wrap">
+        <div class="order_pay">
+            <h2>订单信息</h2>
+            <table class="table">
+                <tbody>
+                <tr class="tr">
+                    <td width="50">订单编号</td>
+                    <td width="150"><a href="main.php?m=product&s=admin_orderdetail&id=<{$de.order_id}>"><{$de.order_id}></a></td>
+                    <td width="50">订单状态</td>
+                    <td width="100"><b class="org"><{$de.statu_text}></b></td>
+                    <td width="50">下单时间</td>
+                    <td><{$de.create_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></td>
+                </tr>
+                <tr class="tr">
+					<td>配送方式</td>
+                    <td colspan="99"><{$de.shipping_name}></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table alc">    
+            <thead>
+                <tr>
+                    <th class="partition" colspan="99">订单信息</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">产品</td>
+                    <td width="90">单价</td>
+                    <td width="60">数量</td>
+                    <td width="90">总价</td>
+                </tr>
+                <{foreach item=list from=$de.product}>
+                <tr>
+                    <td class="al"><a target="_blank" href="index.php?m=product&s=detail&id=<{$list.pid}>"><img src="<{$list.pic}>_60x60.jpg" /></a></td>
+                    <td class="al <{if $list.service}>npb<{/if}>">
+                        <a target="_blank" href="index.php?m=product&s=detail&id=<{$list.pid}>">
+                            <{$list.name}>
+                        </a>
+                    </td>
+                    <td <{if $list.service or $list.product_give}>class="npb"<{/if}>><{$config.money}><{$list.price|number_format:2}></td>
+                    <td <{if $list.service or $list.product_give}>rowspan="2"<{/if}>>x <{$list.num}></td>
+                    <td <{if $list.service or $list.product_give}>rowspan="2"<{/if}>><{$config.money}><{$list.sum|number_format:2}></td>
+                </tr>
+                <{if $list.product_give}>
+                <tr class="product_give">
+                    <td class="al">赠品</td>
+                    <td class="al">
+                        <{foreach item=slist from=$list.product_give}>
+                            <p><{$slist.pname}></p>
+                        <{/foreach}>
+                    </td>
+                </tr>
+                <{/if}>
+                <{if $list.service}>
+                <tr class="other">
+                    <td class="al">服务</td>
+                    <td class="al">
+                        <{foreach item=slist from=$list.service}>
+                            <p><{$slist.name}></p>
+                        <{/foreach}>
+                    </td>
+                    <td>
+                        <{foreach item=slist from=$list.service}>
+                            <p><{$config.money}><{$slist.price}></p>
+                        <{/foreach}>
+                    </td>
+                </tr>
+                <{/if}>
+                <{/foreach}>
+                <tr>
+                    <td colspan="99">
+                    <dl><dt>订单金额:</dt><dd class="price"><{$config.money}><{$de.cost+$de.freight|number_format:2}></dd></dl>
+                    <dl><dt>运费:</dt><dd><{$config.money}><{$de.freight|number_format:2}></dd></dl>
+                    <dl><dt>商品金额:</dt><dd><{$config.money}><{$de.cost|number_format:2}></dd></dl>
+                    </td>
+                </tr>
+            </tbody>
+        	</table>
+        </div>
+        <div class="order_pay mt20">
+            <h2>订单支付</h2>
+            <table class="table">
+                <tbody>
+                <tr class="tr">
+                    <td>
+                    您选择了 <b class="org"><{$pay.payment_name}></b>&nbsp;
+                    <{if $pay.payment_type!='cod'}><a href="javascript:#" class="change">更改支付方式</a><{/if}>
+                    </td>
+				</tr>
+                <tr class="tr">
+                 	<td class="td"><{$pay.payment_desc}></td>
+                    <td class="paymemt hidden">
+                    <{foreach item=list from=$paymemt}>
+                        <li>
+                            <img align="top" title="<{$list.payment_name}>" alt="<{$list.payment_name}>" data-param="{'id':'<{$list.payment_id}>'}" src="image/payment/<{$list.payment_type}>.gif" /><i></i>
+						</li>
+                    <{/foreach}>
+                    </td>
+                </tr>
+                <{if $pay.payment_type!='cod'}>
+                <tr>
+                	<td>
+                    	<a class="btn-pay" href="javascript:0">确定支付</a>
+                        <input type="hidden" id="payment_id" value="<{$pay.payment_id}>"/>
+                    </td>
+                </tr>
+                <{/if}>
+				</tbody>
+        	</table>
+            <script type="text/javascript">
+            $(".change").bind("click",function(){
+				$(this).addClass("hidden");		
+				$(this).prev().addClass("hidden");		
+				$('.td').addClass("hidden").siblings().removeClass("hidden");
+			});
+			$(".btn-pay").bind("click",function(){
+				var href="?m=payment&s=admin_pay&order_id=<{$de.order_id}>";
+				var payment_id=$("#payment_id").val();
+				if(!payment_id)
+				{
+					alert("请选择支付方式！");
+					return false;
+				}
+				window.location=href+"&payment="+payment_id;
+				return false;
+			});
+			$(".order_pay li").bind("click",function(){
+				var data = $(this).children('img').attr('data-param');
+				eval("data = "+data);
+				$("#payment_id").val(data.id);
+				$(this).addClass("checked").siblings().removeClass("checked");
+			});
+            </script>
+        </div>
+    </div>
+</div>
+
+<div style="width: 42px; position:fixed; top:0;right:0; border: 1px #ccc solid; background: #fff;">
+<style>
+#qe{width:146px; height:141px; position:fixed; top:200px; right:9%; background:#9F3; z-index:9999}
+#qe .code{width:141px; height:141px; background: #9F3; overflow:hidden;padding:2px;}
+#qe .close{position:absolute;top:-6px;right:-6px;}
+</style>
+ <div id="qe" class="qe" style="display:none">
+ <div style="margin: auto;"><a class="close" href="javascript:void(0);" onclick="hide();"><img src="image/close.png" alt="关闭" width="20px" height="20px"/></a></div>       
+ <div class="code"><img src="image/phpqrcode.jpg" width="141" height="141" alt="" /></div> 
+ </div>   
+	<div style="height: 388px;" class="rightbar">
+		<p style="margin-top: 0px;"><a href="<{$config.weburl}>" class="mouseicon" title="首页"><em class="mousetext" style="display:none;">首页</em><img src="image/home.png" height="40px" width="40px" title="首页"></a></p>
+		<p><a href="<{$config.weburl}>/main.php?m=member" class="mouseicon" title="个人中心"><em class="mousetext" style="display:none;">个人中心</em><img src="image/member.png" height="40px" width="40px" title="个人中心"></a></p>
+		<p><div style="width:20px; height:20px; margin-left: 20px; margin-bottom: -13px; color: #fff; background: url(images/car-num.png) no-repeat; line-height:20px; padding-left:6px;"><{$cart.cart.0.prolist|@count}></div><a href="<{$config.weburl}>/?m=product&s=shop_cart" class="mouseicon" title="购物车"><em class="mousetext" style="display:none;">购物车</em><img src="image/cart.png" height="40px" width="40px" title="购物车"></a></p>
+		<p><a href="<{$config.weburl}>/main.php?m=points&s=admin_points" class="mouseicon" title="积分"><em class="mousetext" style="display:none;">积分</em><img src="image/score.png" height="40px" width="40px" title="积分"></a></p>
+		<p><a href="<{$config.weburl}>/main.php?m=points&s=admin_points_goods" class="mouseicon" title="优惠券"><em class="mousetext" style="display:none;">优惠券</em><img src="image/coupon.png" height="40px" width="40px" title="优惠券"></a></p>
+        <p><a href="javascript:void(0);" onclick="show();" class="mouseicon" title="二维码"><em class="mousetext" style="display:none;">二维码</em><img src="image/phpqrcode.jpg" height="40px" width="40px" title="二维码"></a></p>
+		<p><a href="#top" class="mouseicon" title="回到顶部"><em class="mousetext" style="display:none;">回到顶部</em><img src="image/top.png" height="40px" width="40px"></a></p>
+<script type="text/javascript"> 
+var EX = {
+	addEvent:function(k,v){
+		var me = this;
+		if(me.addEventListener)
+		me.addEventListener(k, v, false);
+		else if(me.attachEvent)
+		me.attachEvent("on" + k, v);
+		else
+		me["on" + k] = v;
+	},
+	removeEvent:function(k,v){
+		var me = this;
+		if(me.removeEventListener)
+		me.removeEventListener(k, v, false);
+		else if(me.detachEvent)
+		me.detachEvent("on" + k, v);
+		else
+		me["on" + k] = null;
+	},
+	stop:function(evt){
+		evt = evt || window.event;
+		evt.stopPropagation?evt.stopPropagation():evt.cancelBubble=true;
+	}
+};
+
+document.getElementById('qe').onclick = EX.stop;
+var url = '#'; 
+function show(){ 
+	var o = document.getElementById('qe'); 
+	o.style.display = ""; 
+	setTimeout(function(){
+		EX.addEvent.call(document,'click',hide);
+	});
+}
+function hide(){ 
+	var o = document.getElementById('qe'); 
+	o.style.display = "none"; 
+	EX.removeEvent.call(document,'click',hide);
+} 
+</script>   
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var Shop = {"url":{"region":"\/tools-selRegion.html"}};
+var __time_out = 1000;
+window.addEvent('domready',function(){
+
+    var ReferObj =new Object();
+    Object.append(ReferObj,{
+        serverTime:1446695556,
+        init:function(){
+            var FIRST_REFER=Cookie.read('S[FIRST_REFER]');
+            var NOW_REFER=Cookie.read('S[NOW_REFER]');
+            var nowDate=this.time=this.serverTime*1000;
+            if(!window.location.href.test('#r-')&&!document.referrer||document.referrer.test(document.domain))return;
+            if(window.location.href.test('#r-'))Cookie.dispose('S[N]');
+            if(!FIRST_REFER){
+
+                if(NOW_REFER){
+                    this.writeCookie('S[FIRST_REFER]',NOW_REFER,this.getTimeOut(JSON.decode(NOW_REFER).DATE));
+                }else{
+                    this.setRefer('S[FIRST_REFER]',__time_out);
+                }
+            }
+            this.setRefer('S[NOW_REFER]',__time_out);
+            this.createGUID();
+        },
+        getUid:function(){
+            var lf=window.location.href,pos=lf.indexOf('#r-');
+            return pos!=-1?lf.substr(pos+4):'';
+        },
+        getRefer:function(){
+            return document.referrer?document.referrer:'';
+        },
+        setRefer:function(referName,timeout){
+            var uid=this.getUid(),referrer=this.getRefer();
+            var data={'ID':uid,'REFER':referrer,'DATE':this.time};
+
+            if('S[NOW_REFER]'==referName){
+                var refer=JSON.decode(Cookie.read('S[FIRST_REFER]'));
+                if(uid!=''&&refer&&refer.ID==''){
+                    var fdata={'ID':uid,'REFER':refer.REFER,'DATE':refer.DATE};
+                    this.writeCookie('S[FIRST_REFER]',JSON.encode(fdata),this.getTimeOut(refer.DATE));
+                }else if(uid==''){
+                    Object.append(data,{'ID':refer.ID});
+                }
+            }
+            Cookie.write(referName,JSON.encode(data),{duration:(__time_out||15)});
+        },
+        getTimeOut:function(nowDate){
+            var timeout=nowDate+__time_out*24*3600*1000;
+            var date=new Date(timeout);
+            return date;
+        },
+        writeCookie:function(key,value,timeout){
+            document.cookie=key+ '=' + value+'; expires=' + timeout.toGMTString();
+        },
+        createGUID:function(){
+            var GUID = (function(){
+                var S4=function(){
+                    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+                };
+                return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).toUpperCase();
+            })();
+            Cookie.write('S[N]',GUID,{duration:3650});
+        }
+    });
+    ReferObj.init();
+});
+</script>

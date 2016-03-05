@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{if $title}><{$title}> - <{$config.company}><{else}><{$config.title}><{/if}><{$config.company}></title>
+<meta name="description" content="<{$config.description}>">
+<meta name="keywords" content="<{$config.keyword}>">
+<meta name="generator" content="<{$config.version}>" />
+<link href="<{$config.weburl}>/templates/default/user_admin.css" rel="stylesheet" type="text/css" />
+<link href="<{$config.weburl}>/script/jcarousel/skins/tango/skin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.ui.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/index.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/dialog/dialog.js" id="dialog_js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jcarousel/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.validation.min.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.charCount.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.lazy.js"></script>
+</head>
+<body class="member">
+<div id="shortcut">
+    <div class="w">
+        <div class="fl"> 
+            <script src="<{$config.weburl}>/login_statu.php"></script>
+        </div>
+        <div class="fr">
+        	<a href="<{$config.weburl}>/main.php?m=product&s=admin_buyorder">我的订单</a>
+        	<a href="<{$config.weburl}>/main.php?m=sns&s=admin_share_product">我的收藏</a> 
+            <a href="<{$config.weburl}>/main.php?m=message&s=admin_message_list_inbox">站内信</a>
+        </div>
+    </div>
+</div>
+
+<div id="main">
+    <div id="header">
+      <h1 style="top:20px;">
+          <a href="<{$config.weburl}>" title="<{$config.company}>">
+          	<img title="<{$config.company}>" alt="<{$config.company}>" src="<{if $config.logo}><{$config.logo}><{else}><{$config.weburl}>/image/logo.png<{/if}>" width="160px" height="70px"/>
+          </a>
+      </h1>
+      <div id="nav">
+            <ul>
+                <{foreach item=list name=name key=num from=$menu}>
+                	<li class="<{if $cmenu==$num}>frist<{/if}>"><a <{if $num == 'personal'}> target="_blank"<{/if}> href="<{if $list.action|truncate:1:''!='?' and $list.action|truncate:4:''!='http'}>?action=<{/if}><{$list.action}>"><{$list.name}></a></li>
+                <{/foreach}>
+            </ul>
+        <div class="search_box">
+            <form target="_blank" action="<{$config.weburl}>/" method="get">
+                <input type="text" maxlength="200" class="text" id="key" name="key">
+                <input type="submit" class="submit" value="" name="">
+                <input type="hidden" name="m" value="" />
+                <input type="hidden" name="s" value="list" />
+            </form>
+        </div>
+      </div>
+    </div>
+   
+	<{if $smarty.get.m=='product' && $smarty.get.s=='admin_orderdetail'}>
+		<{$output}>
+    <{else}>
+    <div class="layout buyer">
+        <div class="left_con">
+        <{if $cmenu=='user' }>
+        <{foreach name=name item=list from=$submenu.sub}>
+            <div class="business_handle" id="my_menu">
+                <h3 style="text-indent:20px;"><{$list.name}></h3>
+                <ul>
+                    <{foreach item=slist key=akey from=$list.action}>
+                        <{if $slist}>
+                            <{assign var="gets" value=$akey|explode:"&"}>
+                            <li <{if $smarty.get.action==$akey or in_array($smarty.get.type,$gets) or in_array($smarty.get.s,$gets)}>class="active"<{else}>class="normal"<{/if}> >
+                                <a  href="<{if $akey|truncate:1:''=='?' or $akey|truncate:4:''=='http'}><{$akey}><{else}>?action=<{$akey}><{/if}>"><{$slist}></a>
+                            </li>
+                        <{/if}>
+                    <{/foreach}>
+                </ul>
+            </div>
+        <{/foreach}>
+   <!--div class="business_handle" id="my_menu">
+      <h3 style="text-indent:20px;">账户中心</h3>
+         <ul>
+     <li class="normal" >
+   <a  href="?m=member&s=admin_member">个人资料</a>
+     </li>
+     <li class="normal" >
+   <a  href="?m=member&s=admin_orderadder">收货地址</a>
+     </li>
+     <li class="active" >
+   <a  href="?m=member&s=admin_invoice">发票信息</a>
+     </li>
+         </ul>
+   </div-->
+       
+		<{else}>
+        <dl class="user">
+            <dd>
+                <div class="pic">
+                    <a href="main.php?m=member&s=admin_member">
+                    	<img height="100" width="100" src="<{if !$cominfo.plogo}>image/default/user_admin/default_user_portrait.gif<{else}><{$cominfo.plogo}><{/if}>" />
+                    </a>
+                </div>
+            </dd>
+        </dl>
+        <div class="business_handle" id="my_menu">
+        	<h3>用户中心</h3>
+            <{foreach name=name item=list from=$submenu.sub}>
+                <{if $list.action|truncate:1:''=='?'}>
+                    <{assign var="gets" value=$list.action|explode:"&"}>
+                    <div class="<{ if $smarty.get.action==$list.action or in_array($smarty.get.type,$gets) or in_array($smarty.get.s,$gets) }>active<{else}>normal<{/if}>">
+                        <em class="i<{$smarty.foreach.name.iteration}>"></em>
+                        <a href="<{$list.action}>"><{$list.name}></a>
+                    </div>
+                <{else}>
+                <dl>
+                    <dt>
+                        <em class="i<{$smarty.foreach.name.iteration}>"></em>
+                        <a href="javascript:void(0)"><{$list.name}></a>
+                    </dt>
+                    <{foreach item=slist key=akey from=$list.action}>
+                        <{if $slist}>
+                            <{assign var="gets" value=$akey|explode:"&"}>
+                            <dd <{if $smarty.get.action==$akey or in_array($smarty.get.type,$gets) or in_array($smarty.get.s,$gets)}>class="active"<{else}>class="normal"<{/if}> >
+                                <a href="<{if $akey|truncate:1:''=='?' or $akey|truncate:4:''=='http'}><{$akey}><{else}>?action=<{$akey}><{/if}>"><{$slist}></a>
+                            </dd>
+                        <{/if}>
+                    <{/foreach}>
+                </dl>
+                <{/if}>   
+            <{/foreach}> 
+        </div>
+        <{/if}>
+    	</div>
+    	<div class="right_con"><{$output}></div>
+	</div>
+	<{/if}>
+</div>  
+  
+<div id="footer">
+  <p><{$web_con}></p>
+  <{$bt}><br>
+</div>
+
+</body>
+</html>

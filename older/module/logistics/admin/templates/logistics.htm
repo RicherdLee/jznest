@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>配送管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../script/jquery.ui.js"></script>
+<script type="text/javascript" src="../script/dialog/dialog.js" id="dialog_js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="flow">
+        <div class="itemtitle">
+            <h3>配送管理</h3>
+            <ul>
+                <li <{if $smarty.get.operation==''}>class="current"<{/if}>><a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>"><span>管理</span></a></li>
+                <li <{if $smarty.get.operation=='add'}>class="current"<{/if}>><a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&operation=add"><span>添加</span></a></li>
+				<{if $smarty.get.operation=='edit'}>
+                <li class="current"><a href="#"><span>修改</span></a></li>
+                <{/if}>
+                <{if $smarty.get.operation=='set'}>
+                <li class="current"><a href="#"><span>指定配送地区和费用</span></a></li>
+                <{/if}>
+            </ul>
+		</div>
+    </div>
+    <div class="h35"></div>
+    <script type="text/javascript">
+    $(function(){
+        /* 全选 */
+         $('.checkall').click(function(){
+            var _self = this;
+            $('.checkitem').each(function(){
+                if (!this.disabled)
+                {
+                    $(this).attr('checked', _self.checked);
+                }
+            });
+            $('.checkall').attr('checked', this.checked);
+        });	 
+    });
+    </script>
+	<{if $smarty.get.operation=='add' or $smarty.get.operation=='edit' }>
+    <form name="form" id="form" method="post">
+        <input name="id" type="hidden" id="id" value="<{$de.id}>">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="partition" colspan="99">配送管理</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="100">配送方式名称</td>
+                <td>
+				<input name="title" type="text" id="title" class="w350" value="<{$de.title}>"/>
+                <div id="form-error" class="form-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>类型</td>
+                <td>
+				<input type="radio" <{if $de.type==0}>checked="checked"<{/if}> value="0" name="type" id="t1" /><label for="t1">先收款后发货</label>
+				<input type="radio" <{if $de.type==1}>checked="checked"<{/if}> value="1" name="type" id="t2" /><label for="t2">货到付款</label>
+                </td>
+            </tr>
+            <tr>
+                <td width="100">重量设置</td>
+                <td>
+				 首重重量 <input name="default_num" id="default_num" type="text" value="<{if $de.default_num}><{$de.default_num}><{else}>1<{/if}>" class="w50" /> 千克
+                 费用 <input name="default_price" id="default_price" type="text" value="<{if $de.default_price}><{$de.default_price}><{else}>10<{/if}>" class="w50" /> 元 
+                 续重重量 <input name="add_num" id="add_num" type="text" value="<{if $de.add_num}><{$de.add_num}><{else}>1<{/if}>" class="w50" /> 千克 
+                 费用 <input name="add_price" id="add_price" type="text" value="<{if $de.add_price}><{$de.add_price}><{else}>10<{/if}>" class="w50" /> 元
+                 满 <input name="free" id="free" type="text" value="<{if $de.free}><{$de.free}><{else}>0<{/if}>" class="w50" /> 元免运费（如果填写0则为不免运费） 
+                </td>
+            </tr>
+            <tr>
+                <td width="100">详细介绍</td>
+                <td>
+				<script charset="utf-8" src="../lib/kindeditor/kindeditor-min.js"></script>
+				<script>
+                var editor;
+                KindEditor.ready(function(K) {
+                    editor = K.create('textarea[name="content"]', {
+                        resizeType : 1,
+                        allowPreviewEmoticons : false,
+                        allowImageUpload : false
+                    });
+                });
+                </script>
+                <textarea style="width:80%; height:300px" name="content"><{$de.desc}></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                <input class="submit" type="submit" value="提交">
+                <input name="act" type="hidden" id="action" value="<{if !$smarty.get.editid}>save<{else}>edit<{/if}>">
+               
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </form>
+	<{elseif $smarty.get.operation=='set'}>
+    <form action="" method="post" id="form" name="form">
+	<input name="id" type="hidden" id="id" value="<{$smarty.get.editid}>">
+    <table class="table ac" width="100%">
+        <tr class="partition">
+            <th width="1"></th>
+            <th class="al">运送到</th>
+            <th width="100">起始(kg)</th>
+            <th width="100">起始费(元)</th>
+            <th width="100">续重重量(kg)</th>
+            <th width="100">续重费用(元)</th>
+            <th width="100">免运费(元)</th>
+        </tr>
+        <{foreach item=list from=$de}>
+        <tr>
+            <td></td>
+            <td class="al">
+                <input name="edit_city[<{$list.id}>]" value="<{$list.define_citys}>" type="hidden"/>
+                <{if $list.define_citys=='default'}>
+                <span>全国&nbsp;</span>
+                <{else}>
+                <span><{$list.define_citys}>&nbsp;</span><a data_type="edit" href="javascript:void(0);">编辑</a>&nbsp;<a onclick="return confirm('确定删除吗');"  href="module.php?m=logistics&s=logistics.php&operation=set&editid=<{$smarty.get.editid}>&del=<{$list.id}>">删除</a>
+                <{/if}>
+            </td>
+            <td><input type="text" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" onkeyup="value=value.replace(/[^\d]/g,'')" class="w50" name="edit_default_num[<{$list.id}>]" value="<{$list.default_num}>" /></td>
+            <td><input type="text" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" onkeyup="value=value.replace(/[^\d.]/g,'')" class="w50" name="edit_default_price[<{$list.id}>]" value="<{$list.default_price}>" /></td>
+            <td><input type="text" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" onkeyup="value=value.replace(/[^\d]/g,'')" class="w50" name="edit_add_num[<{$list.id}>]" value="<{$list.add_num}>"/></td>
+            <td><input type="text" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" onkeyup="value=value.replace(/[^\d.]/g,'')" class="w50" name="edit_add_price[<{$list.id}>]" value="<{$list.add_price}>" /></td>
+            <td><input type="text" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" onkeyup="value=value.replace(/[^\d]/g,'')" class="w50" name="edit_free[<{$list.id}>]" value="<{$list.free}>" /></td>
+        </tr>
+        <{/foreach}>
+        <tr>
+            <td class="al" colspan="99"><div><a class="addtr" onclick="addrow(this, 0)" href="javascript:void(0);">添加一级分类</a></div></td>
+        </tr>
+        <tr>
+            <td class="al" colspan="99">
+            <input class="submit" type="submit" value="提交">
+            <input name="act" type="hidden" id="action" value="<{if !$smarty.get.editid}>save<{else}>edit<{/if}>">
+            </td>
+        </tr>
+    </table>
+    </form>
+    <script>
+	var rowtypedata = [
+	[
+		[1,''],
+		[1,'<input name="add_city[]" value="" type="hidden"/><span></span><a data_type="edit" href="javascript:void(0);">编辑</a>&nbsp;<a href="javascript:;" onClick="deleterow(this)">删除</a>','al'], 
+		[1,'<input type="text" class="w50" name="default_num[]" value="1" />'], 
+		[1,'<input type="text" class="w50" name="default_price[]" value="10" />'], 
+		[1,'<input type="text" class="w50" name="add_num[]" value="1" />'], 
+		[1,'<input type="text" class="w50" name="add_price[]" value="10" />'], 
+		[1,'<input type="text" class="w50" name="free[]" value="0" />']
+	],
+	];
+	var addrowdirect = 0;
+	var addrowkey = 0;
+	function addrow(obj, type) {
+		var table = obj.parentNode.parentNode.parentNode.parentNode.parentNode;
+		var tbody = obj.parentNode.parentNode.parentNode.parentNode;
+		if(!addrowdirect) {
+			var row = table.insertRow(obj.parentNode.parentNode.parentNode.rowIndex);
+		} else {
+			var row = table.insertRow(obj.parentNode.parentNode.parentNode.rowIndex + 1);
+		}
+		var typedata = rowtypedata[type];
+		for(var i = 0; i <= typedata.length - 1; i++) {
+			var cell = row.insertCell(i);
+			cell.colSpan = typedata[i][0];
+			var tmp = typedata[i][1];
+			if(typedata[i][2]) {
+				cell.className = typedata[i][2];
+			}
+			tmp = tmp.replace(/\{(n)\}/g, function($1) {return addrowkey;});
+			tmp = tmp.replace(/\{(\d+)\}/g, function($1, $2) {return addrow.arguments[parseInt($2) + 1];});
+			cell.innerHTML = tmp;
+		}
+		addrowkey ++;
+		addrowdirect = 0;
+	}
+	function deleterow(obj) {
+		var table = obj.parentNode.parentNode.parentNode.parentNode;
+		var tr = obj.parentNode.parentNode;
+		table.deleteRow(tr.rowIndex);
+	}
+	var input=span='';
+	$('a[data_type="edit"]').live('click',function(){
+		ajax_form("district", '选择城市', '<{$config.weburl}>/admin/module.php?m=logistics&s=district.php', 550,1);
+		input=$(this).prevAll("input");
+		span=$(this).prevAll("span");
+		sca=new Array();
+	});
+    </script>
+    <{else}>
+    <form action="" method="post" id="form" name="form">
+    <input type="hidden" name="act" value="op" />
+    <table class="table">
+        <thead>
+        <tr>
+            <th colspan="99" class="partition">
+            <ul class="button">
+                <li class="button">
+                    <a class="a_button" id="open" href="javascript:void();">安装</a>
+                </li>
+                
+                <li class="button">
+                    <a class="a_button" id="close" href="javascript:void();">卸载</a>
+                </li>
+                
+                <li class="button">
+                    <a class="a_button" id="delete" href="javascript:void();">删除</a>
+                </li>
+            </ul>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr class="header">
+                <th width="10" class="pl20"><input type="checkbox" class="checkall"></th>
+                <th width="55" class="ac">操作</th>
+                <th width="150">配送方式名称</th>
+                <th>配送方式描述</th>
+                <th class="ac" width="60">货到付款</th>
+                <th class="ac" width="60">是否安装</th>
+            </tr>
+            <{foreach item=list from=$de}>
+            <tr>
+                <td class="pl20"><input type="checkbox" value="<{$list.id}>" class="checkitem" name="chk[]"></td>
+                <td class="ac">
+                <a href="module.php?m=logistics&s=logistics.php&operation=edit&editid=<{$list.id}>"><{$editimg}></a>
+                <a href="module.php?m=logistics&s=logistics.php&operation=set&editid=<{$list.id}>"><{$setimg}></a>
+                </td>
+                <td><{$list.title}></td>
+                <td><{$list.desc|strip_tags|truncate:100}></td>
+                <td class="ac"><{if $list.type==1}>是<{else}>否<{/if}></td>
+                <td class="ac"><{if $list.status==1}>安装<{else}>卸载<{/if}></td>
+                
+            </tr>
+            <{foreachelse}>
+            <tr>
+                <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+            </tr>
+            <{/foreach}>
+        </tbody>
+    </table>
+    </form>
+    <{/if}>
+</div>
+<script>
+    $(".a_button").click(function () {
+        var obj=$("input[type='checkbox']:checked");
+        if(!obj.length)
+        {
+            alert('对不起，请选择数据，再进行操作!');
+            return false;
+        }
+        $('input[name="act"]').val((this.id));
+        $("#form")[0].submit();
+        return false;
+    });
+    </script>  
+</body>
+</html>

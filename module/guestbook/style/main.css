@@ -1,0 +1,136 @@
+@charset "utf-8";
+/*
++-----------------------------------------------------------------------
+|	文件概要：网站主体样式表文件
+|	文件名称：main.css
+|	创建时间：2010-5-20
++-----------------------------------------------------------------------
+*/
+* {
+	margin:0px;
+	padding:0px;
+}
+body {
+	background: #fff;/*#C1DFF9*/;
+	font-size:12px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+img {
+	border:none;
+}
+#content {
+	width:800px;
+	margin:10px auto;
+	background: #c1dff9;
+	padding:10px 20px;
+}
+#top {
+	height:60px;
+}
+#logo {
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+#link ul {
+	list-style-type:none;
+	float:right;
+	text-align:center;
+}
+#link li {
+	float:left;
+	padding:10px;
+	margin-right:5px;
+}
+#link a {
+	text-decoration:none;
+	color:#000000;
+}
+#link a:hover {
+	color:#DE6632;
+}
+#main {
+	margin-top:20px;
+}
+#list {
+	padding:5px 10px;
+}
+#title {
+	background: #DBDAE7;
+	padding:3px 5px;
+	height:15px;
+}
+#text {
+	padding:15px 10px 10px 10px;
+	line-height:2em;
+}
+#text a{
+	text-decoration:none;
+	color:#000000;
+}
+#text a:hover{
+	color:#DE6632;
+	text-decoration:underline;
+	}
+#reply {
+	margin-left:0px;
+	border:1px dashed #6699FF;
+	background:#D5E4F1;
+	width:500px;
+	text-indent:24px;
+	padding:8px;
+	margin-bottom:5px;
+	text-align:left;
+	color:#000000;
+}
+#page {
+	text-align:center;
+	margin:5px 0px 5px 0px;
+}
+#page a {
+	text-decoration:none;
+}
+#page a:hover {
+	color:#DE6632;
+}
+#footer {
+	margin:20px 0px 0px 0px;
+	text-align:center;
+}
+#footer a {
+	color:#DE6632;
+	text-decoration:none;
+}
+#footer a:hover {
+	color:#DE6632;
+	text-decoration:underline;
+}
+#add {
+	padding:5px 10px;
+	text-align:left;
+
+}
+.content{
+padding:6px;
+width: 360px;
+height: 86px;
+}
+.lanse {
+	color:#0089FF;
+}
+.huangse {
+	color:#FF9933;
+}
+.hongse{
+	color:#FF0000;
+	text-align:center;
+	}
+#sbutton{
+	width:50px;
+	height:18px;
+	background:#0099CC;
+	border:1px solid #000099;
+}
+.zhong{
+	text-align:center;
+	}

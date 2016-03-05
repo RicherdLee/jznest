@@ -1,0 +1,22 @@
+<{foreach item=list key=key from=$comment}>
+<div class="item">
+    <div class="user">
+    	<div><a href=""><img height="50" width="50" src="<{$list.logo}>" /></a></div>
+        <div><a href=""><{$list.user}></a></div>
+    </div>
+    <div class="i-item">
+        <{if $list.goodbad==1}>
+        <img src="<{$config.weburl}>/image/default/good.gif" />
+        <{elseif $list.goodbad==1}>
+        <img src="<{$config.weburl}>/image/default/middle.gif" />
+        <{else}>
+        <img src="<{$config.weburl}>/image/default/bad.gif" />
+        <{/if}>
+        <p><{$list.con}></p>
+        <p><{$list.uptime|date_format}></p>
+    </div>
+    <div class="tl"></div>
+</div>
+<{foreachelse}>
+<div class="item"><div class="norecode">暂无商品评价！</div></div>
+<{/foreach}>

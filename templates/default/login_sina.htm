@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录<{$config.company}> - Powered by SOUDU</title>
+<meta name="description" content="<{$config.description}>" />
+<meta name="keywords" content="<{$config.keyword}>" />
+<meta name="author" content="MallBuilder Team and ShopBuilder UI Team" />
+<meta name="copyright" content="ShopBuilder" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link href="<{$config.weburl}>/templates/default/page.css" rel="stylesheet" type="text/css" />
+<script src="<{$config.weburl}>/script/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script src="<{$config.weburl}>/script/base.js" type="text/javascript"></script>
+<script src="script/login.js" type=text/javascript></script>
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script type=text/javascript>
+var nousername='<{$lang.nouname}>';
+var nouserpass='<{$lang.noupass}>';
+var norandcode='<{$lang.nocode}>';
+</script>
+</head>
+<body class="login">
+
+<div id="header">
+	<div class="w header">
+    	<div class="logo ld" style="line-height: 50px;">
+        <a hidefocus="true" title="<{$config.company}>" href="<{$config.weburl}>" title="返回首页"><img src="/image/logo.png" width="110px" height="47px"/></a>
+        <b></b>
+        </div>
+	</div>
+</div>
+<div class="w">
+	<div class="entry">
+    	<div class="mc">
+        	<div class="adv"><script src='<{$config.weburl}>/api/ad.php?id=1'></script></div>
+            <div class="form">
+            <span style="font-size:16px;color:#063; line-height:20px;">请用您的用户名和密码绑定账户登录，是新用户，请先注册。</span>
+            <form id="login" name="login" action="login_sina.php" method="post">
+            	<div class="item fore1">
+                    <span>用户名</span>
+                    <div class="item-ifo">
+                        <input autocomplete="off" class="text" name="user" type="text" id="user" tabindex="1"/>
+                        <div class="i-name ico"></div>
+                        <{if $smarty.get.erry=="-1"}>
+							<font color="red"><{$lang.noname}></font>
+                        <{elseif $smarty.get.erry=="-4"}> <br />
+							<font color="red"><{$lang.have_restpass}></font>
+                        <{/if}>
+                    </div>
+                </div>
+          
+                <div class="item fore2">
+                    <span>密码</span>
+                    <div class="item-ifo">
+                        <input class="text" type="password" name="password" id="password" tabindex="2" />
+                        <div class="i-pass ico"></div>
+                        <{if $smarty.get.erry=="-2"}>
+                        <font color="red"><{$lang.passerr}></font>
+                        <{/if}>
+                    </div>
+                </div>
+                 
+                <div class="item fore4">
+                    <div class="item-ifo">
+                        <label><a href="lostpass.php" class="">忘记密码?</a></label>
+                    </div>
+                </div>
+                        
+                <div class="item login-btn">
+                    <input name="action" type="hidden" value="submit" />
+                    <input name="forward" type="hidden" id="forward" value="<{$smarty.get.forward}>" />
+                    <input type="submit" tabindex="4" value="登录" onclick="return do_login();">
+                </div>
+			
+                <div class="item extra">
+                    <span>使用合作网站账号登录：</span>
+                    <{if $config.qq_connect==1}>
+                    <span><a target="_blank" href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=<{$config.qq_app_id}>&redirect_uri=<{$config.weburl}>/login.php" title="QQ"><img src="<{$config.weburl}>/image/QQconnect.jpg" width="20px" height="20px" /></a><{/if}></span>
+                    <{if $config.sina_connect==1}>
+                    <span><a href="<{$sina_login_url}>" title="新浪微博"><img src="<{$config.weburl}>/image/sinaconnect.jpg" width="20px" height="20px" /></a></span>
+                    <{/if}>
+                </div>
+            </form>
+            </div>
+<script>
+ var obj = new WxLogin({
+  id:"login_container", 
+  appid: "", 
+  scope: "", 
+  redirect_uri: "",
+  state: "",
+  style: "",
+  href: ""
+ });  
+</script>
+        </div>
+        <div class="free-regist">
+            <span><a href="<{$config.weburl}>/register.php">免费注册&gt;&gt;</a></span>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<div class="footer clearfix">
+    <div class="w">
+        <div class="links"><{$web_con}></div>
+        <div class="copyright"><{$bt}></div>
+    </div>
+</div>
+</body>
+</html>

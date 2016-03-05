@@ -1,0 +1,1 @@
+<?php $remote_config = unserialize('a:7:{s:20:"image_remote_storage";s:1:"0";s:10:"ftp_server";s:0:"";s:10:"space_name";s:0:"";s:8:"ftp_name";s:0:"";s:12:"ftp_password";s:0:"";s:16:"remote_directory";s:0:"";s:17:"remote_access_url";s:0:"";}');?>

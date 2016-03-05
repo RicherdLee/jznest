@@ -1,0 +1,57 @@
+<script src="script/my_lightbox.js" language="javascript"></script>
+<script type="text/javascript" src="script/Validator.js"></script>
+<script type="text/javascript" charset="utf-8" src="<{$config.weburl}>/script/district.js" ></script>
+<script>
+var weburl="<{$config.weburl}>";
+</script>
+<div class="path">
+    <div>
+    	<{if $cg_u_type==1}>
+    		<a href="main.php?cg_u_type=1"><{$lang.my_mall}></a> <span>&gt;</span>
+        <{else}>
+    		<a href="main.php?cg_u_type=2"><{$lang.seller_center}></a> <span>&gt;</span>
+        <{/if}>
+        我的级别
+    </div>
+</div>
+<div class="main">
+	<div class="wrap">
+        <div class="hd">
+            <ul class="tabs">
+                <li class="normal"><a href="main.php?m=member&s=admin_member"><{$lang.basic_information}></a></li>
+                <li class="normal"><a href="main.php?m=member&s=admin_member&type=password"><{$lang.change_password}></a></li>
+                <li class="normal"><a href="main.php?m=member&s=admin_member&type=mail"><{$lang.change_email}></a></li>
+                <li class="active"><a href="main.php?m=member&s=admin_grade">我的级别</a></li> 
+            </ul>
+        </div>
+       
+       	<div class="grade">
+            <div class="grade_list">
+                <p>您的会员级别是: <span><img src="<{$de.logo}>"> <{$de.name}></span></p>
+                <p>有效期: <{if $de.valid}><{$de.valid}>年<{else}>无限期<{/if}></p>
+                <{if $de.valid>0}><p>到期时间: <{$de.expire|date_format}></p><{/if}>
+                <{if $de.sum>0}><p>年费: <b><{$de.sum}></b> 成长值</p><{/if}>
+                <{if $de.next}><p>距离成为 <b><{$de.next}></b> 还需 <b class="red"><{$de.growth}></b> 成长值</p><{/if}>
+            </div>
+            <h2><{$de.name}>权利及优惠：</h2>
+            <div class="grade_list">
+            <{if $de.rate}><p>1.可以享受金牌会员部分商品 <b><{$de.rate}></b> 折扣</p><{/if}>
+            <{$de.treatment}>
+            </div>
+            <h2>会员级别图示：</h2>
+            <div class="grade_list clearfix">
+                <{foreach item=list from=$grade}>
+                <dl>
+                    <dt><img width="63" height="64" src="<{$list.blogo}>"></dt>
+                    <dd>
+                        <p class="fore1"><b><{$list.name}></b></p>
+                        <p>
+                        <{if $list.id==1}>注册成功即成为注册会员<{else}><{if $list.demand<=1}>注册成功且成功购买过商品<{else}>成长值达到<{$list.demand}><{/if}><{/if}>
+                        </p>
+                    </dd>
+                </dl>   
+                <{/foreach}>
+            </div>   
+        </div>
+    </div>
+</div>

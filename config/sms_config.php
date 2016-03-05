@@ -1,0 +1,1 @@
+<?php $sms_config = unserialize('a:2:{s:8:"sms_pass";s:0:"";s:11:"sms_account";s:0:"";}');?>

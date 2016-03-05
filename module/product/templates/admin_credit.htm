@@ -1,0 +1,55 @@
+<div class="path">
+    <div>
+    	<a href="main.php?cg_u_type=1">我的商城</a> <span>&gt;</span> 
+    	商品评价 
+    </div>
+</div>
+<div class="main">
+	<div class="wrap">
+    <div class="hd">
+        <ul class="tabs">
+           <li class="active"><a href="main.php?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>">商品评价</a></li>
+            
+        </ul>
+    </div>
+    <table class="table-list-style">
+        <thead>
+        <tr>
+            <th>评价内容</th>
+            <th width="50"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <{foreach item=slist key=num from=$re.list}>
+        <tr>
+        	 <td colspan="2" class="al"><a target="_blank" href="<{$config.weburl}>/?m=product&s=detail&id=<{$slist.pid}>"><{$slist.pname}></a></td>
+          
+        </tr>
+        <tr>
+            <td class="al">
+            <{if $slist.goodbad==1 }>
+            <img align="absmiddle" src="<{$config.weburl}>/image/default/good.gif" />
+            <{elseif $slist.goodbad==0 }>
+            <img align="absmiddle" src="<{$config.weburl}>/image/default/middle.gif" />
+            <{else}>
+            <img align="absmiddle" src="<{$config.weburl}>/image/default/bad.gif" />
+            <{/if}>
+            &nbsp;<{$slist.con}>
+            </td>
+			<td><{if $slist.goodbad!=1}><a href="main.php?m=product&s=admin_credit&type=1&id=<{$slist.id}>">删除</a><{/if}></td>
+        </tr>
+        <{foreachelse}>
+        <tr>
+            <td colspan="20" class="norecord">
+                <i></i><span>暂无符合条件的数据记录</span>	
+            </td>
+        </tr>
+        <{/foreach}>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="20"><div class="pagination"><{$re.page}></div></td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

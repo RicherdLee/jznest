@@ -1,0 +1,14 @@
+<{foreach item=list from=$pro}>
+<dl>
+    <dt>
+        <a target="_blank" href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>">
+        	<img width="320" height="238" src='<{$list.pic}>_220X220.jpg' />
+        </a>
+    </dt>
+    <dd>
+    <dd style="width: 320px;"><a target="_blank" href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>"><{$list.pname}></a></dd>
+    <dd><strong><{$config.money}><{$list.price}></strong></dd>
+    <dd class="bottom"><b></b></dd>
+    </dd>
+</dl>
+<{/foreach}>

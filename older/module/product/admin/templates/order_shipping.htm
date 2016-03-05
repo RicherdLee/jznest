@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>发货订单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.4.4.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="flow">
+        <div class="itemtitle">
+            <h3>发货订单</h3>
+            <ul>
+                <li class="current"><a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>"><span>管理</span></a></li>
+			</ul>
+        </div>
+    </div>
+    <div class="h35"></div>
+    <form action="" method="get">
+    <input type="hidden" name="m" value="<{$smarty.get.m}>">
+    <input type="hidden" name="s" value="order_ship.php">
+    <table class="select_table">
+        <tr>    
+            <td>
+            	<div class="select_box">
+                <input placeholder="请输入订单编号..." type="text" name="code" class="w250" value="<{$smarty.get.code}>"  />
+                <input type="submit" value="搜索" />
+                <a class="refresh" href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&status=<{$smarty.get.status}>"></a>
+                </div>
+           </td>
+        </tr>
+    </table>
+    </form>
+    <table class="table product">
+       <tbody>
+       <tr class="header">
+            <th width="30">查看</th>
+            <th width="60">操作</th>
+            <th class="al">订单编号</th>
+            <th width="150">配送费用</th>
+            <th width="120">配送方式</th>
+            <th width="120">配送状态</th>
+            <th width="150">收货人</th>
+            <th width="200">物流单号</th>
+            <th width="150">创建时间</th>
+        </tr>
+        <{foreach item=list from=$de.list}>
+        <tr>
+            <td><a href="?m=product&s=order_detail.php&oid=<{$list.order_id}>"><{$lookimg}></a></td>
+            <td>
+            <{if $list.order_status==2}>
+			<a class="a-opear" data-type="ship" data-param="{'id':'<{$list.order_id}>'}" href="#">发货</a>
+            <{elseif $list.order_status<2 }>
+            未发货
+            <{else}>
+            已发货
+            <{/if}>
+            </td>
+            <td class="al"><{$list.order_id}></td>
+            <td><{$config.money}><{$list.money|number_format:2}></td>
+            <td><{$list.order_ship_status}></td>
+            <td><{$list.shipping_name}></td>
+            <td><{$list.ship_name}></td>
+            <td><{$list.shipping_no}></td>
+            <td><{$list.start_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></td>
+        </tr>
+        <{foreachelse}>
+        <tr>
+            <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+        </tr>
+        <{/foreach}>
+		</tbody>
+        <tfoot>
+            <tr>
+                <td colspan="99">
+                	<div class="fl">每页最多显示： 20条</div>
+                    <div class="page"><{$de.page}></div>
+                    <div class="fr">共有<{$de.count}>条记录</div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+<script>
+$(".a-opear").live('click',function(){
+	
+	var data = $(this).attr('data-param');
+	eval("data = "+data);
+	var type = $(this).attr('data-type');
+	if(!data.id)
+	{
+		error('error','对不起，请选择订单后操作！');
+		return false;
+	}
+	window.parent.ajax_form("order", "操作订单", '<{$config.weburl}>/admin/module.php?m=product&s=order_opear.php&type='+type+'&orderid='+data.id, 800);
+	return false;
+	
+});
+$('.operate').hover(function(){					 
+	if ($(this).position().top + $(this).children("ul").height() + $(this).parent("td").height() - $(window).height()- $(window).scrollTop()  < 0) {
+		$(this).addClass("hover");
+		$(this).children("ul").css("top", "22px");
+	} else {
+		$(this).addClass("hover-up");
+		$(this).children("ul").css("top", -$(this).children("ul").height());
+	}
+},function(){
+	$(this).removeClass("hover").removeClass("hover-up");	
+});
+</script>    
+</div>
+</body>
+</html>

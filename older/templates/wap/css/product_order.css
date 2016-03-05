@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+.cart-button{height:32px;font-size:12px;line-height:32px;border-radius:5px 5px 5px 5px;width:100%;display:block;background:#D63638;color:#FFFFFF!important;border:1px solid #D63638;text-align:center;margin:15px auto;}
+.order{padding:5px 15px;font-size:14px;}
+.order h2{margin-top:10px;}
+.item{background-color:#FFFFFF;border:1px solid #E5E5E5;padding:5px 15px 10px;position:relative;word-break:break-all;margin:10px auto 20px;border-radius:8px 8px 8px 8px;}
+.item p{overflow:hidden;margin-top:5px;}
+.item p label{line-height:14px;float:left;margin:5px 0;}
+.item p label input{float:left;margin-right:10px;}
+.item dl{padding:15px 10px ;border-bottom:1px solid #E0E1E1;position:relative;}
+.item dt{width:80px;height:80px;float:left;}
+.item dd{margin-left:90px;line-height:18px;font-size:14px;}
+.item dt input{left:20px;top:45px;position:absolute;}
+.item dd .p-name{max-height:36px;margin-bottom:8px;}
+.item dd .p-price{position:relative;overflow:inherit;height:32px;line-height:32px;}
+.item dd .p-detail{font-size:12px;color:#999;}
+.item .order_summary{overflow:hidden;padding-top:10px;}
+.item .order_summary .fl{float:left;width:100px;}
+.item .order_summary .statistic{width:300px;float:right;}
+.item .order_summary .statistic .list{height:24px;line-height:24px;overflow:hidden;}
+.item .order_summary .statistic span{float:left;text-align:right;width:180px;}
+.item .order_summary .statistic span em{color:#E4393C;font-style:normal;}
+.item .order_summary .statistic .price{color:#333333;float:right;text-align:right;width:100px;font-style:normal;}
+.total{float:right;text-align:right;}
+.form-error label{background-color:rgba(51, 51, 51, 0.9);border-radius:4px 4px 4px 4px;box-shadow:2px 2px 0 rgba(0, 0, 0, 0.1);color:#FFF;font-size:12px;font-weight:600;line-height:20px;padding:10px 30px;position:absolute;text-align:center;z-index:999;top:38%;left:25%;}
+.noaddr{text-align:center;margin-bottom:35px;}
+.noaddr a{color:#005EA7;}
+.noaddr div{background:url(../../../image/wap/msg-bg.png) top center no-repeat;height:151px;margin:40px auto 25px;}

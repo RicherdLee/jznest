@@ -1,0 +1,129 @@
+<div class="new_banner">
+    <ul class="rslides f426x240">
+        <li><a href="javascript:"><img src="<{$config.weburl}>/image/banner-slider01.jpg" width="980" height="393" /></a></li>
+        <li><a href="javascript:"><img src="<{$config.weburl}>/image/banner-slider02.jpg" width="980" height="393" /></a></li>
+        <li><a href="javascript:"><img src="<{$config.weburl}>/image/banner-slider03.jpg" width="980" height="393" /></a></li>
+        <li><a href="javascript:"><img src="<{$config.weburl}>/image/banner-slider04.jpg" width="980" height="393" /></a></li>
+    </ul>
+</div>
+<div class="pro-list">
+<div class="cat">CUBILOSE</div>
+<div class="product">
+  <div class="hotsale">
+    <div>
+<{insert name="label" type="product" catid=$smarty.get.id temp="product_list_dl" limit=3}>
+    </div>
+  </div> 
+<script type="text/javascript">
+   $(".hot .mt").bind("mouseover",function(){
+   var element=$(this).parent();
+   element.addClass("current").siblings().removeClass("current");
+   });
+</script>
+</div>
+</div>
+<div class="clear"></div>
+
+<div class="MWBI"><script src='<{$config.weburl}>/api/ad.php?id=2&catid=<{$smarty.get.id}>&name=<{$smarty.get.key}>'></script></div>
+<div class="member"><script src='<{$config.weburl}>/api/ad.php?id=3&catid=<{$smarty.get.id}>&name=<{$smarty.get.key}>'></script></div>
+
+<div class="case">
+<div class="cat-l">What They Say?</div>
+<div class="cat-r">赞美生命 感受幸福</div>
+
+<div id="lupus_left">
+	<div id="lupus_right">
+		<div id="lupus_center">	
+			<div id="lupus_content">
+				<div id="box_text">
+					<div id="box_text_left_h1">
+						<div id="slideshow">
+						  <div id="slidesContainer">
+<{insert name="label" type="news" catid=$news.get.clssid temp="news_list_case" limit=15}>                          
+							</div>						 
+						</div>
+					</div>
+					
+					<div id="box_text_right"></div>
+				</div>				
+			</div>
+		</div>
+<div class="small-l">极盏燕农<span> - Company Name</span></div>
+</div>
+<script type="text/javascript">
+  $().ready(function() {
+  $('#slideshow').slide({autoplay: false, duration: 5000, showSlideNumber: true});
+  });
+</script>
+</div>
+</div>
+
+<div class="clear"></div>
+<div class="guestbook">
+<div class="cat-l">Contact</div>
+<div class="dialog">
+<span>Donec pede justo fringilla velaliquet nevu a putae ege arcu in enim justo rhoncus Sed ut perspiciatis unde omnis iste natus erros sit voluptatem accusantium doloremque laudantium</span>
+<div class="dialog-box">
+  <form method="post" action="/module/guestbook/admin/data.php?method=add" name="addform" onsubmit=javascript:{return(addform());} id="commentform">
+ <dl>
+  <dt><input maxlength="50" type="text" name="user" size="65"  value="Name" onclick="OnEnter(this)" onblur="if (value=='') {value='Name'}" onfocus="if (this.value=='Name') this.value='';" class="ipt-txt"/></dt>
+  <dt><input maxlength="80" type="text" name="email" size="65" value="E-mail address" onclick="OnEnter(this)" onblur="if (value=='') {value='E-mail'}" onfocus="if (this.value=='E-mail address') this.value='';" class="ipt-txt"/></dt>
+  <dt><input maxlength="140" type="text" name="qq" size="65" value="Phone Number" onclick="OnEnter(this)" onblur="if (value=='') {value='Phone Number'}" onfocus="if (this.value=='Phone Number') this.value='';" class="ipt-txt" /></dt>
+ </dl>
+ <div class="text"><textarea name="text" cols="85" rows="10" placeholder="Message" class="textarea"></textarea></div>
+ <div class="Submit"><input type="Submit" name="Submit" value=""  class="btn" onclick="return Check_add(addform);"/></div>
+  </form>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="container">
+<ul class="help-ul clearfix">
+        <li class="sprite-bg1">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>购物指南</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">购物流程</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">常见问题</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">会员中心</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">用户协议</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg2">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>配送方式</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">配送时效</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">免运费政策</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">验货与签收</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">拒收说明</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg3">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>支付方式</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">货到付款</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">在线支付</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">支付流程</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">礼品卡使用</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg4">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>售后服务</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">退款方式及周期</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">退货周期</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">退换货政策</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">退换货运费规则</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg5">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>特色服务</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">积分说明</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">会员制度</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">优惠券使用</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">30天价保</a></p>
+            </div>
+    </li>
+    </ul></div>
+
+</div>

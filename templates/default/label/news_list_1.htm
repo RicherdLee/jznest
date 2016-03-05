@@ -1,0 +1,3 @@
+<{foreach item=list key=key from=$news}>
+    <li <{if ($key+1)%2==0}>class="fr"<{/if}>><a target="_blank" title="<{$list.title}>" href="<{$list.url}>" ><{$list.ftitle}></a></li>
+<{/foreach}>

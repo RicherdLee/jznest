@@ -1,0 +1,44 @@
+<script src="<{$config.weburl}>/script/jquery-1.4.4.min.js" type="text/javascript"></script>
+<header>
+	<div class="nav-w">
+        <section class="nav-s"><a href="<{$config.weburl}>/main.php"><nav>我的商城</nav></a></section>
+        <section class="nav-c">订单支付</section>
+        <section class="nav-e"><a href="<{$config.weburl}>"><nav>首页</nav></a></section>
+    </div>
+</header>
+<link href="<{$config.weburl}>/templates/wap/css/orderpay.css" rel="stylesheet" type="text/css" />
+<section class="order">
+    <div class="list">
+        <p>支付金额：<span class="p-price"><strong><{$config.money}><{$de.cost+$de.freight|number_format:2}></strong></span></p>
+        <p>订单编号：<{$de.order_id}></p>
+        <p>下单时间：<{$de.create_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></p>
+    </div>
+    <div class="list paymemt clearfix">
+        <{foreach item=list from=$paymemt}>
+        <li class="checked"<{if $de.payment_id==$list.payment_id}><{/if}>>
+        <img align="top" title="<{$list.payment_name}>" alt="<{$list.payment_name}>" data-param="{'id':'<{$list.payment_id}>'}" src="image/payment/<{$list.payment_type}>.gif" /><i></i>
+        </li>
+		<{/foreach}>
+    </div>
+    <input type="hidden" id="payment_id" value="<{$paymemt.0.payment_id}>"/>
+	<a class="btn-pay" href="javascript:0">支付</a>   
+</section>
+<script type="text/javascript">
+$(".btn-pay").bind("click",function(){
+	href="?m=payment&s=admin_pay&order_id=<{$de.order_id}>";
+	payment_id=$("#payment_id").val();
+	if(!payment_id)
+	{
+		alert("Please choose the payment method!");
+		return false;
+	}
+	window.location=href+"&payment="+payment_id;
+	return false;
+});
+$(".paymemt li").bind("click",function(){
+	var data = $(this).children('img').attr('data-param');
+	eval("data = "+data);
+	$("#payment_id").val(data.id);
+	$(this).addClass("checked").siblings().removeClass("checked");
+});
+</script>

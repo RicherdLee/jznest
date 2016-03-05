@@ -1,0 +1,75 @@
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.ui.js"></script>
+<div class="container">
+<div class="oflow" style="height:">
+<form name="form1" id="form1" action="module.php?m=product&s=order_opear.php" method="post">
+<input name="id" type="hidden" id="id" value="<{$smarty.get.orderid}>">
+<div class="mt10">取消缘由</div>
+<ul class="cancel" style="padding-bottom:40px;">
+    <li>
+        <label><input type="radio" value="无法备齐货物" name="admin_remark" checked="">无法备齐货物</label>
+    </li>
+    <li>
+        <label><input type="radio" value="不是有效的订单" name="admin_remark">不是有效的订单</label>
+    </li>
+    <li>
+        <label><input type="radio" value="买家主动要求" name="admin_remark"> 买家主动要求</label>
+    </li>
+    <li>
+		<label><input type="radio" value="其他原因" flag="other_reason" name="admin_remark">其他原因</label>
+    </li>
+    <li style="display:none; height:48px;" id="other_reason">
+        <textarea class="w300" rows="2" name="other_reason"></textarea>
+    </li>
+</ul>
+<script type="text/javascript">
+$(function(){
+	$("input[name='admin_remark']").click(function(){
+		if ($(this).attr('flag') == 'other_reason')
+		{
+			$('#other_reason').show();
+		}
+		else
+		{
+			$('#other_reason').hide();
+		}
+	});
+});
+</script>
+<div class="dialog_button">
+<{if $de.status!=0}>
+    <input id="save" type="button" value="保存">
+    <input name="act" type="hidden" id="action" value="cancel">  
+<{else}>
+    <input id="close" type="button" value="关闭">
+<{/if}>  
+</div>
+<div id="error"></div> 
+<script>
+function $$(id) {
+	return !id ? null : document.getElementById(id);
+}
+function ajaxpost(formid) {
+	var ajaxframeid = 'ajaxframe';
+	var ajaxframe = $$(ajaxframeid);
+	if(!ajaxframe){
+		var div = document.createElement('div');
+		div.style.display = 'none';
+		div.innerHTML = '<iframe name="' + ajaxframeid + '" id="' + ajaxframeid + '" loading="1"></iframe>';
+		ajaxframe = $$(ajaxframeid);
+		$$('append_parent').appendChild(div);
+	}
+	$$(formid).target = ajaxframeid;
+	$$(formid).submit();
+	window.parent.main.document.location.reload();
+	DialogManager.close("order");
+}
+$("#save").click(function () {
+	ajaxpost("form1");
+	return false;
+});
+</script>
+</form>
+</div>
+</div>

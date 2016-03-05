@@ -1,0 +1,1 @@
+<?php $wechat_config = unserialize('a:1:{s:6:"wechat";s:20:"tEp8JsE7r6ALeBlcNE5j";}');?>

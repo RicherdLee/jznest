@@ -1,0 +1,38 @@
+<div class="payment_list">
+    <div class="shipment">
+    	<h3>配送方式</h3>
+        <{foreach item=list key=key from=$ship}>
+        <div class="item"> 
+            <label>
+                <input type="radio" onclick="chose_ship(<{$list.id}>,<{$list.type}>)" value="<{$list.id}>" id="ship_radio_<{$list.id}>" name="ship_radio">
+                <em><{$list.title}></em> <b><{if $list.price}><{$config.money}><{$list.price|number_format:2}><{else}>免运费<{/if}></b>
+            	<span><{$list.desc|truncate:100:""}></span>
+            </label>
+        </div>
+        <{/foreach}>
+    </div>
+	<div class="payment">
+        <h3>支付方式</h3>
+        <{foreach item=list key=key from=$pay}>
+        <div class="item <{if $list.payment_type!='cod'}>online<{else}>offline <{/if}>"> 
+            <label>
+                <input type="radio" onclick="chose_payment(<{$list.payment_id}>)" value="<{$list.payment_id}>" id="payment_radio_<{$list.payment_id}>" name="payment_radio">
+                <em><{$list.payment_name}></em>
+            	<span><{$list.payment_desc|truncate:120:""}></span>
+            </label>
+        </div>
+        <{/foreach}>
+    </div>
+</div>
+
+<div class="form_btn">
+    <a onclick="save_payment()" class="btn_submit" href="#none">
+        <span>保存配送及支付方式</span>
+    </a>
+</div>
+<div class="clear"></div>
+<script>
+<{if $ship.0.id}>
+chose_ship('<{$ship.0.id}>','<{$ship.0.type}>');
+<{/if}>
+</script>

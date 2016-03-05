@@ -1,0 +1,12 @@
+<{foreach item=list key=key from=$pro}>
+<dl>
+    <dt><a href="<{$config.weburl}>?m=product&s=detail&id=<{$list.id}>"><{$list.pname}></a></dt>
+    <dd class="pic">
+    <a href="<{$config.weburl}>?m=product&s=detail&id=<{$list.id}>">
+    <img class="p60" alt="<{$list.pname}>" title="<{$list.pname}>" src="<{$list.pic}>_60X60.jpg">
+    <img class="p115" width="115" height="115" alt="<{$list.pname}>" title="<{$list.pname}>" src="<{$list.pic}>_220X220.jpg">
+    </a>
+    <sup <{if $key>2}>class="gray"<{/if}>><{$key+1}></sup></dd>
+    <dd class="price"><strong><{$config.money}><{$list.price}></strong></dd>
+</dl>
+<{/foreach}>

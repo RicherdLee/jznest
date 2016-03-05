@@ -1,0 +1,27 @@
+<div class="pro-list">
+<div class="derect">
+<span><a href="index.php">首页</a></li> &gt;
+<{foreach item=list key=key from=$catname}>
+        <{if $key==0 && !$smarty.get.key}>
+        <strong><a href="?m=product&s=list&id=<{$list}>"><{$list|getName}></a></strong>
+        <{else}>
+         > <a href="?m=product&s=list&id=<{$list}>"><{$list|getName}></a>
+        <{/if}>
+        
+<{/foreach}></span>
+</div>
+<div class="cat"><{$slist.cat}></div>
+<div class="product">
+            <div class="hotsale">
+                <div>
+                <{insert name="label" type="product" catid=$smarty.get.id temp="product_list_dl" limit=123040}>
+                </div>
+            </div> 
+<script type="text/javascript">
+   $(".hot .mt").bind("mouseover",function(){
+   var element=$(this).parent();
+   element.addClass("current").siblings().removeClass("current");
+   });
+</script>
+</div>
+</div>

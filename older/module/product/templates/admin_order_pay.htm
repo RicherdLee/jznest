@@ -1,0 +1,145 @@
+<div class="path">
+    <div>
+    	<a href="main.php?cg_u_type=1">我的商城</a> <span>&gt;</span> 
+    	<a href="main.php?m=product&s=admin_buyorder">订单管理</a> <span>&gt;</span> 
+        订单付款
+    </div>
+</div>
+<div class="main">
+	<div class="wrap">
+        <div class="order_pay">
+            <h2>订单信息</h2>
+            <table class="table">
+                <tbody>
+                <tr class="tr">
+                    <td width="50">订单编号</td>
+                    <td width="150"><a href="main.php?m=product&s=admin_orderdetail&id=<{$de.order_id}>"><{$de.order_id}></a></td>
+                    <td width="50">订单状态</td>
+                    <td width="100"><b class="org"><{$de.statu_text}></b></td>
+                    <td width="50">下单时间</td>
+                    <td><{$de.create_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></td>
+                </tr>
+                <tr class="tr">
+					<td>配送方式</td>
+                    <td colspan="99"><{$de.shipping_name}></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table alc">    
+            <thead>
+                <tr>
+                    <th class="partition" colspan="99">订单信息</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">产品</td>
+                    <td width="90">单价</td>
+                    <td width="60">数量</td>
+                    <td width="90">总价</td>
+                </tr>
+                <{foreach item=list from=$de.product}>
+                <tr>
+                    <td class="al"><a target="_blank" href="index.php?m=product&s=detail&id=<{$list.pid}>"><img src="<{$list.pic}>_60x60.jpg" /></a></td>
+                    <td class="al <{if $list.service}>npb<{/if}>">
+                        <a target="_blank" href="index.php?m=product&s=detail&id=<{$list.pid}>">
+                            <{$list.name}>
+                        </a>
+                    </td>
+                    <td <{if $list.service or $list.product_give}>class="npb"<{/if}>><{$config.money}><{$list.price|number_format:2}></td>
+                    <td <{if $list.service or $list.product_give}>rowspan="2"<{/if}>>x <{$list.num}></td>
+                    <td <{if $list.service or $list.product_give}>rowspan="2"<{/if}>><{$config.money}><{$list.sum|number_format:2}></td>
+                </tr>
+                <{if $list.product_give}>
+                <tr class="product_give">
+                    <td class="al">赠品</td>
+                    <td class="al">
+                        <{foreach item=slist from=$list.product_give}>
+                            <p><{$slist.pname}></p>
+                        <{/foreach}>
+                    </td>
+                </tr>
+                <{/if}>
+                <{if $list.service}>
+                <tr class="other">
+                    <td class="al">服务</td>
+                    <td class="al">
+                        <{foreach item=slist from=$list.service}>
+                            <p><{$slist.name}></p>
+                        <{/foreach}>
+                    </td>
+                    <td>
+                        <{foreach item=slist from=$list.service}>
+                            <p><{$config.money}><{$slist.price}></p>
+                        <{/foreach}>
+                    </td>
+                </tr>
+                <{/if}>
+                <{/foreach}>
+                <tr>
+                    <td colspan="99">
+                    <dl><dt>订单金额:</dt><dd class="price"><{$config.money}><{$de.cost+$de.freight|number_format:2}></dd></dl>
+                    <dl><dt>运费:</dt><dd><{$config.money}><{$de.freight|number_format:2}></dd></dl>
+                    <dl><dt>商品金额:</dt><dd><{$config.money}><{$de.cost|number_format:2}></dd></dl>
+                    </td>
+                </tr>
+            </tbody>
+        	</table>
+        </div>
+        <div class="order_pay mt20">
+            <h2>订单支付</h2>
+            <table class="table">
+                <tbody>
+                <tr class="tr">
+                    <td>
+                    您选择了 <b class="org"><{$pay.payment_name}></b>&nbsp;
+                    <{if $pay.payment_type!='cod'}><a href="javascript:#" class="change">更改支付方式</a><{/if}>
+                    </td>
+				</tr>
+                <tr class="tr">
+                 	<td class="td"><{$pay.payment_desc}></td>
+                    <td class="paymemt hidden">
+                    <{foreach item=list from=$paymemt}>
+                        <li>
+                            <img align="top" title="<{$list.payment_name}>" alt="<{$list.payment_name}>" data-param="{'id':'<{$list.payment_id}>'}" src="image/payment/<{$list.payment_type}>.gif" /><i></i>
+						</li>
+                    <{/foreach}>
+                    </td>
+                </tr>
+                <{if $pay.payment_type!='cod'}>
+                <tr>
+                	<td>
+                    	<a class="btn-pay" href="javascript:0">确定支付</a>
+                        <input type="hidden" id="payment_id" value="<{$pay.payment_id}>"/>
+                    </td>
+                </tr>
+                <{/if}>
+				</tbody>
+        	</table>
+            <script type="text/javascript">
+            $(".change").bind("click",function(){
+				$(this).addClass("hidden");		
+				$(this).prev().addClass("hidden");		
+				$('.td').addClass("hidden").siblings().removeClass("hidden");
+			});
+			$(".btn-pay").bind("click",function(){
+				var href="?m=payment&s=admin_pay&order_id=<{$de.order_id}>";
+				var payment_id=$("#payment_id").val();
+				if(!payment_id)
+				{
+					alert("请选择支付方式！");
+					return false;
+				}
+				window.location=href+"&payment="+payment_id;
+				return false;
+			});
+			$(".order_pay li").bind("click",function(){
+				var data = $(this).children('img').attr('data-param');
+				eval("data = "+data);
+				$("#payment_id").val(data.id);
+				$(this).addClass("checked").siblings().removeClass("checked");
+			});
+            </script>
+        </div>
+    </div>
+</div>

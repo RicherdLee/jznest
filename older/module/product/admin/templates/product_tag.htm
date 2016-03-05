@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>标签管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../script/my_lightbox.js"></script>
+</head>
+<body>
+	<div class="container">
+        <div class="flow">
+            <div class="itemtitle">
+                <h3>标签管理</h3>
+                <ul>
+                    <li class="current"><a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>"><span>管理</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="h35"></div>  
+        
+		<script type="text/javascript">
+        $(function(){
+            /* 全选 */
+             $('.checkall').click(function(){
+                var _self = this;
+                $('.checkitem').each(function(){
+                    if (!this.disabled)
+                    {
+                        $(this).attr('checked', _self.checked);
+                    }
+                });
+                $('.checkall').attr('checked', this.checked);
+            });	 
+        });
+        </script>
+        <form action="" method="post">
+        <table class="table">
+            <tbody>
+                <tr class="header partition" >
+                    <th width="30"></th>
+                    <th>标签名</th>
+                    <th width="500">Logo</th>
+                    <th width="50"></th>
+                </tr>
+                <{foreach item=list from=$de.list}>
+                <tr>
+                    <td><input type="checkbox" value="<{$list.id}>" class="checkitem" name="chk[]"></td>
+                    <td><input type="text" class="w350" name="name[<{$list.id}>]" value="<{$list.name}>" /></td>
+                    <td>
+                    <input type="text" class="w350" name="logo[<{$list.id}>]" id="logo<{$list.id}>" value="<{$list.logo}>" />
+                    [<a href="javascript:uploadfile('上传LOGO','logo<{$list.id}>',50,50,'')">上传</a>] 
+                    [<a href="javascript:preview('logo<{$list.id}>');">预览</a>]
+                    </td>
+                    
+                    <td>
+					<a onclick="return confirm('确定删除吗');" href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&delid=<{$list.id}>"><{$delimg}></a>
+                    </td>
+                </tr>
+                <{foreachelse}>
+                <tr>
+                    <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+                </tr>
+                <{/foreach}>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td colspan="99"><div><a class="addtr" onclick="addrow(this, 0, addrowkey)" href="javascript:void(0);">添加新标签</a></div></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                	<td colspan="99">
+                        <input type="checkbox" class="checkall" id="del">
+                        <input type="hidden" name="act" value="op" />
+                        <input type="submit" name="submit" value="<{$lang.btn_submit}>" />
+                        <div class="page"><{$de.page}></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        </form>
+    </div>
+<script>
+var rowtypedata = [
+	[
+		[1, ''], 
+		[1, '<div><input name="newname[]" class="w350" type="text" /><a href="javascript:;" class="deleterow" onClick="deleterow(this)">删除</a></div>'],
+		[1, '<input name="newlogo[]" class="w350" id="newlogo{1}" type="text"  /> [<a href="javascript:uploadfile(\'LOGO\',\'newlogo{1}\',50,50,\'\')">上传</a>] [<a href="javascript:preview(\'newlogo{1}\');">预览</a>]'],
+		[1, '']
+	],
+];
+
+var addrowdirect = 0;
+var addrowkey = 0;
+function addrow(obj, type) {
+	var table = obj.parentNode.parentNode.parentNode.parentNode.parentNode;
+	var tbody = obj.parentNode.parentNode.parentNode.parentNode;
+	if(!addrowdirect) {
+		var row = table.insertRow(obj.parentNode.parentNode.parentNode.rowIndex);
+	} else {
+		var row = table.insertRow(obj.parentNode.parentNode.parentNode.rowIndex + 1);
+	}
+	var typedata = rowtypedata[type];
+	for(var i = 0; i <= typedata.length - 1; i++) {
+		var cell = row.insertCell(i);
+		cell.colSpan = typedata[i][0];
+		var tmp = typedata[i][1];
+		if(typedata[i][2]) {
+			cell.className = typedata[i][2];
+		}
+		tmp = tmp.replace(/\{(n)\}/g, function($1) {return addrowkey;});
+		tmp = tmp.replace(/\{(\d+)\}/g, function($1, $2) {return addrow.arguments[parseInt($2) + 1];});
+		cell.innerHTML = tmp;
+	}
+	addrowkey ++;
+	addrowdirect = 0;
+}
+function deleterow(obj) {
+	var table = obj.parentNode.parentNode.parentNode.parentNode.parentNode;
+	var tr = obj.parentNode.parentNode.parentNode;
+	table.deleteRow(tr.rowIndex);
+}
+</script>
+</body>
+</html>

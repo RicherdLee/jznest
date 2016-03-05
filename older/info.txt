@@ -1,0 +1,311 @@
+Url:www.aliyun.com
+IP:120.26.95.57
+E-mail:936183950@qq.com
+PW:a936183950
+UN:root
+PW:Aa936183950  kj345hbJK546Hk34j
+终端密码:646605
+MySQL:
+UN:
+PW:dgd90Dd98GT7-(Ffg
+备案:
+UN:936183950@qq.com
+PW:df98gdf9
+
+jznest.com:
+https://netcn.console.aliyun.com/core/domain/list
+用户名：SEEYOU2008@MSN.COM
+密码：XUANJIALE1980
+
+Url:qizhan.hzsoudu.cn
+Data:hzsoudu02.mysql.rds.aliyuncs.com:3306
+UN:qizhan_com
+DN:qizhan_com
+PW:fhfgER6756h
+
+UN:admin
+PW:fd56h7f90 soudu123456
+
+UN:qizhan
+PW:12365478w
+支付:123456789
+E-mail:5435435@qq.com
+
+UN:buyee
+PW:123456w
+E-mail:6546546@qq.com
+
+UN:代理专家
+PW:123456W
+NAME:代理专家
+E-mail:2342352@qq.com
+Tel:057156465466
+Mob:13676998989
+支付密码:hgf97h9fg0
+
+Url:www.duanxinwang.cc
+UN:dxsoudu
+PW:963531
+
+快递查询账户:
+Url:api.ickd.cn/users/reg.html
+UN:
+E-mail:2477074549@qq.com
+PW:soudu123456
+校验码:aee56fc14d53bd717679ffbd8dfba869
+链接文字:邮政小包
+链接地址:www.ickd.cn/gnxb.html
+HTML代码:<a href="http://m.ickd.cn" target="_blank">快递查询</a>
+
+网站第三方登录注册号码
+微博
+用户名：grace@hz-wd.com
+密码：daboss
+
+微信
+用户名：13376832672
+密码：daboss
+
+QQ
+用户名：2215688905
+密码：wangzebendan000
+
+1684409738
+dad99f7d1a420932140d3e0cbedbfcea
+
+1198009452
+e788a189c276991b937235b90bf6d939
+
+widehz@163.com
+
+积分商城:/index.php?m=points
+
+燕窝专柜展示
+极盏燕农，来自燕窝专属产地的马来西亚进口燕窝，精选臻品，欢迎选购。
+
+
+UN:admin
+PW:soudu123456
+
+UN:qizhan
+UN:qizhan
+PW:103116
+
+UN:buyer
+PW:123456
+
+
+
+<{$cart.cart.0.prolist|@count}>
+http://www.aspku.com/kaifa/php/36413.html
+
+
+
+       	<div class="infor">
+	<form method="post" action="/module/guestbook/admin/data2.php?method=add" name="addform" onsubmit=javascript:{return(addform());} id="commentform">
+<div class="regist_form b2b_regist_list">
+            <p class=" b2b_regist_tit">企业信息</p>
+            <ul class="clearfix">
+                <li>
+                    <div class="form_item">
+                    	<label>公司名称：</label>
+                        <input type="text" class="ipt gay_text ipt_companyName" value="" name="companyname" id="company"/>
+                    </div>
+                 
+                </li>
+                <li>
+                    <div class="form_item">
+                    	<label>公司地址：</label>
+                        <input type="text" class="ipt gay_text ipt_address1" value="" name="address" id="address"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="form_item">
+                    	<label>联系人：</label>
+                        <input type="text" class="ipt gay_text ipt_linkmanName" value="" name="linkmanName" id="linkmanName"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="form_item">
+                    	<label>手机号：</label>
+                        <input type="text" class="ipt gay_text ipt_linkmanMobile" name="mob" id="linkmanMobile" />
+                    </div>
+               
+                </li>
+                <li>
+                    <div class="form_item">
+                    	<label>固定电话：</label>
+                        <input type="text" class="ipt gay_text ipt_landLine" name="tel" id="landLine"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="form_msgitem">
+                    	<label>留言：</label>
+                        <textarea class="ipt_message" name="companytext" id="message" rows="3" cols="20"></textarea>
+                    </div>
+                </li>
+                <li class="setting_btn clearfix">
+                	<button id="setting_btn" onclick="return Check_add(addform);" type="Submit" class="fl"></button>
+                </li>
+        	</ul>
+        </div>
+</form>
+<script>
+function Check_add(theForm)
+{
+  if (theForm.companyname.value == "")
+  {
+    alert("请填写公司名称！");
+    theForm.companyname.focus();
+    return (false);
+  }
+  if (theForm.companyname.value.length<3)
+  {
+    alert("公司名称至少为3个字符！");
+    theForm.companyname.focus();
+    return (false);
+  }
+
+  if (theForm.linkmanName.value == "")
+  {
+    alert("请填写联系人！");
+    theForm.linkmanName.focus();
+    return (false);
+  }
+  if (theForm.linkmanName.value.length<3)
+  {
+    alert("联系人至少为2个字符！");
+    theForm.linkmanName.focus();
+    return (false);
+  }
+
+  if (theForm.address.value == "")
+  {
+    alert("请填写公司地址！");
+    theForm.address.focus();
+    return (false);
+  }
+  if (theForm.address.value.length<3)
+  {
+    alert("公司地址至少为3个字符！");
+    theForm.address.focus();
+    return (false);
+  }
+
+  if(theForm.mob.value!=""){
+	  if (theForm.mob.value.length!=11)
+  {
+    alert("手机号码为11位数字，请正确填写你的手机号码！");
+    theForm.mob.focus();
+    return (false);
+  }
+  if (theForm.mob.value.length>11)
+  {
+    alert("手机号码最多为11个数字！");
+    theForm.mob.focus();
+    return (false);
+  }
+  	var mob1 = theForm.mob.value;
+	  var pattern = /^\d+?$/;
+	  flag = pattern.test(mob1);
+	  if(!flag){
+		  alert("手机号码填写错误！");
+		  theForm.mob.focus();
+		  return false;
+		  }
+	  }
+
+  if(theForm.tel.value!=""){
+	  if (theForm.tel.value.length<5)
+  {
+    alert("固定电话号码最少为5位数字，请正确填写你的固定电话号码！");
+    theForm.tel.focus();
+    return (false);
+  }
+  if (theForm.tel.value.length>19)
+  {
+    alert("固定电话号码最多为19个数字！");
+    theForm.tel.focus();
+    return (false);
+  }
+  	var tel1 = theForm.tel.value;
+	  var pattern = /^\d+?$/;
+	  flag = pattern.test(tel1);
+	  if(!flag){
+		  alert("固定电话号码填写错误！");
+		  theForm.tel.focus();
+		  return false;
+		  }
+	  }
+
+  if(theForm.email.value!=""){
+              var email1 = theForm.email.value;
+              var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/; 
+              flag = pattern.test(email1); 
+              if(!flag){
+              alert("邮件地址格式不对！");
+     theForm.email.focus();
+           return false;}
+  }
+
+  if (theForm.companytext.value == "")
+  {
+    alert("留言内容不能空！");
+    theForm.companytext.focus();
+    return (false);
+  }
+  if (theForm.companytext.value.length<5)
+  {
+    alert("留言内容最少5个字符！");
+    theForm.companytext.focus();
+    return (false);
+  if (theForm.companytext.value.length>1500)
+  {
+    alert("留言内容最多1500个字符！");
+    theForm.companytext.focus();
+    return (false);
+
+  }
+</script>
+</div>
+
+    $(".msgs").click (function  () {
+      var mobile = 'mobile'; 
+	  var yzm = 'yzm'; 
+           
+      var postForm = document.createElement("form");//表单对象   
+      postForm.method="post" ;   
+      postForm.action = 'ckmobile.php' ;   
+       
+      var mobileInput = document.createElement("input") ;  //mobile input 
+      mobileInput.setAttribute("name", "mobile") ;   
+      mobileInput.setAttribute("value", mobile);   
+      postForm.appendChild(mobileInput) ;   
+      var yzmInput = document.createElement("input");// yzm input 
+      yzmInput.setAttribute("name","yzm"); 
+      yzmInput.setAttribute("value",yzm); 
+      postForm.appendChild(yzmInput); 
+       
+      document.body.appendChild(postForm) ;   
+      postForm.submit() ;   
+      document.body.removeChild(postForm) ;
+    }
+
+
+<script>
+  var mob=$.trim($("#mobile").val());
+	if($.trim($("#mobile").val())=="")
+	{
+	 alert("手机号码不能为空！");
+	 return false;
+	}
+	if($.trim($("#mobile").val())!="")
+	{
+	 var reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
+	 if(!reg.test($.trim($('#mobile').val())))
+	 {
+	  alert("手机号码格式不对！");
+	  return false;
+	 }
+  }
+</script>

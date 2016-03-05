@@ -1,0 +1,1 @@
+<?php $stop_view = unserialize('a:3:{i:0;s:15:"aaa.aaa.aaa.aaa";i:1;s:13:"218.30.117.72";i:2;s:13:"222.85.26.148";}');$stop_reg=unserialize('N;');?>

@@ -1,0 +1,3 @@
+<?php $reg_config = unserialize('a:17:{s:12:"openregemail";s:1:"0";s:13:"user_reg_verf";s:1:"0";s:6:"invite";s:1:"1";s:8:"user_reg";s:1:"1";s:7:"openbbs";s:1:"0";s:10:"inhibit_ip";s:1:"0";s:12:"exception_ip";s:9:"http://qizhan.hzsoudu.cn";s:11:"association";s:63:"这里是注册协义，可以在后台注册设置中修改。";s:9:"closetype";s:1:"0";s:8:"closecon";s:84:"由于网站对会员及相关功能模块进行调整，会员注册功能暂停。";s:10:"censoruser";s:34:"杞盏
+杞盏燕农
+杞盏燕窝";s:8:"pwlength";s:1:"6";s:8:"strongpw";s:30:"a:2:{i:0;s:1:"1";i:1;s:1:"2";}";s:7:"regctrl";s:1:"0";s:12:"regfloodctrl";s:1:"0";s:13:"ipregctrltime";s:2:"72";s:9:"ipregctrl";s:0:"";}');?>

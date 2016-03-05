@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>产品咨询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.4.4.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="flow">
+        <div class="itemtitle">
+            <h3>产品咨询</h3>
+            <ul>
+                <li <{if $smarty.get.operation==''}>class="current"<{/if}>><a href="?m=product&s=product_consult.php"><span>全部咨询</span></a></li>
+                 
+                 <li <{if $smarty.get.operation=='cat'}>class="current"<{/if}>><a href="?m=product&s=product_consult.php&operation=cat"><span>咨询分类</span></a></li>
+                <{if $smarty.get.operation=='edit' && $smarty.get.editid}>
+				<li class="current"><a href="#"><span>咨询回答</span></a></li>
+                <{/if}>
+                <{if $smarty.get.operation=='cat_edit' && $smarty.get.editid}>
+				<li class="current"><a href="#"><span>分类修改</span></a></li>
+                <{/if}>
+                <{if $smarty.get.operation=='cat_edit' && !$smarty.get.editid}>
+				<li class="current"><a href="#"><span>新增分类</span></a></li>
+                <{/if}>
+            </ul>
+        </div>
+    </div>
+	<div class="h35"></div>  
+    <{if $smarty.get.operation=='cat'}>
+    <form action="" method="post">
+    <table class="table">
+        <tbody>
+            <tr class="header partition">
+                <th width="30"></th>
+                <th>分类名</th>
+                <th width="50"></th>
+            </tr>
+            <{foreach item=list from=$de}>
+            <tr>
+                <td><input type="checkbox" value="<{$list.id}>" class="checkitem" name="chk[]"></td>
+                <td><input type="text" class="w350" name="name[<{$list.id}>]" value="<{$list.name}>" /></td>
+                <td>
+                <a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&operation=cat_edit&editid=<{$list.id}>"><{$editimg}></a>
+                <a onclick="return confirm('确定删除吗');" href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&operation=cat&delid=<{$list.id}>"><{$delimg}></a>
+                </td>
+            </tr>
+            <{foreachelse}>
+            <tr>
+                <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+            </tr>
+            <{/foreach}>
+        </tbody>
+        <tbody>
+            <tr>
+                <td></td>
+                <td colspan="99"><div><a class="addtr" href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&operation=cat_edit">添加新服务</a></div></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="99">
+                    <input type="checkbox" class="checkall" id="del">
+                    <input type="hidden" name="act" value="op" />
+                    <input type="submit" name="submit" value="<{$lang.btn_submit}>" />
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    </form>
+    <{elseif $smarty.get.operation=='cat_edit'}>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th colspan="99" class="partition">提示</th>
+        </tr>
+        <tr>
+            <td>
+                <ul class="tips">
+                    <li>当分类为帮助时，内容为展示内容。</li>
+                    <li>当分类为常规时，内容为提示内容。</li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form name="form" id="form" method="post">
+    <input name="id" type="hidden" id="id" value="<{$de.id}>">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="partition" colspan="99">产品咨询</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>分类名</td>
+            <td>
+            <input name="name" type="text" id="name" class="w350" value="<{$de.name}>"/>
+            <div id="form-error" class="form-error"></div>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>是否为帮助</td>
+            <td>
+            <input type="checkbox" value="1" id="type" name="type"  <{if $de.type }> checked="checked" <{/if}> >
+            </td>
+        </tr>
+        
+        <tr>
+            <td>内容</td>
+            <td>
+			<script charset="utf-8" src="<{$config.weburl}>/lib/kindeditor/kindeditor-min.js"></script>
+            <script>
+                var editor;
+                KindEditor.ready(function(K) {
+                    editor = K.create('textarea[name="con"]', {
+                });
+            });
+            </script>
+        	<textarea name="con" id="con" style="width:90%; height:280px;"><{$de.con}></textarea>
+            </td>
+        </tr>
+       
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+            <input class="submit" type="submit" value="提交">
+            <input name="act" type="hidden" id="action" value="<{if !$smarty.get.editid}>save<{else}>edit<{/if}>">
+           
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+    <{elseif $smarty.get.operation=='edit' }>
+    <form name="form" id="form" method="post">
+    <input name="id" type="hidden" id="id" value="<{$de.id}>">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="partition" colspan="99">咨询</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>产品名称</td>
+            <td><a target="_blank" href="../?m=product&s=detail&id=<{$de.product_id}>"><{$de.product_name}></a></td>
+        </tr>
+        <tr>
+            <td>提问者</td>
+            <td><a target="_blank" href="../?m=product&s=detail&id=<{$de.member_id}>"><{$de.member_name}></a></td>
+        </tr>
+        <tr>
+            <td>咨询内容</td>
+            <td><{$de.question}><p><{$de.question_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></p></td>
+        </tr>
+        
+        <tr>
+            <td>网站回复</td>
+            <td>
+        	<textarea name="answer" id="answer" style="width:90%; height:180px;"><{$de.answer}></textarea>
+            <{if $de.answer}>
+            <p><{$de.answer_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></p>
+            <{/if}>
+            </td>
+        </tr>
+        <{if $de.answer}>
+        <tr>
+            <td>回答者</td>
+            <td><{$de.answer_name}></td>
+        </tr>
+        <{/if}>
+        
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+            <input class="submit" type="submit" value="提交">
+            <input name="act" type="hidden" id="action" value="<{if !$smarty.get.editid}>save<{else}>edit<{/if}>">
+           
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+    <{else}>
+    <script type="text/javascript">
+    $(function(){
+        /* 全选 */
+         $('.checkall').click(function(){
+            var _self = this;
+            $('.checkitem').each(function(){
+                if (!this.disabled)
+                {
+                    $(this).attr('checked', _self.checked);
+                }
+            });
+            $('.checkall').attr('checked', this.checked);
+        });	 
+    });
+    </script>
+    <form action="" method="get">
+    <input type="hidden" name="m" value="product">
+    <input type="hidden" name="s" value="product_consult.php">
+    <table class="select_table">
+        <tbody>
+            <tr>
+                <td width="70">产品名称:</td>
+                <td colspan="2"><input type="text" name="name" class="w250" value="<{$smarty.get.name}>" /></td>
+            </tr>
+            <tr>
+                <td width="70">咨询内容:</td>
+                <td colspan="2"><input type="text" name="key" class="w250" value="<{$smarty.get.key}>" /></td>
+            </tr>
+            <tr>    
+                <td width="70">咨询分类:</td>
+                <td colspan="2">
+                <select name="catid">
+                	<option value="">请选择</option>
+                    <{foreach item=list from=$consultcat}>
+                    <option <{if $smarty.get.catid==$list.id}> selected="selected"<{/if}> value="<{$list.id}>"><{$list.name}></option>
+                    <{/foreach}>
+                </select>
+                </td>
+            </tr>
+            <tr>    
+                <td width="70">咨询分类:</td>
+                <td width="50">
+                <select name="status">
+                	<option value="">请选择</option>
+                    <option <{if $smarty.get.status==1}> selected="selected"<{/if}> value="1">未回复</option>
+                    <option <{if $smarty.get.status==2}> selected="selected"<{/if}> value="2">回复</option>
+                </select>
+                </td>
+                <td><input type="image" src="<{$config.weburl}>/image/admin/search.gif" /></td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <form action="" method="post" id="form" name="form">
+    <input type="hidden" name="act" value="op" />
+    <table class="table product">
+        </thead>
+        <tbody>
+            <tr class="partition">
+                <th width="1"></th>
+                <th width="20" valign="top"><input type="checkbox" class="checkall" id="del"></th>
+                <th class="al" width="*">咨询内容</th>
+                <th width="100">提问者</th>
+                <th width="60">更新时间</th>
+                <th width="70"></th>
+            </tr>
+            <{foreach item=item from=$de.list}>
+            <tr bgcolor="#EFF8FD">
+            	<td colspan="5" class="al pl20">
+                <a target="_blank" href="../?m=product&s=detail&id=<{$item.id}>"><{$item.pname}></a>
+                <strong class="red ml10"><{$config.money}><{$item.price}></strong>
+                <span class="ml10">库存：<{$item.stock}></span>
+                </td>
+                <td><a href="?m=product&s=product_consult.php&id=<{$item.id}>"><{$item.consult|@count}>条记录</a></td>
+            </tr>   
+            <{foreach item=list from=$item.consult}>
+            <tr>
+                <td></td>
+                <td><input type="checkbox" value="<{$list.id}>" class="checkitem" name="chk[]"></td>
+                <td class="al"><{if $list.status==2}><{$list.question}><{else}><span class="red"><{$list.question}><{/if}></span></td>
+               
+                <td><{$list.member_name}></td>
+				<td><{$list.question_time|date_format:"%Y-%m-%d<br>%H:%M:%S"}></td>
+                <td>
+                <a href="?operation=edit&editid=<{$list.id}>&<{$url}>"><{$editimg}></a>
+                </td>
+            </tr>
+            <{/foreach}>
+            <{foreachelse}>
+            <tr>
+                <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+            </tr>
+            <{/foreach}>
+        </tbody>
+        <tfoot>
+            <tr>
+            	<td></td>
+            	<td colspan="6">
+                <input type="checkbox" class="checkall" id="del">
+                <input type="hidden" name="act" value="op" />
+				<input type="submit" value="提交" />
+                <div class="page"><{$de.page}></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    </form>
+    <{/if}>
+</div>
+</body>
+</html>

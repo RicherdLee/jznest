@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>活动产品管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.4.4.min.js"></script>
+</head>
+<body>
+	<div class="container">
+        <div class="flow">
+            <div class="itemtitle">
+                <h3>活动产品管理</h3>
+                <ul>
+                    <li class="current"><a href="module.php?m=activity&s=activity_product_list.php&editid=<{$smarty.get.editid}>"><span>所有产品</span></a></li>
+                    <li><a id="activity_button" href="javascript:;"><span>添加产品</span></a></li>
+				</ul>
+            </div>
+        </div>
+        <div class="h35"></div>  
+		<script type="text/javascript">
+        $(function(){
+            /* 全选 */
+             $('.checkall').click(function(){
+                var _self = this;
+                $('.checkitem').each(function(){
+                    if (!this.disabled)
+                    {
+                        $(this).attr('checked', _self.checked);
+                    }
+                });
+                $('.checkall').attr('checked', this.checked);
+            });	 
+        });
+        </script>
+        <form action="" method="post">
+        <table class="table">
+            <tbody>
+                <tr class="header partition">
+                    <th width="30"></th>
+                    <th width="70">显示顺序</th>
+                    <th colspan="2">产品名称</th>
+                    <th width="200">产品类型</th>
+                    <th width="100">价格</th>
+                </tr>
+                <{foreach item=list from=$de.list}>
+				<tr>
+					<td><input type="checkbox" value="<{$list.product_id}>" class="checkitem" name="chk[]"></td>
+                    <td><input type="text" class="w50" name="displayorder[<{$list.id}>]" value="<{$list.displayorder}>" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" onkeyup="value=value.replace(/[^\d]/g,'')"/></td>
+                    <td width="50"><div class="img"><img width="50" src="<{$list.pic}>"></div></td>
+                    <td>
+                    <a href="../?m=product&s=detail&id=<{$list.product_id}>" target="_blank"><{$list.pname}></a></td>
+                    <td><{$list.cat}></td>
+                    <td><{$config.money}> <{$list.price}></td>
+               </tr>
+                <{foreachelse}>
+                <tr>
+                    <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+                </tr>
+                <{/foreach}>
+            </tbody>
+            <tfoot>
+                <tr>
+                	<td colspan="4">
+                        <input type="checkbox" class="checkall" id="del">
+                        <input name="submit" type="submit" onclick="return confirm('确定删除吗');" value="<{$lang.del}>">
+                    </td>
+                    <td colspan="99"><div class="page"><{$de.page}></div></td>
+                </tr>
+            </tfoot>
+        </table>
+        </form>
+    </div>
+<script>
+$('#activity_button').click(function(){
+	window.parent.iframe_form("activity", '活动产品管理', 'module.php?m=activity&s=activity_product.php&id=<{$smarty.get.editid}>', 800, 440);
+	return false;
+});
+</script>    
+</body>
+</html>

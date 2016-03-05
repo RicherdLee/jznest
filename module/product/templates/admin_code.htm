@@ -1,0 +1,68 @@
+<div class="path">
+    <div>
+        <a href="main.php?cg_u_type=1">我的商城</a> <span>&gt;</span>
+        <a href="main.php?m=product&s=admin_code">优惠码</a> <span>&gt;</span>
+        <{if $smarty.get.status=='1'}>可使用
+        <{elseif $smarty.get.status=='2'}>已锁定
+        <{elseif $smarty.get.status=='3'}>已使用
+        <{else}>所有订单<{/if}>
+    </div>
+</div>
+<div class="main">
+    <div class="wrap">
+        <div class="hd">
+            <ul class="tabs">
+                <li class="<{if $smarty.get.status!=''}>normal<{else}>active<{/if}>"><a
+                        href="main.php?m=product&s=admin_code">所有优惠码</a></li>
+                <li class="<{if $smarty.get.status=='1'}>active<{else}>normal<{/if}>"><a
+                        href="main.php?m=product&s=admin_code&status=1">可使用</a></li>
+                <li class="<{if $smarty.get.status=='2'}>active<{else}>normal<{/if}>"><a
+                        href="main.php?m=product&s=admin_code&status=2">已锁定</a></li>
+                <li class="<{if $smarty.get.status=='3'}>active<{else}>normal<{/if}>"><a
+                        href="main.php?m=product&s=admin_code&status=3">已使用</a></li>
+            </ul>
+        </div>
+        <table class="table-list-style order">
+            <thead>
+            <tr>
+                <th width="280">优惠码</th>
+                <th width="80">折扣率</th>
+                <th width="80">过期时间</th>
+                <th width="80">过期状态</th>
+                <th width="120">状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <{foreach item=buylist from=$blist.list}>
+            <tr>
+                <td class="sep-row" colspan="20"></td>
+            </tr>
+            <tr>
+                <td class="bdl">
+                    <p><{$buylist.code}></p>
+                </td>
+                <td class="bdl">
+                    <p><{$buylist.discont}></p>
+                </td>
+                <td class="bdl">
+                    <p><{$buylist.expire_time}></p>
+                </td>
+                <td class="bdl">
+                    <p><{$buylist.expire_status}></p>
+                </td>
+                <td class="bdl">
+                    <p><{$buylist.status}></p>
+                </td>
+            </tr>
+            <{/foreach}>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="20">
+                    <div class="pagination"><{$blist.page}></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

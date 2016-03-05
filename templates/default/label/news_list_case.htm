@@ -1,0 +1,14 @@
+<{foreach item=list key=key from=$news}>
+	<div class="slide">
+		<div class="part01">
+			<div class="p">
+            <{$list.smalltext}>
+			</div>
+<h2><a target="_blank" title="<{$list.title}>" href="<{$list.url}>" ><{$list.ftitle}></a></h2>		
+<a href="<{$list.url}>" class="more">详细信息 >></a>
+		</div>
+		<div class="part02">
+<a href="<{$list.url}>"><img src="<{$list.pic}>" width="280" height="90"/ alt=""></a>
+		</div>   
+	</div>
+<{/foreach}>

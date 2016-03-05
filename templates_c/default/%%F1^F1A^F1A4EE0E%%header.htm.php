@@ -1,0 +1,125 @@
+<?php /* Smarty version 2.6.20, created on 2016-03-04 15:33:24
+         compiled from header.htm */ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php if ($this->_tpl_vars['title']): ?><?php echo $this->_tpl_vars['title']; ?>
+,<?php echo $this->_tpl_vars['config']['company']; ?>
+<?php else: ?><?php echo $this->_tpl_vars['config']['title']; ?>
+,<?php echo $this->_tpl_vars['config']['company']; ?>
+<?php endif; ?></title>
+<meta name="description" content="<?php echo $this->_tpl_vars['config']['description']; ?>
+" />
+<meta name="keywords" content="<?php echo $this->_tpl_vars['config']['keyword']; ?>
+" />
+<meta name="author" content="网站建设 全网营销 " />
+<meta property="qc:admins" content="265547701701660237545636" />
+<meta property="wb:webmaster" content="9637209b2739c79a" />
+<link href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/templates/default/css/jizhan.css" type="text/css" rel="stylesheet" />
+<link href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/templates/default/css/home.css" type="text/css" rel="stylesheet" />
+<link href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/templates/default/css/shop.css" type="text/css" rel="stylesheet" />
+<script src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/script/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/script/base.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/script/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/script/slide.js" ></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/module/guestbook/admin/check.js"></script>
+<script language="JavaScript" type="text/javascript" src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/script/canvas2image.js"></script>
+<script>
+(function(d,D,v){d.fn.responsiveSlides=function(h){var b=d.extend({auto:!0,speed:1E3,timeout:7E3,pager:!1,nav:!1,random:!1,pause:!1,pauseControls:!1,prevText:"Previous",nextText:"Next",maxwidth:"",controls:"",namespace:"rslides",before:function(){},after:function(){}},h);return this.each(function(){v++;var e=d(this),n,p,i,k,l,m=0,f=e.children(),w=f.size(),q=parseFloat(b.speed),x=parseFloat(b.timeout),r=parseFloat(b.maxwidth),c=b.namespace,g=c+v,y=c+"_nav "+g+"_nav",s=c+"_here",j=g+"_on",z=g+"_s",
+o=d("<ul class='"+c+"_tabs "+g+"_tabs' />"),A={"float":"left",position:"relative"},E={"float":"none",position:"absolute"},t=function(a){b.before();f.stop().fadeOut(q,function(){d(this).removeClass(j).css(E)}).eq(a).fadeIn(q,function(){d(this).addClass(j).css(A);b.after();m=a})};b.random&&(f.sort(function(){return Math.round(Math.random())-0.5}),e.empty().append(f));f.each(function(a){this.id=z+a});e.addClass(c+" "+g);h&&h.maxwidth&&e.css("max-width",r);f.hide().eq(0).addClass(j).css(A).show();if(1<
+f.size()){if(x<q+100)return;if(b.pager){var u=[];f.each(function(a){a=a+1;u=u+("<li><a href='#' class='"+z+a+"'>"+a+"</a></li>")});o.append(u);l=o.find("a");h.controls?d(b.controls).append(o):e.after(o);n=function(a){l.closest("li").removeClass(s).eq(a).addClass(s)}}b.auto&&(p=function(){k=setInterval(function(){var a=m+1<w?m+1:0;b.pager&&n(a);t(a)},x)},p());i=function(){if(b.auto){clearInterval(k);p()}};b.pause&&e.hover(function(){clearInterval(k)},function(){i()});b.pager&&(l.bind("click",function(a){a.preventDefault();
+b.pauseControls||i();a=l.index(this);if(!(m===a||d("."+j+":animated").length)){n(a);t(a)}}).eq(0).closest("li").addClass(s),b.pauseControls&&l.hover(function(){clearInterval(k)},function(){i()}));if(b.nav){c="<a href='javascript:' class='"+y+" prev'>"+b.prevText+"</a><a href='javascript:' class='"+y+" next'>"+b.nextText+"</a>";h.controls?d(b.controls).append(c):e.after(c);var c=d("."+g+"_nav"),B=d("."+g+"_nav.prev");c.bind("click",function(a){a.preventDefault();if(!d("."+j+":animated").length){var c=f.index(d("."+j)),
+a=c-1,c=c+1<w?m+1:0;t(d(this)[0]===B[0]?a:c);b.pager&&n(d(this)[0]===B[0]?a:c);b.pauseControls||i()}});b.pauseControls&&c.hover(function(){clearInterval(k)},function(){i()})}}if("undefined"===typeof document.body.style.maxWidth&&h.maxwidth){var C=function(){e.css("width","100%");e.width()>r&&e.css("width",r)};C();d(D).bind("resize",function(){C()})}})}})(jQuery,this,0);
+$(function() {
+    $(".f426x240").responsiveSlides({
+        auto: true,
+        pager: true,
+        nav: true,
+        speed: 700
+    });
+    $(".f160x160").responsiveSlides({
+        auto: true,
+        pager: true,
+        speed: 700
+    });
+});
+</script>
+<script>
+<!--
+function openwin(){
+  window.open ("microchat.html", "newwindow", "height=300, width=300, toolbar=no,scrollbars=no, resizable=no, location=no, status=no")
+}
+-->
+</script> 
+</head>
+<body>
+<div class="main">
+<div class="header">
+<div id="shortcut">
+    <div class="w clearfix">
+        <ul class="fl">
+            <li class="ld">
+                <b></b>&nbsp;
+                <a href="javascript:addToFavorite('<?php echo $this->_tpl_vars['config']['weburl']; ?>
+','<?php echo $this->_tpl_vars['config']['company']; ?>
+')">
+                收藏首页
+                </a>
+            </li>
+             <li class="ld mob">
+                <b></b>
+                <a href="wap.php">
+                手机版
+                </a>
+            </li>
+        </ul>
+		<ul class="fr">
+			<li><script src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/login_statu.php"></script></li>
+            <li class="ld"><s></s><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/main.php?m=product&s=admin_buyorder">我的订单</a></li>
+		</ul>
+	</div>
+</div>
+<div class="head">
+<div class="logo"><img src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/image/logo.png" alt="燕窝直销网·极盏燕农" /> </div>
+<div class="head-r">
+<div class="menus">
+<ul class="menus-bg" id="menu">
+<li><a href="/index.php">首页</a></li>
+<li><a href="/?m=product&s=list&id=1002">即食燕窝</a></li>
+<li><a href="/?m=product&s=list&id=1001">干燕窝</a></li>
+<li><a href="/?m=product&s=list&id=1000">礼盒装</a></li>
+<li><a href="/?m=product&s=list&id=1003">礼品卡</a></li>
+<li><a href="/?m=news&s=newsd&id=6">渠道客户</a></li>
+</ul>
+<script type="text/javascript">
+  var urlstr = location.href;
+  //alert((urlstr + '/').indexOf($(this).attr('href')));
+  var urlstatus=false;
+  $("#menu a").each(function () {
+    if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+      $(this).addClass('cur'); urlstatus = true;
+    } else {
+      $(this).removeClass('cur');
+    }
+  });
+  if (!urlstatus) {$("#menu a").eq(0).addClass('cur'); }
+</script>
+</div>
+</div>
+</div>
+<div class="clear"></div>

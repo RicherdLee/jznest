@@ -1,0 +1,185 @@
+<link href="<{$config.weburl}>/module/product/templates/pro.css" rel="stylesheet" type="text/css" />
+<div class="w">
+    <div class="detailnav">
+    
+    	<{if $smarty.get.key}>
+        <strong><a href="?m=product&s=list">全部结果</a></strong><span>
+        <{/if}>
+        
+        <{foreach item=list key=key from=$catname}>
+        
+        <{if $key==0 && !$smarty.get.key}>
+        <strong><a href="?m=product&s=list&id=<{$list}>"><{$list|getName}></a></strong><span>
+        <{else}>
+         > <a href="?m=product&s=list&id=<{$list}>"><{$list|getName}></a>
+        <{/if}>
+        
+        <{foreachelse}>
+        
+        <{if !$smarty.get.key}>
+        <strong><a href="index.php">首页</a></strong><span>
+         > <a href="?m=product&s=list">全部商品</a>
+        <{/if}>
+        
+        <{/foreach}>
+        
+        <{if $smarty.get.key}>
+         > "<{$smarty.get.key}>"
+        <{/if}>
+        
+        <{if $smarty.get.brand}>
+         > <a href="?m=product&s=list&<{$url}>"><{$smarty.get.brand}></a>
+        <{/if}>
+        
+        </span>
+    </div>
+</div>
+<div class="w">
+	<div class="product_right">
+    
+    	<div class="i-right">
+            <div class="hotsale">
+                <div class="mt">
+                    <h2>热卖推荐</h2>
+                </div>
+                <div class="mc">
+                <{insert name="label" type="product" catid=$smarty.get.id temp="product_list_dl" limit=3}>
+                </div>
+            </div> 
+            <div class="market">
+            	<div class="mt">
+                    <h2>促销活动</h2>
+                </div>
+                <div class="mc">
+                <ul><{insert name="label" type="news" temp="news_default_list" limit=5}></ul>
+                </div>
+            </div>
+         </div>
+         
+    	<{if $brand && $catfile}>
+        <div id="select">
+            <div class="mt">
+                <h1>
+                    <{if $smarty.get.brand}>
+                    <{$smarty.get.brand}>
+                    <{/if}>
+               		<{$smarty.get.id|getName}>
+                	<strong>- 商品筛选</strong>
+                </h1>
+            	<div class="fr">
+                	<a href="?m=product&s=list&id=<{$smarty.get.id}>">重置筛选条件</a>
+                </div>
+            </div>            
+            <{if $brand }>
+            <dl class="first">
+                <dt>品牌：</dt>
+                <dd>
+                	<{assign var=b value=$smarty.get.brand}>
+                	<div><a <{if $smarty.get.brand==""}>class="curr"<{/if}> href="<{$config.weburl}>/?<{$url|replace:"&brand=$b":""}>">不限</a></div>
+                    <{foreach item=list from=$brand}>
+                    <div>
+                  	<a <{if $smarty.get.brand==$list.name}>class="curr"<{/if}> href="<{$config.weburl}>/?<{$url|replace:"&brand=$b":""}>&brand=<{$list.name}>"><{$list.name}></a>
+                    </div>
+                    <{/foreach}>
+                </dd>
+            </dl>
+            <{/if}>            
+            <{foreach item=list key=num from=$catfile}>
+            <{assign var=fieldName value=$list.field}>
+            <{assign var=s value=$smarty.get.$fieldName}>
+            <dl <{if !$brand && $num==0 }>class="first"<{/if}> >
+            	<dt><{$list.field_name}>：</dt>
+                <dd>
+                	<div><a <{if $smarty.get.$fieldName==""}>class="curr"<{/if}> href="<{$config.weburl}>/?<{$url|replace:"&$fieldName=$s":""}>">不限</a></div>
+                    
+                    <{foreach item=slist from=$list.catItem}>
+                        <div><a <{if $smarty.get.$fieldName==$slist.0}>class="curr"<{/if}> href="<{$config.weburl}>/?<{$url|replace:"&$fieldName=$s":""}>&<{$list.field}>=<{$slist.0}>"><{$slist.1}></a></div>
+                    <{/foreach}>
+                </dd>
+            </dl>
+            <{/foreach}>
+        </div>
+        <{/if}>
+        
+        <div class="filter">
+        	<div class="fore1">
+                <dl class="order">
+            		<{assign var=s value=$smarty.get.orderby}>
+                    <dt>排序：</dt>
+                    <dd <{if !$s }>class="curr"<{/if}>><a href="<{$config.weburl}>/?<{$url|replace:"&orderby=$s":""}>">销量</a></dd>
+                    <dd <{if $s==4 || $s==5 }>class="curr<{if $s==4}> down<{else if}> up<{/if}>"<{/if}> ><a href="<{$config.weburl}>/?<{$url|replace:"&orderby=$s":""}>&orderby=<{if $s==4 }>5<{else $s==5 }>4<{/if}>">价格</a><b></b></dd>
+                    <dd <{if $s==3 }>class="curr"<{/if}>><a href="<{$config.weburl}>/?<{$url|replace:"&orderby=$s":""}>&orderby=3">上架时间</a></dd>
+                </dl>
+                <div class="pages"><{$info.pages}></div>
+                <div class="total">共<strong><{$info.count}></strong>个商品</div>
+                <div class="clear"></div>
+            </div>
+            <div class="fore2">
+            	<dl class="store">
+            		<dt>库存：</dt>
+                    <dd class="instock">
+                    	<{assign var=s value=$smarty.get.stock}>
+                    	<div <{if $s=='1'}>class="selected"<{/if}>>
+                            <a href="<{$config.weburl}>/?<{$url|replace:"&stock=$s":""}><{if !$s}>&stock=1<{/if}>"><b></b>&nbsp;仅显示有货</a>
+                        </div>
+                    </dd>    
+                </dl>
+               	<div class="clear"></div>
+            </div>
+        </div>
+        <div class="itemSearchList">
+            <div class="itemSearchResult clearfix">
+            <ul>
+                <{foreach item=list key=num from=$info.list}>
+                <li <{if ($num+1)%4==0}>class="pr0"<{/if}> >
+                    <div class="product">
+                    	<div class="border">
+                            <div class="p-img">
+                            <a href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>">  <img height="200" width="200" alt="<{$list.pname}>" src="<{$list.pic}>_220X220.jpg"></a>
+                            <{if $list.simg}><div class="p-icon"><img src="<{$list.simg}>" /></div><{/if}>
+                            </div>
+                            <a class="p-name" href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>"><{$list.pname}></a>
+                            <p class="p-price"><strong><{$config.money}><{$list.price}></strong></p>
+                            <p class="p-promo"><{$list.promotion_tips}></p>
+                            <div class="appraise"><{$config.company}></div>
+                        </div>
+                    </div>
+                </li>
+                <{/foreach}>
+            </ul>
+            </div>
+        </div>
+        <div class="clearfix">
+        	<div class="page"><{$info.page}></div>
+        </div>
+    </div>
+    
+	<div class="left">
+        <{if $catname.0}>
+            <div class="m sortlist">
+            <div class="mc">
+            	<{insert name="label" type="cat" catid=$catname.0 temp="product_list_cat"}>
+            </div>
+        </div>
+       <{/if}>
+   		<div class="m" id="rank">
+        	<h2>销量排行榜</h2>
+            <div class="rankList" style="display:block">
+             <{insert name="label" type="product" catid=$catname.0 limit=5 temp="product_list_1"}>
+			</div>
+        </div>
+        <div class="ad200">
+        <script src='<{$config.weburl}>/api/ad.php?id=12&catid=<{$smarty.get.id}>&name=<{$smarty.get.key}>'></script>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(".sortlist h3").bind("click",function(){
+	var element=$(this).parent();
+	element.addClass("current").siblings().removeClass("current");
+});
+$(".rankList dl").bind("mouseover",function(){
+	var element=$(this);
+	element.addClass("current").siblings().removeClass("current");
+})
+</script>

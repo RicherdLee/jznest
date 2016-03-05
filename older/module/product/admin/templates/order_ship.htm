@@ -1,0 +1,115 @@
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.ui.js"></script>
+<div class="container">
+<div class="oflow" style="height:360px">
+<form name="form1" id="form1" action="module.php?m=product&s=order_opear.php" method="post">
+<input name="id" type="hidden" id="id" value="<{$de.order_id}>">
+<table class="table">
+    <thead>
+        <tr>
+            <th class="partition" colspan="99">订单详情</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td width="60">订单编号</td>
+        <td colspan="3"><{$de.order_id}> <b class="org"><{$de.order_ship_status}></b></td>
+    </tr>
+    <tr>
+        <td>下单时间</td>
+        <td colspan="3"><{$de.create_time|date_format:"%Y-%m-%d&nbsp;%H:%M:%S"}></td>
+    </tr>
+    <tr>
+        <td>配送方式：</td>
+        <td width="200"><{$de.shipping_name}></td>
+		<td width="60">配送费用:</td>
+        <td><{$config.money}><{$de.freight}></td>
+    </tr>
+    
+    <{if $de.status==2 and $de.pay_status==2}>
+    <tr>
+        <td>物流单号</td>
+        <td colspan="3"><input type="text" name="shipping_no" class="w350" value="" /></td>
+    </tr>
+    <tr>
+        <td>收货人</td>
+        <td colspan="3"><input type="text" name="ship_name" class="w350" value="<{$de.ship_name}>" /></td>
+    </tr>
+    <tr>
+        <td>联系电话</td>
+        <td colspan="3">
+        <input type="text" name="ship_tel" class="w350" value="<{$de.ship_tel}>" />
+        </td>
+    </tr>
+    <tr>
+        <td>手机</td>
+        <td colspan="3">
+        <input type="text" name="ship_mobile" class="w350" value="<{$de.ship_mobile}>" />
+        </td>
+    </tr>
+    <tr>
+        <td>收货地址</td>
+        <td colspan="3"><input type="text" name="ship_addr" class="w350" value="<{$de.ship_addr}>" /></td>
+    </tr>
+    <{else}>
+    <tr>
+        <td>物流单号</td>
+        <td colspan="3"><{$de.shipping_no}></td>
+    </tr>
+    <tr>
+        <td>收货人</td>
+        <td colspan="3"><{$de.ship_name}></td>
+    </tr>
+    <tr>
+        <td>联系电话</td>
+        <td colspan="3"><{$de.ship_mobile}> <{$de.ship_tel}></td>
+    </tr>
+    <tr>
+        <td>收货地址</td>
+        <td colspan="3"><{$de.ship_addr}></td>
+    </tr>
+    <{/if}>   
+    </tbody>
+</table>
+<div class="dialog_button">
+<{if $de.status==2}>
+    <input id="save" type="button" value="发货">
+    <input name="act" type="hidden" id="action" value="ship"> 
+<{else}>
+    <input id="close" type="button" value="关闭">
+<{/if}>  
+</div>
+</form>
+<div id="error"></div> 
+<script>
+function $$(id) {
+	return !id ? null : document.getElementById(id);
+}
+function ajaxpost(formid) {
+	var ajaxframeid = 'ajaxframe';
+	var ajaxframe = $$(ajaxframeid);
+	if(!ajaxframe){
+		var div = document.createElement('div');
+		div.style.display = 'none';
+		div.innerHTML = '<iframe name="' + ajaxframeid + '" id="' + ajaxframeid + '" loading="1"></iframe>';
+		ajaxframe = $$(ajaxframeid);
+		$$('append_parent').appendChild(div);
+	}
+	$$(formid).target = ajaxframeid;
+	$$(formid).submit();
+	window.parent.main.document.location.reload();
+	DialogManager.close("order");
+}
+$("#save").click(function () {
+	ajaxpost("form1");
+	return false;
+});
+$("#close").click(function () {
+	window.parent.main.document.location.reload();
+	DialogManager.close("order");
+});
+</script>
+</form>
+</div>
+</div>

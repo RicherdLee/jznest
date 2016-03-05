@@ -1,0 +1,12 @@
+<?php
+if (!defined('VALIDADMIN')) die ('Access Denied.');
+
+//É¾³ýÊý¾Ý±í
+$setup_query="
+DROP TABLE `{$db_prefix}weiboconnect`
+";
+db_query($setup_query);
+
+remove_module ('weibonav');
+
+?>

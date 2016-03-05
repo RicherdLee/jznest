@@ -1,0 +1,1 @@
+<?php $image_config = unserialize('a:3:{s:18:"image_storage_type";s:1:"4";s:10:"image_size";s:4:"2000";s:15:"image_extension";s:28:"gif,jpg,jpeg,bmg,png,tbi,php";}');?>

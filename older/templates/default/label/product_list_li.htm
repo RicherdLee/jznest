@@ -1,0 +1,16 @@
+<{foreach item=list key=num from=$pro}>
+<div class="pro-list">
+<div class="cat"><{$slist.cat}></div>
+<dl>
+<dt>
+ <a target="_blank" href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>">
+<img width="320" height="242" src='<{$list.pic}>_220X220.jpg' />
+ </a>
+</dt>
+<h1><a target="_blank" href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>"></a></h1>
+<div class="text"><a target="_blank" href="<{$config.weburl}>/?m=product&s=detail&id=<{$list.id}>"><{$list.pname}></a></div>
+<div class="bottom"></div>
+</dl>
+</div>
+</div>
+<{/foreach}>

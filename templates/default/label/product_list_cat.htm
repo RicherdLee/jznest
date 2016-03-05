@@ -1,0 +1,16 @@
+<{foreach item=cList key=key from=$cat}>
+<{if $cList.scat}>
+<{foreach item=sublist key=num from=$cList.scat}>
+<div class="item <{if ($num==0 && $key==0 && !$smarty.get.id) || $smarty.get.id|truncate:6:""  == $sublist.catid || ($smarty.get.id|strlen==4 && $num==0)  }>current<{/if}>">
+	<h3><b></b><{$sublist.cat}></h3>
+    <ul>
+    <{foreach item=slist from=$sublist.scat}>
+    <li><a href="<{$config.weburl}>/?m=product&s=list&id=<{$slist.catid}>"><{$slist.cat}></a></li>
+    <{/foreach}>
+    </ul>
+</div>
+<{/foreach}>
+<{/if}>
+<{/foreach}>
+
+        

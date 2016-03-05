@@ -1,0 +1,925 @@
+<script type="text/javascript">
+  (function(){var widgets_style = document.getElementById('site_widgets_style');
+  var head = document.getElementsByTagName('head')[0];head.appendChild(widgets_style);})();
+</script>
+<style id="site_widgets_style">
+.minicart_box{
+	width:25px;
+	z-index:10;
+	margin-top: -6px;
+	right: 0px;
+}
+.cart-handle{
+	display: block;
+	height:25px;
+	line-height:30px;
+	color:#ffffff;
+	background: url(http://activity.dapuimg.com/dapu_minicart.png) 25px 25px;
+}
+.minicart_title{
+	position: relative;
+	z-index:10;
+}
+.minicart_cont{
+	width:300px;
+	height:auto;
+	min-height:25px;
+	line-height:30px;
+	position:absolute;
+	top:25px;
+	right:-1px;
+	border:1px solid rgba(110, 106, 105, 0.78);
+	padding:15px 15px;
+	z-index:5;
+}
+.cart-number{
+	position: absolute;
+	top: -3px;
+	left: 20px;
+	display: inline-block;
+	padding: 1px 2px;
+	font-size: 12px;
+	line-height: 12px;
+	color: #FFF;
+	background-color: rgb(177, 84, 79);
+	border-radius: 10px 10px 10px 10px;
+	min-width: 15px;
+	text-align: center;
+	min-height: 15px;
+}
+
+.user-ui-header-box {
+	width: 100%;
+	/*border-top: 1px solid #DCDCDC;
+	border-bottom: 1px solid #DCDCDC;*/
+	background-color: rgba(255, 255, 255, 0);
+	margin:0 0;
+    padding:0 0;
+}
+
+.user-ui-header-box .nav-one-box {
+	width: 100px;
+	float: left;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0);
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+.user-ui-header-box .nav-one-box-on {
+
+}
+
+.user-ui-header-box .index-nav-one-box {
+	width: 100px;
+	float: left;
+	text-align: center;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+.user-ui-header-box .dh-show-tab {
+	text-align: left;
+	display: none;
+	-webkit-border-radius: 0 10px 0 0;
+	border-radius: 0 0 4px 4px;
+	z-index: 1900;
+	white-space: nowrap;
+	margin-top:-1px;
+}
+
+.user-ui-header-box .tab-left {
+	position: absolute;
+	top: 45px;
+	left: 0px;
+}
+
+.user-ui-header-box .tab-right {
+	position: absolute;
+	top: 40px;
+	right: 0px;
+}
+
+.user-ui-header-box .dh-tab-1 {
+	width: 750px;
+	right: -660px;
+	height: 300px;
+}
+
+.user-ui-header-box .dh-tab-2 {
+	width: 998px;
+}
+
+.nav-one-box .nav-one {
+	color: #605046;
+	font-family: "Microsoft YaHei", 微软雅黑;
+	font-size: 14px;
+	height: 50px;
+	line-height: 50px;
+	display: block;
+	text-decoration: none;
+}
+
+.separator {
+	position: absolute;
+    right: 0px;
+	background: url("http://activity.dapuimg.com/dapu_menu_diandian.png");
+	width: 2px;
+	height: 9px;
+	margin:22px 0px;
+	top:0px;
+}
+
+.unseparator {
+	position: absolute;
+	background: url("http://activity.dapuimg.com/dapu_menu_diandian.png");
+	width: 2px;
+	height: 9px;
+	margin:22px 0px;
+	top:0px;
+	left: 0px;
+}
+
+.nav-one-box .nav-one .title:hover {
+	text-decoration: none;
+	font-weight:bold;
+}
+
+.nav-two-box {
+	padding: 0px 18px 10px 10px;
+}
+
+.nav-two-box .nav-two {
+	display: block;
+	font-size: 14px;
+	line-height: 30px;
+	margin-left: 5px;
+	font-weight: bold;
+}
+
+.nav-three-box {
+	padding: 0px 0px;
+	white-space: nowrap;
+	height: 0px;
+	margin-left: 35px;
+}
+
+.nav-three-box .nav-three {
+	font-size: 12px;
+	position: relative;
+	top: -22px;
+	left: 90px;
+	padding: 0px 3px;
+	white-space: nowrap;
+	margin: 4px 0px;
+}
+
+.nav-three-box .nav-three:hover {
+	text-decoration: none;
+	background-color: #b2a89e;
+	color: #ffffff;
+}
+
+.nav-tag {
+	color: #ffffff;
+	position: absolute;
+	top: 4px;
+	right: 10px;
+	font-size: 8px;
+	background-color: rgb(177, 84, 79);
+	line-height: 10px;
+	*line-height: 8px;
+	line-height: 8px\9;
+	-webkit-text-size-adjust: none;
+	-webkit-transform: scale(0.75);
+	padding: 1px 1px;
+	z-index: 1;
+}
+.dp_tl_fl_menu{
+	width: 1920px;
+	height: 270px;
+	overflow: hidden;
+	margin: 0px auto;
+	clear: both;
+	position: absolute;
+	padding: 0px;
+	left: -360px;
+	opacity: 0.85;
+	background-color: #FFF;
+	top:45px;
+	display:none;
+}
+
+
+
+
+.list_model_n table,.list_model_n tr,.list_model_n td{
+   border:1px solid #dedede;
+}
+.list_model_n {
+	width: 1200px;
+	margin: 10px auto;
+	padding: 0px 0px;
+}
+
+.list_model_n .p_box {
+	position: relative;
+	overflow: hidden;
+}
+
+.list_model_n .p_img {
+	width: 360px;
+	height: 360px;
+	margin: 10px 0px;
+	position: relative;
+	overflow: hidden;
+}
+
+.list_model_n img {
+	width: 360px;
+	height: 360px;
+}
+
+.list_model_n p {
+	font-family: "微软雅黑";
+	text-align: left;
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	color: #595757;
+	text-align:center;
+}
+
+.list_model_n .p_name {
+    width:300px;
+	height: 50px;
+}
+
+.list_model_n .p_price {
+    width:300px;
+    height: 40px;
+}
+
+.list_model_n .mkt_price{
+    height:30px;
+    font-size:14px;
+    line-height:14px;
+	color: #6b6b6b;
+
+	margin-right:10px;
+}
+
+.list_model_n .sale_price{
+	color: #bf3119;
+	font-weight: bold;
+	height:30px;
+	font-size:16px;
+	line-height:16px;
+	margin-right:10px;
+}
+
+
+.list_model_m {
+	width: 1200px;
+	height: 640px;
+	margin: 0px auto;
+	border: 0px solid #e6e6e6;
+	position: relative;
+	overflow: hidden;
+	font-family: "微软雅黑";
+}
+
+.list_model_m a {
+	text-decoration: none;
+	display: block;
+	color: #595757;
+}
+
+.list_model_m .p_box {
+	width: 170px;
+	height: 213px;
+	margin-left: 30px;
+	padding: 0px;
+	float: left;
+	border: 1px solid #FFFFFF;
+	overflow: hidden;
+}
+
+.list_model_m .p_box_max {
+	width: 390px;
+	height: 640px;
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	border: 0px solid #FFFFFF;
+	overflow: hidden;
+}
+
+.list_model_m .p_img {
+	width: 170px;
+	height: 170px;
+	position: relative;
+	overflow: hidden
+}
+
+.list_model_m .p_img_max {
+	width: 390px;
+	height: 527px;
+	position: relative;
+	overflow: hidden
+}
+
+.list_model_m p {
+	font-family: "微软雅黑";
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	color: #595757;
+}
+
+.list_model_m .p_text {
+	width: 100%;
+	height: 40px;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+.list_model_m .p_name {
+	top: 3px;
+}
+
+.list_model_m .p_price {
+	top: 0px;
+}
+
+.list_model_m .mkt_price {
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+}
+
+.list_model_m .sale_price {
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+	font-weight: bold;
+	color: #d62f23;
+}
+
+.list_model_m .dp_price {
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-weight: bold;
+	color: #b1544f;
+}
+.list_model_m .p_menu_min{
+	width: 388px;
+	height: 112px;
+	position: relative;
+	overflow: hidden;
+	border: 1px solid #e6e6e6;
+	border-top: 0px;
+}
+.p_menu_min > table{
+	width: 100%;
+	font-size: 15px;
+	text-align: center;
+	margin-top: 30px;
+}
+.p_menu_min tr{
+	height:35px;
+}
+.p_separator {
+	background: url("http://activity.dapuimg.com/dapu_menu_diandian.png");
+	width: 2px;
+	height: 9px;
+	display: block;
+	float: right;
+	margin-top: -15px;
+}
+.p_menu_min td{
+	width:25%;
+}
+.news-wrap {
+	overflow: hidden;
+	height: 35px;
+	line-height: 35px;
+}
+
+.news-list {
+	float: left;
+	overflow: hidden;
+	padding-left: 80px;
+	width:920px;
+}
+
+.news-list dt {
+	float: left;
+	overflow: hidden;
+	display: inline;
+	width: 80px;
+	height: 35px;
+	margin-left: -80px;
+	background-position: 0 -422px;
+}
+
+.news-list dd {
+	overflow: hidden;
+	height: 35px;
+	padding: 0 0 0 10px;
+	background-position: -172px 15px;
+	line-height: 35px;
+}
+#nav {
+    MARGIN: 7px auto 0px; HEIGHT: 117px
+}
+#nav #hotnews {
+    BORDER-BOTTOM-WIDTH: 0px; HEIGHT: 89px
+}
+#Scroll {
+    CLEAR: both; BORDER-RIGHT: #cdc9ca 1px solid;
+    BORDER-TOP: #cdc9ca 1px solid; PADDING-LEFT: 98px; FONT-SIZE: 12px;
+    BACKGROUND: url(http://s.dapuimg.com/public/dapu/images/icons/n_scroll.gif) no-repeat 18px 7px; MARGIN: 0px auto;
+    BORDER-LEFT: #cdc9ca 1px solid;
+    WIDTH: 1100px; COLOR: #c2130e; LINE-HEIGHT: 27px;
+    BORDER-BOTTOM: #cdc9ca 1px solid; HEIGHT: 27px; TEXT-ALIGN: left
+}
+#Scroll A {
+    white-space:nowrap;PADDING-RIGHT: 20px; PADDING-LEFT: 10px; MARGIN-RIGHT: 5px; TEXT-DECORATION: none
+}
+#Scroll A.s_end {
+    PADDING-RIGHT: 0px; MARGIN-LEFT: 8px
+}
+</style>
+<style type="text/css">
+       .dp_tl_fl{
+			min-width:1200px;
+			margin-top:0px;
+		}
+		.dp_fl_auto_1{
+			width: 100%;
+			height: 520px;
+			padding: 0px;
+			margin: 0 auto;
+			background: #FFFFFF;
+			overflow: hidden;
+			position: relative;
+		}
+		.dp_fl_w_1{
+			width: 1200px;
+			height: 520px;
+			position: relative;
+			left: 0;
+			top: 0;
+			margin: 0 auto;
+		}
+		.dp_fl_top{
+			width:1920px;
+			height:520px;
+			overflow: hidden;
+			margin: 0 auto;
+			clear: both;
+			position: absolute;
+			padding: 0px 0px;
+			left: -360px;
+			top: 0;
+		}
+		.dp_tl_fl1{
+			min-width:1200px;
+			width:100%;
+			/***************
+			position: absolute;
+			top: 140px;*/
+		}
+		.dp_fl_auto_11{
+			width: 100%;
+			/*height: 160px;*/
+			height: 120px;
+			padding: 0px;
+			margin: 0 auto;
+			overflow: hidden;
+			position: absolute;
+			background-color:#FFF;
+		}
+		.dp_fl_w_11{
+			width: 1200px;
+			height: 120px;
+			position: relative;
+			left: 0;
+			top: 0;
+			margin: 0 auto;
+		}
+		.dp_fl_top1{
+			width:1920px;
+			height:120px;
+			overflow: hidden;
+			margin: 0 auto;
+			clear: both;
+			position: absolute;
+			padding: 0px 0px;
+			left: -360px;
+			top: 0;
+		}
+		.header_css{
+		    background-color:rgba(255, 255, 255, 0);
+		    height:120px;
+		}
+		.header_banner{
+		   height: 140px;
+		   background:url(http://activity.dapuimg.com/dapu_201508310001-banner.jpg);
+		}
+
+		.dp_tl_fl1_banner{
+			min-width:1200px;
+			width:100%;
+			display:none;
+			z-index: 1200;
+			position: relative;
+		}
+		.dp_fl_auto_11_banner{
+			width: 100%;
+			height: 140px;
+			padding: 0px;
+			margin: 0 auto;
+			overflow: hidden;
+			position: relative;
+			background-color:rgba(255, 255, 255, 0);
+		}
+		.dp_fl_w_11_banner{
+			width: 1200px;
+			height: 140px;
+			position: relative;
+			left: 0;
+			top: 0;
+			margin: 0 auto;
+		}
+		.dp_fl_top1_banner{
+			width:1920px;
+			height:140px;
+			overflow: hidden;
+			margin: 0 auto;
+			clear: both;
+			position: relative;
+			padding: 0px 0px;
+			left: -360px;
+			top: 0;
+		}
+		.addimg_cover{
+			position: absolute;
+			width: 1000px;
+			height: 140px;
+			top: 0px;
+			left: 50%;
+			margin-left: -500px;
+		}
+		.close_cover{
+			background:url(http://activity.dapuimg.com/dapu_201508120001_close.png);
+			position: absolute;
+			width: 23px;
+			height: 22px;
+			top: 5px;
+			left: 100%;
+			margin-left: -360px;
+			cursor: pointer;
+		}
+      </style>
+	<div class="dp_tl_fl">
+<script type="text/javascript" src="<{$config.weburl}>/script/jquery.min.js"></script>
+<script type="text/javascript" src="<{$config.weburl}>/script/moo_min.js"></script>
+	 <div class="dp_fl_auto_1">
+		<div class="dp_fl_w_1">
+		  <div class="dp_fl_top">
+	
+<script type="text/javascript">
+	var t = n = 0, count;
+	jQuery(document).ready(function(){
+		count=jQuery("#banner_list a").length;
+		jQuery("#banner_list a:not(:first-child)").hide();
+		jQuery("#flex-control-nav li a").click(function() {
+			var i = jQuery(this).text() - 1;//获取Li元素内的值，即1，2，3，4
+			n = i;
+			if (i >= count) return;
+			jQuery("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(1000);
+			document.getElementById("banner").style.background="";
+			jQuery(this).toggleClass("on");
+			jQuery(this).parent().siblings().children().removeAttr("class");
+		});
+
+		jQuery("#previous").click(function() {
+			// 向左
+			var j = jQuery("#flex-control-nav .on").text();// 获取当前显示的图像
+			jQuery("#flex-control-nav .on").removeAttr("class");
+			if(j==1){// 第一张
+				jQuery("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(count-1).fadeIn(1000);
+				jQuery("#flex-control-nav li").eq(count-1).find("a").toggleClass("on");
+			}else{
+				jQuery("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(j-2).fadeIn(1000);
+				jQuery("#flex-control-nav li").eq(j-2).find("a").toggleClass("on");
+			}
+		});
+		jQuery("#next").click(function() {
+			// 向右
+			var j = jQuery("#flex-control-nav .on").text();// 获取当前显示的图像
+			jQuery("#flex-control-nav .on").removeAttr("class");
+			if(j>=count){// 最后一个
+				jQuery("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(0).fadeIn(1000);
+				jQuery("#flex-control-nav li").eq(0).find("a").toggleClass("on");
+			}else{
+				jQuery("#banner_list a").filter(":visible").fadeOut(500).parent().children().eq(j).fadeIn(1000);
+				jQuery("#flex-control-nav li").eq(j).find("a").toggleClass("on");
+			}
+
+		});
+
+		t = setInterval("showAuto()", 10000);
+		jQuery("#banner").hover(function(){clearInterval(t)}, function(){t = setInterval("showAuto()", 10000);});
+	})
+
+	function showAuto()
+	{
+		n = n >=(count - 1) ? 0 : ++n;
+		jQuery("#flex-control-nav li a").eq(n).trigger('click');
+	}
+</script>
+<div class="clear"></div>
+<div class="banner">
+<div id="Slidebox">
+<div id="banner">
+ <div id="banner_list">
+      <a style="display: none;" href="" target="_blank"><img src="image/7c3fccc5e6485bf212514d64256271b6.jpg" title="" alt="" height="520" width="1920"></a>
+	  <a style="display: none;" href="" target="_blank"><img src="image/3dd4c9beba80065640a5c3e89e5d2edc.jpg" title="" alt="" height="520" width="1920"></a>
+	  <a style="display: inline;" href="" target="_blank"><img src="image/a1ed3c27f3020f9e809b4dc7528abc94.jpg" title="" alt="" height="520" width="1920"></a>
+      <a style="display: none;" href="" target="_blank"><img src="image/984979cb3a6aa5c74d76fd9201bbc5a8.jpg" title="" alt="" height="520" width="1920"></a>
+	  <a style="display: none;" href="" target="_blank"><img src="image/bbd2bad4896e67b2bf46ece4a792ab29.jpg" title="" alt="" height="520" width="1920"></a>
+	  <a style="display: none;" href="" target="_blank"><img src="image/c5c31563d21b2fd8f3f537f2b4cc714e.jpg" title="" alt="" height="520" width="1920"></a>
+	  <a style="display: none;" href="" target="_blank"><img src="image/7d8ae2f8ac7979463167ba65c887489e.jpg" title="" alt="" height="520" width="1920"></a>
+ </div>
+</div>
+</div>
+</div>
+ <ul id="flex-control-nav" class="flex-control-nav flex-control-paging">
+ 
+ </ul>
+<div>
+  <div id="previous">
+  	<a class="dp2013092501">Previous</a>
+  </div>
+  <div id="next">
+    <a class="dp2013092502">Next</a>
+  </div>
+</div>
+		  </div>
+		</div>
+	 </div>
+</div>
+<div class="clear"></div>
+
+<div class="MWBI"><script src='<{$config.weburl}>/api/ad.php?id=2&catid=<{$smarty.get.id}>&name=<{$smarty.get.key}>'></script></div>
+<div class="member"><script src='<{$config.weburl}>/api/ad.php?id=3&catid=<{$smarty.get.id}>&name=<{$smarty.get.key}>'></script></div>
+<div class="pro-list"><script src='<{$config.weburl}>/api/ad.php?id=17&catid=<{$smarty.get.id}>&name=<{$smarty.get.key}>'></script></div>
+
+<div class="case">
+<div class="cat-l">What They Say?</div>
+<div class="cat-r">赞美生命 感受幸福</div>
+
+<div id="lupus_left">
+	<div id="lupus_right">
+		<div id="lupus_center">	
+			<div id="lupus_content">
+				<div id="box_text">
+					<div id="box_text_left_h1">
+						<div id="slideshow">
+						  <div id="slidesContainer">
+<{insert name="label" type="news" catid=$news.get.clssid temp="news_list_case" limit=15}>                          
+							</div>						 
+						</div>
+					</div>
+					
+					<div id="box_text_right"></div>
+				</div>				
+			</div>
+		</div>
+<div class="small-l">极盏燕农<span> - Company Name</span></div>
+</div>
+<script type="text/javascript">
+  $().ready(function() {
+  $('#slideshow').slide({autoplay: false, duration: 5000, showSlideNumber: true});
+  });
+</script>
+</div>
+</div>
+
+<div class="clear"></div>
+<div class="guestbook">
+<div class="cat-l">Contact</div>
+<div class="dialog">
+<span>Donec pede justo fringilla velaliquet nevu a putae ege arcu in enim justo rhoncus Sed ut perspiciatis unde omnis iste natus erros sit voluptatem accusantium doloremque laudantium</span>
+<div class="dialog-box">
+  <form method="post" action="/module/guestbook/admin/data.php?method=add" name="addform" onsubmit=javascript:{return(addform());} id="commentform">
+ <dl>
+  <dt><input maxlength="50" type="text" name="user" size="65"  value="姓名" onClick="OnEnter(this)" onBlur="if (value=='') {value='姓名'}" onFocus="if (this.value=='姓名') this.value='';" class="ipt-txt"/></dt>
+  <dt><input maxlength="80" type="text" name="email" size="65" value="E-mail地址" onClick="OnEnter(this)" onBlur="if (value=='') {value='E-mail地址'}" onFocus="if (this.value=='E-mail地址') this.value='';" class="ipt-txt"/></dt>
+  <dt><input maxlength="140" type="text" name="qq" size="65" value="手机号码" onClick="OnEnter(this)" onBlur="if (value=='') {value='手机号码'}" onFocus="if (this.value=='手机号码') this.value='';" class="ipt-txt" /></dt>
+ </dl>
+ <div class="text"><textarea name="text" cols="85" rows="10" placeholder="咨询/意见" class="textarea"></textarea></div>
+ <div class="Submit"><input type="Submit" name="Submit" value=""  class="btn" onClick="return Check_add(addform);"/></div>
+  </form>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="help-container">
+<ul class="help-ul clearfix">
+        <li class="sprite-bg1">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>购物指南</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">购物流程</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">常见问题</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">会员中心</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">用户协议</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg2">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>配送方式</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">配送时效</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">免运费政策</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">验货与签收</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">拒收说明</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg3">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>支付方式</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">货到付款</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">在线支付</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">支付流程</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">礼品卡使用</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg4">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>售后服务</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">退款方式及周期</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">退货周期</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">退换货政策</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">退换货运费规则</a></p>
+            </div>
+    </li>
+        <li class="sprite-bg5">
+	  <div class="help-border">
+	  <p><a href="" target="_blank" rel="nofollow"><strong>特色服务</strong></a></p>
+	  	  <p><a href="" target="_blank" rel="nofollow">积分说明</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">会员制度</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">优惠券使用</a></p>
+      	  <p><a href="" target="_blank" rel="nofollow">30天价保</a></p>
+            </div>
+    </li>
+    </ul></div>
+
+</div>
+
+<style>
+.tab-text{
+	width: 62px;
+	height: 22px;
+	color: #fff;
+	text-align: center;
+	font-family:"微软雅黑";
+	position: absolute;
+	z-index: 1;
+	right: 45px;
+	top:10px;
+	background-color: #AE0505;
+}
+.rightbar{
+	width: 40px;
+	height: 330px;
+	float: right;
+	border: 1px solid #ccc;
+	z-index: 1000;
+	display: block;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	background-color: #fff;
+	opacity: 0.8;
+}
+.rightbar p{
+	position: relative;
+	margin-top: 10px;
+}
+#floatimg{
+	position: fixed;
+	z-index:1000;
+	cursor: pointer;
+	background:url(http://activity.dapuimg.com/dapu_find_gold_coins.gif);
+	width:128px;
+	height:128px;
+}
+.pmap_coupon{
+	border: 0px solid #CCC;
+	width: 90%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0%;
+}
+.pmap_close{
+	border: 0px solid #CCC;
+	width: 10%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 90%;
+	cursor: pointer;
+}
+</style>
+
+<div class="container">
+	<div style="height: 388px;" class="rightbar">
+		<p style="margin-top: 0px;"><a href="<{$config.weburl}>" class="mouseicon"><em class="mousetext" style="display:none;">首页</em><img src="image/dapu_201510150001-home.png" height="40px" width="40px"></a></p>
+		<p><a href="<{$config.weburl}>" class="mouseicon"><em class="mousetext" style="display:none;">个人中心</em><img src="image/dapu_201510150001-member.png" height="40px" width="40px"></a></p>
+		<p><a href="<{$config.weburl}>l" class="mouseicon"><em class="mousetext" style="display:none;">购物车</em><img src="image/dapu_201510150001-cart.png" height="40px" width="40px"></a></p>
+		<p><a href="<{$config.weburl}>" class="mouseicon"><em class="mousetext" style="display:none;">积分</em><img src="image/dapu_201510150001-score.png" height="40px" width="40px"></a></p>
+		<p><a href="<{$config.weburl}>" class="mouseicon"><em class="mousetext" style="display:none;">优惠券</em><img src="image/dapu_201510150001-coupon.png" height="40px" width="40px"></a></p>
+		<p><a href="#top" class="mouseicon"><em class="mousetext" style="display:none;">回到顶部</em><img src="image/dapu_201510150001-top.png" height="40px" width="40px"></a></p>
+	</div>
+</div>
+
+<script type="text/javascript">
+var Shop = {"url":{"region":"\/tools-selRegion.html"}};
+var __time_out = 1000;
+window.addEvent('domready',function(){
+
+    var ReferObj =new Object();
+    Object.append(ReferObj,{
+        serverTime:1446695556,
+        init:function(){
+            var FIRST_REFER=Cookie.read('S[FIRST_REFER]');
+            var NOW_REFER=Cookie.read('S[NOW_REFER]');
+            var nowDate=this.time=this.serverTime*1000;
+            if(!window.location.href.test('#r-')&&!document.referrer||document.referrer.test(document.domain))return;
+            if(window.location.href.test('#r-'))Cookie.dispose('S[N]');
+            if(!FIRST_REFER){
+
+                if(NOW_REFER){
+                    this.writeCookie('S[FIRST_REFER]',NOW_REFER,this.getTimeOut(JSON.decode(NOW_REFER).DATE));
+                }else{
+                    this.setRefer('S[FIRST_REFER]',__time_out);
+                }
+            }
+            this.setRefer('S[NOW_REFER]',__time_out);
+            this.createGUID();
+        },
+        getUid:function(){
+            var lf=window.location.href,pos=lf.indexOf('#r-');
+            return pos!=-1?lf.substr(pos+4):'';
+        },
+        getRefer:function(){
+            return document.referrer?document.referrer:'';
+        },
+        setRefer:function(referName,timeout){
+            var uid=this.getUid(),referrer=this.getRefer();
+            var data={'ID':uid,'REFER':referrer,'DATE':this.time};
+
+            if('S[NOW_REFER]'==referName){
+                var refer=JSON.decode(Cookie.read('S[FIRST_REFER]'));
+                if(uid!=''&&refer&&refer.ID==''){
+                    var fdata={'ID':uid,'REFER':refer.REFER,'DATE':refer.DATE};
+                    this.writeCookie('S[FIRST_REFER]',JSON.encode(fdata),this.getTimeOut(refer.DATE));
+                }else if(uid==''){
+                    Object.append(data,{'ID':refer.ID});
+                }
+            }
+            Cookie.write(referName,JSON.encode(data),{duration:(__time_out||15)});
+        },
+        getTimeOut:function(nowDate){
+            var timeout=nowDate+__time_out*24*3600*1000;
+            var date=new Date(timeout);
+            return date;
+        },
+        writeCookie:function(key,value,timeout){
+            document.cookie=key+ '=' + value+'; expires=' + timeout.toGMTString();
+        },
+        createGUID:function(){
+            var GUID = (function(){
+                var S4=function(){
+                    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+                };
+                return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).toUpperCase();
+            })();
+            Cookie.write('S[N]',GUID,{duration:3650});
+        }
+    });
+    ReferObj.init();
+});
+</script>

@@ -1,0 +1,13 @@
+<?php
+	$mem['member'][1][0]=array(
+		'',
+		array(
+			'member.php,1,member,会员管理',
+			'grade.php,1,member,会员级别',
+			'reserve_username.php,1,member,受保留会员名',
+			'feedback.php,1,member,会员反馈问题',
+			'tag_manage.php,1,member,内容TAG管理',
+			'delivery_address.php,1,member,收货地址',
+		)
+	)
+?>

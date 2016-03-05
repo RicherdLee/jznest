@@ -1,0 +1,10 @@
+<{foreach item=list key=num from=$tg}>
+<a target="_blank" href="<{$config.weburl}>/?m=tg&s=detail&id=<{$list.id}>">
+    <img width="322" height="242" src="<{$list.pic}>">
+</a>
+<div class="p-detail">
+    <a target="_blank" href="<{$config.weburl}>/?m=tg&s=detail&id=<{$list.id}>">参团</a>
+    <span>团购价：</span>
+    <strong><{$config.money}><{$list.price}></strong>
+</div>
+<{/foreach}>

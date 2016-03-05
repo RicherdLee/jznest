@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的购物车</title>
+<meta name="description" content="<{$config.description|regex_replace:"/[\r\t\n]/":""}>" />
+<meta name="keywords" content="<{$config.keyword|regex_replace:"/[\r\t\n]/":""}>" />
+<meta name="author" content="B2Bbuilder Team and B2Bbuilder UI Team" />
+<meta name="copyright" content="B2Bbuilder" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link type="text/css" rel="stylesheet" href="<{$config.weburl}>/module/product/templates/shop.css">
+<link href="<{$config.weburl}>/templates/default/css/jizhan.css" type="text/css" rel="stylesheet" />
+</head>
+<script language="javascript">
+function do_select()
+{
+	 var box_l = document.getElementsByName("checkbox[]").length;
+	 for(var j = 0 ; j < box_l ; j++)
+	 {
+		if(document.getElementsByName("checkbox[]")[j].checked==true){ 
+			document.getElementsByName("checkbox[]")[j].checked = false;
+		}else{
+			document.getElementsByName("checkbox[]")[j].checked = true;
+		}
+	}
+}
+</script>
+<body>
+	<div id="shortcut">
+    	<div class="w">
+        	<ul class="fl">
+            	<li><a class="Thome" href="javascript:setHomepage('<{$config.weburl}>');" style=" background:url(<{$config.weburl}>/image/default/home.gif) no-repeat left center; padding-left:20px;" >设为首页</a></li>
+                <li style="padding:0px;">|</li>
+            	<li><a href="#" onclick="window.external.addFavorite('<{$config.weburl}>','<{$config.keyword}>')" style="background:url(<{$config.weburl}>/image/default/add.gif) no-repeat left center; padding-left:20px;">添加收藏</a></li>
+            </ul>
+            <div class="fr">
+            	<script src="<{$config.weburl}>/login_statu.php"></script>
+                <a href="<{$config.weburl}>/main.php?m=product&s=admin_buyorder">我的订单</a>
+            </div>
+        </div>
+    </div>
+	<div class="header w">
+    	<div class="logo">
+        	<a href="<{$config.weburl}>"><img src="<{if $config.logo}><{$config.logo}><{else}><{$config.weburl}>/image/logo.png<{/if}>" width="160px" height="70px" /></a>
+        </div>
+        <div class="progress">
+            <ul class="progress-1">
+                <li class="step-1"><b></b>1.我的购物车</li>
+                <li class="step-2"><b></b>2.填写核对订单信息</li>
+                <li class="step-3">3.成功提交订单</li>
+        	</ul>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+	
+    <div class="cart w">
+    	<div class="cart-hd">
+            <h2>我的购物车</h2>
+		</div>
+        
+        <{if $smarty.get.type=="clear" || $cart.cart|@count<1}>
+            <div class="cart-empty w">
+                <div class="message">
+                购物车内暂时没有产品，您可以<a href="<{$config.weburl}>">去首页</a>挑选喜欢的
+                </div>
+            </div>
+        <{else}>  
+          
+        <{if $smarty.get.type=="numf"}>
+            <div align="center"><font color="#FF0000">库存数量不够(已经为定订购产品的最大值)</font></div>
+        <{elseif $smarty.get.type=="pronull"}>
+            <div align="center"> <font color="#FF0000">产品不存在或订购销完或已经删除</font></div>
+        <{elseif $smarty.get.type=="del"}>
+            <div align="center"><font color="#FF0000">购物车不存在该产品已经删除</font></div>
+        <{/if}>
+        
+        <form method="post" action="">
+        <table width="100%" cellpadding="0" cellspacing="1" class="cart-con">
+            <tr class="title">
+                <th width="99"><input onClick="do_select()" type="checkbox" class="checkbox" name="checkbox" value="checkbox" id="allcheck"><label for="allcheck">全选</label></th>
+                <th width="322">产品</th>
+                <th width="128">价格</th>
+                <th width="100">送积分</th>
+                <th width="115">数量</th>
+                <th width="115">小计</th>
+                <th>操作</th>
+            </tr>
+            <{foreach item=list from=$cart.cart}>  
+                <{foreach item=pro key=n from=$list.prolist}>
+                <tr>
+                    <td colspan="2">
+                    <div class="pro-checkbox cell">
+                        <input class="checkbox" type="checkbox" name="checkbox[]" value="<{$pro.id}>">
+                    </div>
+                    <div class="pro-goods cell">
+                        <div class="pro-img">
+                            <a href="<{$config.weburl}>/?m=product&s=detail&id=<{$pro.pid}>">
+                                <img height="60" alt="<{$pro.name}>" src="<{$pro.pic}>_60X60.jpg">
+							</a>
+                        </div>
+                        <div class="pro-name">
+                            <a href="<{$config.weburl}>/?m=product&s=detail&id=<{$pro.pid}>"><{$pro.pname}></a>
+                            <p>产品编号：<{$pro.code}></p>
+                        </div>
+                    </div>
+                    </td>
+                    <td align="center">
+                        <span class="price"><{$config.money}><{$pro.price|number_format:2}></span>
+                    </td>
+                    <td align="center"><{$pro.point}></td>
+                    <td align="center">
+                    <div class="quantity">
+                        <a class="decrement" href="<{$config.weburl}>/?m=product&s=shop_cart&id=<{$pro.id}>&cgnum=<{$pro.num-1}>">-</a>
+   <input readonly="readonly" name="nums" class="text" id="nums" onchange="check_nums();" type="text" size="5" value="<{$pro.num}>" />
+                        <a class="increment" href="<{$config.weburl}>/?m=product&s=shop_cart&id=<{$pro.id}>&cgnum=<{$pro.num+1}>">+</a>
+                    </div>
+                    <script>
+                    function check_nums()
+                    {
+                        var v=document.getElementById('nums').value*1;
+                        if(!v)
+                            document.getElementById('nums').value=1;
+                        if(v><{$pro.amount}>*1)
+                        {
+                            document.getElementById('nums').value=<{$pro.amount}>*1;
+                            return false;
+                        }
+                    }
+                    </script>
+                    </td>
+                    <td align="center">
+                        <span class="price"><{$config.money}><{$pro.sumprice|number_format:2}></span>
+                    </td>
+                    <td align="center">
+                        <a href="<{$config.weburl}>/?m=product&s=shop_cart&deid=<{$pro.id}>">删除</a>
+                    </td>
+                </tr>
+                <{if $pro.service ||  $pro.product_give}>
+                <tr class="other">
+                	<td colspan="3">
+                    <{if $pro.product_give}>
+                    <dl>
+                        <dt>[赠品]</dt>
+                        <dd>
+                            <ul>
+                                <{foreach item=slist from=$pro.product_give}>
+                                    <li><{$slist.pname}></li>
+                                <{/foreach}>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <{/if}>
+                    <{if $pro.service}>
+                    <dl>
+                        <dt>[服务]</dt>
+                        <dd>
+                            <ul>
+                                <{foreach item=slist from=$pro.service}>
+                                    <li>
+                                    <{$slist.name}>
+                                    <span><{$config.money}><{$slist.price}></span>
+                                    </li>
+                                <{/foreach}>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <{/if}>
+                    </td>
+                    <td colspan="4"></td>
+                </tr>
+                <{/if}>
+				<{/foreach}>
+               
+            <{/foreach}>
+            <tr>
+            	<td colspan="7" class="toolbar">
+                	<div class="control fl">
+                    <input type="hidden" name="act" value="del" />
+                    <input type="submit" value="删除选中的产品" />
+                    </div>
+                    <div class="total fr">
+                        <p><span><{$config.money}><{$cart.sumprice|number_format:2}></span>总计：</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            	<td colspan="7" class="cart-total">
+                	<div class="total fr">
+                    	<span class="fr"><{$config.money}><{$cart.sumprice|number_format:2}></span>
+                    	<b class="fr">总计（不含运费）：</b>
+					</div>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <div class="cart-button">
+            <a class="continue" href="<{$config.weburl}>/"><span>继续购物</span></a>
+             <{if (($ship.price|number_format:2) != 0)}>
+            <span class="total">差<strong>500<span></span></strong>免运费</span>
+            <{/if}>
+            <a class="checkout" href="<{$config.weburl}>/?m=product&s=shop_order">去结算</a>
+        	<div class="clear"></div>
+        </div>
+        <{/if}>
+    </div>
+    <div class="clear"></div>
+	<div id="footer" class="w">
+   		<{$web_con}><br />
+  Copyright &copy; 杞盏燕窝·杞盏燕农
+	</div>
+</div>
+
+<div class="container">
+<style>
+#qe{width:146px; height:141px; position:fixed; top:200px; right:9%; background:#9F3; z-index:9999}
+#qe .code{width:141px; height:141px; background: #9F3; overflow:hidden;padding:2px;}
+#qe .close{position:absolute;top:-6px;right:-6px;}
+</style>
+ <div id="qe" class="qe" style="display:none">
+ <div style="margin: auto;"><a class="close" href="javascript:void(0);" onclick="hide();"><img src="image/close.png" alt="关闭" width="20px" height="20px"/></a></div>       
+ <div class="code"><img src="image/phpqrcode.jpg" width="141" height="141" alt="" /></div> 
+ </div>   
+	<div style="height: 388px;" class="rightbar">
+		<p style="margin-top: 0px;"><a href="<{$config.weburl}>" class="mouseicon" title="首页"><em class="mousetext" style="display:none;">首页</em><img src="image/home.png" height="40px" width="40px" title="首页"></a></p>
+		<p><a href="<{$config.weburl}>/main.php?m=member" class="mouseicon" title="个人中心"><em class="mousetext" style="display:none;">个人中心</em><img src="image/member.png" height="40px" width="40px" title="个人中心"></a></p>
+		<p><div style="width:20px; height:20px; margin-left: 20px; margin-bottom: -13px; color: #fff; background: url(images/car-num.png) no-repeat; line-height:20px; padding-left:6px;"><{$cart.cart.0.prolist|@count}></div><a href="<{$config.weburl}>/?m=product&s=shop_cart" class="mouseicon" title="购物车"><em class="mousetext" style="display:none;">购物车</em><img src="image/cart.png" height="40px" width="40px" title="购物车"></a></p>
+		<p><a href="<{$config.weburl}>/main.php?m=points&s=admin_points" class="mouseicon" title="积分"><em class="mousetext" style="display:none;">积分</em><img src="image/score.png" height="40px" width="40px" title="积分"></a></p>
+		<p><a href="<{$config.weburl}>/main.php?m=points&s=admin_points_goods" class="mouseicon" title="优惠券"><em class="mousetext" style="display:none;">优惠券</em><img src="image/coupon.png" height="40px" width="40px" title="优惠券"></a></p>
+        <p><a href="javascript:void(0);" onclick="show();" class="mouseicon" title="二维码"><em class="mousetext" style="display:none;">二维码</em><img src="image/phpqrcode.jpg" height="40px" width="40px" title="二维码"></a></p>
+		<p><a href="#top" class="mouseicon" title="回到顶部"><em class="mousetext" style="display:none;">回到顶部</em><img src="image/top.png" height="40px" width="40px"></a></p>
+<script type="text/javascript"> 
+var EX = {
+	addEvent:function(k,v){
+		var me = this;
+		if(me.addEventListener)
+		me.addEventListener(k, v, false);
+		else if(me.attachEvent)
+		me.attachEvent("on" + k, v);
+		else
+		me["on" + k] = v;
+	},
+	removeEvent:function(k,v){
+		var me = this;
+		if(me.removeEventListener)
+		me.removeEventListener(k, v, false);
+		else if(me.detachEvent)
+		me.detachEvent("on" + k, v);
+		else
+		me["on" + k] = null;
+	},
+	stop:function(evt){
+		evt = evt || window.event;
+		evt.stopPropagation?evt.stopPropagation():evt.cancelBubble=true;
+	}
+};
+
+document.getElementById('qe').onclick = EX.stop;
+var url = '#'; 
+function show(){ 
+	var o = document.getElementById('qe'); 
+	o.style.display = ""; 
+	setTimeout(function(){
+		EX.addEvent.call(document,'click',hide);
+	});
+}
+function hide(){ 
+	var o = document.getElementById('qe'); 
+	o.style.display = "none"; 
+	EX.removeEvent.call(document,'click',hide);
+} 
+</script>   
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var Shop = {"url":{"region":"\/tools-selRegion.html"}};
+var __time_out = 1000;
+window.addEvent('domready',function(){
+
+    var ReferObj =new Object();
+    Object.append(ReferObj,{
+        serverTime:1446695556,
+        init:function(){
+            var FIRST_REFER=Cookie.read('S[FIRST_REFER]');
+            var NOW_REFER=Cookie.read('S[NOW_REFER]');
+            var nowDate=this.time=this.serverTime*1000;
+            if(!window.location.href.test('#r-')&&!document.referrer||document.referrer.test(document.domain))return;
+            if(window.location.href.test('#r-'))Cookie.dispose('S[N]');
+            if(!FIRST_REFER){
+
+                if(NOW_REFER){
+                    this.writeCookie('S[FIRST_REFER]',NOW_REFER,this.getTimeOut(JSON.decode(NOW_REFER).DATE));
+                }else{
+                    this.setRefer('S[FIRST_REFER]',__time_out);
+                }
+            }
+            this.setRefer('S[NOW_REFER]',__time_out);
+            this.createGUID();
+        },
+        getUid:function(){
+            var lf=window.location.href,pos=lf.indexOf('#r-');
+            return pos!=-1?lf.substr(pos+4):'';
+        },
+        getRefer:function(){
+            return document.referrer?document.referrer:'';
+        },
+        setRefer:function(referName,timeout){
+            var uid=this.getUid(),referrer=this.getRefer();
+            var data={'ID':uid,'REFER':referrer,'DATE':this.time};
+
+            if('S[NOW_REFER]'==referName){
+                var refer=JSON.decode(Cookie.read('S[FIRST_REFER]'));
+                if(uid!=''&&refer&&refer.ID==''){
+                    var fdata={'ID':uid,'REFER':refer.REFER,'DATE':refer.DATE};
+                    this.writeCookie('S[FIRST_REFER]',JSON.encode(fdata),this.getTimeOut(refer.DATE));
+                }else if(uid==''){
+                    Object.append(data,{'ID':refer.ID});
+                }
+            }
+            Cookie.write(referName,JSON.encode(data),{duration:(__time_out||15)});
+        },
+        getTimeOut:function(nowDate){
+            var timeout=nowDate+__time_out*24*3600*1000;
+            var date=new Date(timeout);
+            return date;
+        },
+        writeCookie:function(key,value,timeout){
+            document.cookie=key+ '=' + value+'; expires=' + timeout.toGMTString();
+        },
+        createGUID:function(){
+            var GUID = (function(){
+                var S4=function(){
+                    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+                };
+                return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).toUpperCase();
+            })();
+            Cookie.write('S[N]',GUID,{duration:3650});
+        }
+    });
+    ReferObj.init();
+});
+</script>
+</body>
+</html>

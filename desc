@@ -1,0 +1,25 @@
+后台登录:admin 密码:soudu123456
+登录用户名:247569874 登录密码:103116
+会员制。
+分享互利制：采用注册用户分享互利制，则能激发再次购买
+规则：
+1，前一百名注册用户为终身享受所有产品每月一次6.5折优惠【不包含活动促销价格】
+2，所有用户，每次购买后，产生一个【专属优惠码】，可分享给其他两个用户使用
+3，使用【专属优惠码】的用户，可享受一次7.5折的优惠【不包含活动促销价格】，并且在购买后产生一个【专属优惠码】，优惠码功能相同
+4，分享【专属优惠码】的用户，如果优惠码被使用，则可以再次享受一次7.5折购买的优惠【不包含活动促销价格】，购买后再次产生一个
+
+1.module/prodect/templates/shop_order.htm
+订单显示页面
+添加优惠码添加字段,及其对应表单隐藏字段,添加按钮时间opt_code
+2.module/prodect/shop_order
+下订单处理逻辑
+提交订单时,添加优惠码字段,TODO:修改优惠码时金额如何变化
+3.支付完成,回调接口中判断支付成功,创建新优惠码.
+支付回调接口:main.php?m=payment&s=admin_accounts_base&onlinepaytype=alipay
+module/prodect/includes/plugin_order_class //set_order_statu更新订单状态
+4.module/prodect/includes/plugin_code_class 新写的优惠码插件
+5.用户登录的时候,判断用户是否为前100,是否在本月已经有了一个65折优惠码
+login.php判断
+6.在个人中心添加'我的优惠码'
+lang/cn/admin_menu.inc_p.php添加目录
+main.php中添加优惠码列表信息

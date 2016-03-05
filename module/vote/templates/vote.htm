@@ -1,0 +1,31 @@
+<link href="<{$config.weburl}>/module/vote/templates/vote.css" rel="stylesheet" type="text/css" />
+<div class="w">
+    <div class="vote"> 
+        <{if $tit}>
+            <div class="title"><h1><{$tit}></h1></div>
+        <{else}>
+        <br />
+        <{/if}>
+        <div class="scon">
+            <div class="div2">
+                <{foreach item=list key=key from=$vote}>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                    	<th colspan="4"><{$key+1}>、<{$list.title}></th>
+                    </tr>
+                    <{foreach item=slist key=num from=$list.item}>
+                    <tr>
+                        <td class="tdv"><{$slist.0}></td>
+                        <td width="20%"><span>
+                        <div class="color<{$num}>" style="width:<{if $list.num!=0}><{$slist.1/$list.num*100}><{else}>0<{/if}>%;"></div>
+                        </span></td>
+                        <td width="5%"><{$slist.1}>票</td>
+                        <td width="12%"><{if $list.num!=0}><{$slist.1/$list.num*100|number_format:2}><{else}>0<{/if}>%</td>
+                    </tr>
+                    <{/foreach}>
+                </table>
+                <{/foreach}> 
+            </div>
+        </div>
+    </div>
+</div>

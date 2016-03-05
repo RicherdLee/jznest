@@ -1,0 +1,11 @@
+<?php
+/*$order_shop_status=array('已取消','待付款','待发货','已发货','订单完成','退货中的订单','退货成功');
+$order_pay_status=array('未支付','已支付','部分付款','部分退款','全额退款');
+$order_ship_status=array('未发货','已发货','部分发货','部分退货','已退货');
+*/
+$order_shop_status=array('已取消','待付款','待发货','已发货','订单完成');
+$order_pay_status=array('未支付','已支付');
+$order_ship_status=array('未发货','已发货');
+$order_action=array('取消','现在付款','发货','确认收货');
+$member_group=array('-2'=>'禁止访问','-1'=>'禁止发言','1'=>'待审核','2'=>'已审核');
+?>

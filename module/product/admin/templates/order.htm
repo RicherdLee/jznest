@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>订单管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../script/jquery-1.4.4.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="flow">
+        <div class="itemtitle">
+            <h3>订单管理</h3>
+            <ul>
+                <li <{if $smarty.get.status==''}>class="current"<{/if}>><a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>"><span>管理</span></a></li>
+                <{foreach item=list key=num from=$order_shop_status}>
+                <li <{if $smarty.get.status==$num+1}>class="current"<{/if}>><a href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&status=<{$num+1}>"><span><{$list}></span></a></li>
+              	<{/foreach}>
+            </ul>
+        </div>
+    </div>
+    <div class="h35"></div>
+    <table class="select_table">
+        <tr>    
+            <td>
+            	<div class="select_box">
+                <form action="" method="get">
+                    <input type="hidden" name="m" value="<{$smarty.get.m}>">
+                    <input type="hidden" name="s" value="order.php">
+                    <input placeholder="请输入订单编号..." type="text" name="code" class="txt w250" value="<{$smarty.get.code}>" />
+                    <input type="submit" value="搜索" />
+                </form>
+                </div>
+                <div class="search">
+                	<a class="a-search" href="#">高级搜索</a>
+                	<div class="div-search">
+                        <div class="close"></div>
+                        <div class="line"></div>
+                        <div class="search-con clearfix">
+                        <form action="" method="get">
+                        <input type="hidden" name="m" value="<{$smarty.get.m}>">
+                        <input type="hidden" name="s" value="order.php">
+                        <dl>
+                            <dt>订单编号</dt>
+                            <dd><input type="text" class="w250" name="code" value="<{$smarty.get.code}>" /></dd>
+                        </dl>
+                        <dl>
+                            <dt>支付状态</dt>
+                            <dd>
+                            <select name="order_pay_status" class="w250">
+                            <option value="">请选择</option>
+                            <{foreach item=list key=key from=$order_pay_status}>
+                            <option <{if $smarty.get.order_pay_status==$key+1}>selected="selected"<{/if}> value="<{$key+1}>"><{$list}></option>
+                            <{/foreach}>
+                            </select>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>支付方式</dt>
+                            <dd>
+                            <select name="pay" class="w250">
+                            <option value="">请选择</option>
+                            <{foreach item=list key=key from=$pay}>
+                            <option <{if $smarty.get.pay==$list.payment_id}>selected="selected"<{/if}> value="<{$list.payment_id}>"><{$list.payment_name}></option>
+                            <{/foreach}>
+                            </select>
+                            </dd>
+                        </dl>  
+                        <dl>
+                            <dt>配送状态</dt>
+                            <dd>
+                            <select name="order_ship_status" class="w250">
+                            <option value="">请选择</option>
+                            <{foreach item=list key=key from=$order_ship_status}>
+                            <option <{if $smarty.get.order_ship_status==$key+1}>selected="selected"<{/if}> value="<{$key+1}>"><{$list}></option>
+                            <{/foreach}>
+                            </select>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>配送方式</dt>
+                            <dd>
+                            <select name="ship" class="w250">
+                            <option value="">请选择</option>
+                            <{foreach item=list key=key from=$ship}>
+                            <option <{if $smarty.get.ship==$list.id}>selected="selected"<{/if}> value="<{$list.id}>"><{$list.title}></option>
+                            <{/foreach}>
+                            </select>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>订单总额</dt>
+                            <dd>
+                            <input type="text" class="w118" name="minp" value="<{$smarty.get.minp}>" />
+                            -
+							<input type="text" class="w118" name="maxp" value="<{$smarty.get.maxp}>" />
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>会员名</dt>
+                            <dd><input type="text" class="w250" name="user" value="<{$smarty.get.user}>" /></dd>
+                        </dl>
+                        <dl>
+                            <dt>收货人</dt>
+                            <dd><input type="text" class="w250" name="ship_name" value="<{$smarty.get.ship_name}>" /></dd>
+                        </dl>
+                        <dl>
+                            <dt>收货地址</dt>
+                            <dd><input type="text" class="w250" name="ship_addr" value="<{$smarty.get.ship_addr}>" /></dd>
+                        </dl>
+                    	<input type="submit" value="搜索" />
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <a class="refresh" href="?m=<{$smarty.get.m}>&s=<{$smarty.get.s}>&status=<{$smarty.get.status}>"></a>
+           </td>
+        </tr>
+    </table>
+    <table class="table product">
+       <tbody>
+       <tr class="header">
+            <th width="30">查看</th>
+            <th width="60">操作</th>
+            <th class="al">订单编号</th>
+            <th width="150">订单总额</th>
+            <th width="100">买家名称</th>
+            <th width="100">收货人</th>
+            <th width="80">下单时间</th>
+            <th width="100">订单状态</th>
+            <th width="80">支付状态</th>
+            <th width="80">配送状态</th>
+            <th width="80">配送方式</th>
+            <th width="80">支付方式</th>
+        </tr>
+        <{foreach item=list from=$de.list}>
+        <tr class="<{if $list.status==1}>bold<{/if}>">
+            <td><a href="?m=product&s=order_detail.php&oid=<{$list.order_id}>"><{$lookimg}></a></td>
+            <td>
+            <{if $list.status!=0 and $list.status!=4}>
+            <div class="operate">
+                <a class="opear" href="#">操作<i></i></a>
+                <ul>
+<{if $list.status==1&&$list.pay_status==1}><li><a class="a-opear" data-type="edit" data-param="{'id':'<{$list.order_id}>'}" href="#">编辑</a></li><{/if}>
+<{if $list.status==1&&$list.pay_status==1}><li><a class="a-opear" data-type="pay" data-param="{'id':'<{$list.order_id}>'}" href="#">付款</a></li><{/if}>
+<{if $list.status==2&&$list.pay_status==2}><li><a class="a-opear" data-type="ship" data-param="{'id':'<{$list.order_id}>'}" href="#">发货</a></li><{/if}>
+<{if $list.status==3&&$list.pay_status==2&&$list.ship_status==2}><li><a href="module.php?m=product&s=order.php&orderid=<{$list.order_id}>">完成</a></li><{/if}>
+<li><a class="a-opear" data-type="cancel" data-param="{'id':'<{$list.order_id}>'}" href="#">取消</a></li>
+                </ul>
+            </div>
+            <{elseif $list.status==4}>
+            已完成
+            <{else}>
+            已取消
+            <{/if}>
+            </td>
+            <td class="al"><{$list.order_id}></td>
+            <td><{$config.money}><{$list.sum|number_format:2}></td>
+            <td><{$list.user}></td>
+            <td><{$list.ship_name}></td>
+            <td><{$list.create_time|date_format:"%Y-%m-%d<br>%H:%M:%S"}></td>
+            <td><{$list.statu_text}></td>
+            <td><{$list.order_pay_status}></td>
+            <td><{$list.order_ship_status}></td>
+            <td><{$list.shipping_name}></td>
+            <td><{$list.payment_name}></td>
+        </tr>
+        <{foreachelse}>
+        <tr>
+            <td class="norecord" colspan="99"><i></i><span>暂无符合条件的数据记录</span></td>
+        </tr>
+        <{/foreach}>
+		</tbody>
+        <tfoot>
+            <tr>
+                <td colspan="99">
+                	<div class="fl">每页最多显示： 20条</div>
+                    <div class="page"><{$de.page}></div>
+                    <div class="fr">共有<{$de.count}>条记录</div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+<script>
+$(".a-opear").live('click',function(){
+	
+	var data = $(this).attr('data-param');
+	eval("data = "+data);
+	var type = $(this).attr('data-type');
+	if(!data.id)
+	{
+		error('error','对不起，请选择订单后操作！');
+		return false;
+	}
+	window.parent.ajax_form("order", "操作订单", '<{$config.weburl}>/admin/module.php?m=product&s=order_opear.php&type='+type+'&orderid='+data.id, 800);
+	return false;
+	
+});
+$('.operate').hover(function(){					 
+	if ($(this).position().top + $(this).children("ul").height() + $(this).parent("td").height() - $(window).height()- $(window).scrollTop()  < 0) {
+		$(this).addClass("hover");
+		$(this).children("ul").css("top", "22px");
+	} else {
+		$(this).addClass("hover-up");
+		$(this).children("ul").css("top", -$(this).children("ul").height());
+	}
+},function(){
+	$(this).removeClass("hover").removeClass("hover-up");	
+});
+$('.search').bind("mouseenter", function (e) {
+	$(this).addClass("hover");
+}).bind("mouseleave", function (e) {
+	//$(this).removeClass("hover");
+});
+$('.close').bind("click", function (e) {
+	$(this).parent().parent().removeClass("hover");
+}) 
+</script>    
+</div>
+</body>
+</html>
