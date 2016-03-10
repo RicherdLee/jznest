@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.20, created on 2016-03-04 15:33:24
+<?php /* Smarty version 2.6.20, created on 2016-03-05 10:00:27
          compiled from ftlink_list.htm */ ?>
 <div class="bottom_service_link">
 	<?php $_from = $this->_tpl_vars['links']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):

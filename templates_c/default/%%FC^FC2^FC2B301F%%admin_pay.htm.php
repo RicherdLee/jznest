@@ -1,53 +1,66 @@
-<?php /* Smarty version 2.6.20, created on 2016-03-05 10:00:27
-         compiled from footer.htm */ ?>
+<?php /* Smarty version 2.6.20, created on 2016-03-05 12:39:44
+         compiled from admin_pay.htm */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('insert', 'label', 'footer.htm', 20, false),array('modifier', 'count', 'footer.htm', 50, false),)), $this); ?>
-<script src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/script/kissy.js" type="text/javascript"></script>
-<script src="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/script/kissy.menu.js" type="text/javascript"></script>
-<div class="clear"></div>
-
-<!--div class="foot" class="clearfix"-->
-<div id="foot">
- <div class="footer cl">
-   <div class="sns-list"></div>
- </div>
-<p class="footer-nav c">
-<a href="" target="_blank"> 首页 </a> | 
-<a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/?m=product&s=list&id=1002" target="_blank"> 即食燕窝 </a> | 
-<a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/?m=product&s=list&id=1001" target="_blank"> 干燕窝 </a> | 
-<a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/?m=product&s=list&id=1000" target="_blank"> 礼盒装 </a> | 
-<a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/?m=product&s=list&id=1003" target="_blank"> 礼品卡 </a> | 
-<a href="/?m=news&s=newsd&id=6" target="_blank"> 渠道客户 </a>
-</p>
-
- <div class="w">
-<?php require_once(SMARTY_CORE_DIR . 'core.run_insert_handler.php');
-echo smarty_core_run_insert_handler(array('args' => array('name' => 'label', 'type' => 'ftlink', 'temp' => 'ftlink_list')), $this); ?>
-
- </div>
-<div class="footer clearfix">
-  <div class="w">
-    <!--div class="links"><?php echo $this->_tpl_vars['web_con']; ?>
-</div-->
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'number_format', 'admin_pay.htm', 33, false),array('modifier', 'count', 'admin_pay.htm', 67, false),)), $this); ?>
+<div class="path">
+  <div> <?php if ($this->_tpl_vars['cg_u_type'] == 1): ?> <a href="main.php?cg_u_type=1">我的商城</a> <span>&gt;</span> <?php else: ?> <a href="main.php?cg_u_type=2">卖家中心</a> <span>&gt;</span> <?php endif; ?>
+    定单支付 </div>
+</div>
+<div class="main">
+  <div class="wrap">
+    <div class="hd">
+      <ul class="tabs">
+        <li class="active"><a href="#">定单支付</a></li>
+      </ul>
+    </div>
+    <div class="form-style">
+      <form action="" method="post">
+        <input type="hidden" value="add" name="submit">
+        <dl>
+          <dt>账户余额：</dt>
+          <dd><?php echo $this->_tpl_vars['account']['cash']; ?>
+</dd>
+        </dl>
+        <dl>
+          <dt>流水号：</dt>
+          <dd><?php echo $this->_tpl_vars['de']['flow_id']; ?>
+</dd>
+        </dl>
+        <dl>
+          <dt>订单编号：</dt>
+          <dd><?php echo $this->_tpl_vars['de']['order_id']; ?>
+</dd>
+        </dl>
+        <dl>
+          <dt>产品信息：</dt>
+          <dd><?php echo $this->_tpl_vars['de']['note']; ?>
+</dd>
+        </dl>
+        <dl>
+          <dt>支付金额：</dt>
+          <dd><span style="color:#F00; font-size:16px;"><?php echo ((is_array($_tmp=$this->_tpl_vars['de']['price']*-1)) ? $this->_run_mod_handler('number_format', true, $_tmp, 2) : number_format($_tmp, 2)); ?>
+</span></dd>
+        </dl>
+        <?php if ($this->_tpl_vars['de']['statu'] == 1): ?>
+        <dl>
+          <dt>支付密码：</dt>
+          <dd>
+            <input name="pay_pass" type="password" id="pay_pass" class="password w150" />
+          </dd>
+        </dl>
+        <dl class="foot">
+          <dt>&nbsp;</dt>
+          <dd>
+            <input type="submit" value="提交" class="submit">
+          </dd>
+        </dl>
+        <?php endif; ?> 
+      </form>
+    </div>
   </div>
- <div class="copyright">
-  Copyright &copy; 极盏燕窝<br>
-  浙ICP备16004093号-1
- </div>  
 </div>
 
-   </div>
-  </div>
- </div><!--foot end-->
-</div><!--header end-->
-<!--/**/-->
-<div class="container">
+<div style="width: 42px; position:fixed; top:0;right:0; border: 1px #ccc solid; background: #fff;">
 <style>
 #qe{width:146px; height:141px; position:fixed; top:200px; right:9%; background:#9F3; z-index:9999}
 #qe .code{width:141px; height:141px; background: #9F3; overflow:hidden;padding:2px;}
@@ -61,7 +74,7 @@ echo smarty_core_run_insert_handler(array('args' => array('name' => 'label', 'ty
 		<p style="margin-top: 0px;"><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
 " class="mouseicon" title="首页"><em class="mousetext" style="display:none;">首页</em><img src="image/home.png" height="40px" width="40px" title="首页"></a></p>
 		<p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/main.php" class="mouseicon" title="个人中心"><em class="mousetext" style="display:none;">个人中心</em><img src="image/member.png" height="40px" width="40px" title="个人中心"></a></p>
+/main.php?m=member" class="mouseicon" title="个人中心"><em class="mousetext" style="display:none;">个人中心</em><img src="image/member.png" height="40px" width="40px" title="个人中心"></a></p>
 		<p><div style="width:20px; height:20px; margin-left: 20px; margin-bottom: -13px; color: #fff; background: url(images/car-num.png) no-repeat; line-height:20px; padding-left:6px;"><?php echo count($this->_tpl_vars['cart']['cart']['0']['prolist']); ?>
 </div><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
 /?m=product&s=shop_cart" class="mouseicon" title="购物车"><em class="mousetext" style="display:none;">购物车</em><img src="image/cart.png" height="40px" width="40px" title="购物车"></a></p>
@@ -183,5 +196,3 @@ window.addEvent('domready',function(){
     ReferObj.init();
 });
 </script>
-</body>
-</html>

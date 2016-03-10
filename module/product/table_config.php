@@ -17,6 +17,7 @@ define("TALK",$config['table_pre']."talk");//
 define("ORDER",$config['table_pre']."order");//订单表
 //modify by lihao
 define("CODE",$config['table_pre']."code");//优惠码表
+define("CODEMAP",$config['table_pre']."code_map");//优惠码表
 define("ORPRO",$config['table_pre']."order_product");//订单产品表
 define("ORDERLOG",$config['table_pre']."order_log");//订单记录表
 define("ORDERDELIVERY",$config['table_pre']."order_delivery");//订单发货表

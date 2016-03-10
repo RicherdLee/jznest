@@ -10,6 +10,8 @@ include_once("$config[webroot]/module/product/includes/plugin_code_class.php");
 $code = new code();
 if($_GET['ajax'] =='code'){
     echo $code->getCodeDiscount($_GET['code']);
+}else if($_GET['ajax'] =='checkcode'){
+     echo $code->checkCode();
 }else{
     if (isset($_GET['status']))
         $tpl->assign("blist", $code->get_code_list($_GET['status']));

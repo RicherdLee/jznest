@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.20, created on 2016-03-04 16:00:09
+<?php /* Smarty version 2.6.20, created on 2016-03-05 14:04:22
          compiled from product_index.htm */ ?>
     <div class="banner">
       <div id="Slidebox">

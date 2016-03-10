@@ -241,7 +241,6 @@ class order
             $post['buyer_email'] = $de['member_id'];//卖家账号
             $post['order_id'] = $de['order_id'];
             $post['statu'] = 0;
-
             $res = pay_get_url($post, true);
             $this->order_log($de['order_id'], '订单取消', '取消', '', $admin);
         }
@@ -304,31 +303,59 @@ class order
                 $sql = "update " . ORDER . " set status='$status',finished_time=" . time() . " where order_id='$oid'";
                 $this->db->query($sql);
                 //--操作优惠码
-                if($status == 0){//取消订单
+                if ($status == 0) {//取消订单
                     //modify by lihao,查询订单对应优惠码
                     $sql = "SELECT * FROM " . CODE . " where order_id='$post[order_id]'";
                     $this->db->query($sql);
                     $code = $this->db->fetchRow();
                     //modify by lihao,取消订单,更新优惠码状态为可用
+                    //modify by lihao,再次修改,取消订单,减少一次锁定状态
                     if (!empty($code)) {
-                        $sql = 'UPDATE ' . CODE .' SET status = 1 , opt_time=' . time(). ' WHERE code = "' . $code['code'] . '"';
+                        if ($code['code_type'] == 1) {
+                            $lock = $code['lockstatus'] - 2;
+                        } else {
+                            $lock = $code['lockstatus'] - 1;
+                        }
+                        $sql = 'UPDATE ' . CODE . ' SET lockstatus = ' . $lock . ' , opt_time=' . time() . ' WHERE code = "' . $code['code'] . '"';
                         $this->db->query($sql);
                     }
-                }else if($status==2){//付款
+                } else if ($status == 2) {//付款
                     //modify by lihao,查询订单对应优惠码
                     $sql = "SELECT * FROM " . CODE . " where order_id='$post[order_id]'";
                     $this->db->query($sql);
                     $code = $this->db->fetchRow();
                     //modify by lihao,支付订单,更新优惠码状态为已用
-                    if (!empty($code)) {
-                        $sql = 'UPDATE ' . CODE .' SET status = 3 , opt_time=' . time(). ' WHERE code = "' . $code['code'] . '"';
-                        $this->db->query($sql);
-                    }
-                    //modify by lihao 生成2个新优惠码
+                    //modify by lihao,再次修改,锁定状态加1,支付状态加1
                     include_once("module/product/includes/plugin_code_class.php");
                     $codeC = new code();
-                    $codeC->create_code(75, strtotime("1 month"));
-                    $codeC->create_code(75, strtotime("1 month"));
+                    //为购买者生成一个新的75折优惠
+                    $codeC->create_code(75, strtotime("1 month"), 2, $buid);
+                    if (!empty($code)) {
+                        if ($code['code_type'] == 1) {
+                            $lock = $code['lockstatus'];
+                            $status = $code['status'] + 2;
+                        } else {
+                            $lock = $code['lockstatus'];
+                            $status = $code['status'] + 1;
+                        }
+                        $sql = 'UPDATE ' . CODE . ' SET lockstatus = ' . $lock . ', status = ' . $status . ' , opt_time=' . time() . ' WHERE code = "' . $code['code'] . '"';
+                        $this->db->query($sql);
+                        //modify by lihao 添加一个使用者
+                        $sql = "INSERT INTO " . CODEMAP . "(member_id,code_id,use_id,create_time,status) VALUES (" . $code['member_id'] . "," . $code['id'] . "," . $buid . "," . time() . ", 1)";
+                        $this->db->query($sql);
+
+                        if ($code['code_type'] == 2) {
+                            if ($status == 2) {
+                                //为优惠码提供者生成一个75折优惠
+                                $codeC->create_code(75, strtotime("1 month"), 1, $code['member_id']);
+                                if ($code['member_id'] <= 100) {
+                                    //为前100用户再生成一个65折优惠码
+                                    $codeC->create_code(65, strtotime("1 month"), 1, $code['member_id']);
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
             return true;

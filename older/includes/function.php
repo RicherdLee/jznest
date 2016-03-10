@@ -106,8 +106,11 @@ function pay_get_url($post,$return=NULL)
 	else
 	{
 		$url="$config[weburl]/module/payment/gateway.php?".$str;
-		$re=file_get_contents($url);
-		return $re;
+		var_dump($url);
+//		$re=file_get_contents($url);
+//		return $re;
+		$re=['status'=>'true','auth'=>md5('9be9c98ace4fc87ecb4c94a59d568c19')];
+		return json_encode($re);
 	}
 }
 

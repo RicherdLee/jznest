@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.20, created on 2016-03-05 12:26:01
-         compiled from admin_inc_p.htm */ ?>
+<?php /* Smarty version 2.6.20, created on 2016-03-05 12:13:16
+         compiled from /www/web/default/jznest/templates/default/admin_inc_p.htm */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', 'admin_inc_p.htm', 45, false),array('modifier', 'explode', 'admin_inc_p.htm', 71, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'truncate', '/www/web/default/jznest/templates/default/admin_inc_p.htm', 45, false),array('modifier', 'explode', '/www/web/default/jznest/templates/default/admin_inc_p.htm', 71, false),)), $this); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

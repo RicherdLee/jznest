@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.20, created on 2016-03-04 17:08:40
+<?php /* Smarty version 2.6.20, created on 2016-03-05 13:43:15
          compiled from shop_order.htm */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'regex_replace', 'shop_order.htm', 6, false),array('modifier', 'number_format', 'shop_order.htm', 149, false),array('modifier', 'count', 'shop_order.htm', 196, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'regex_replace', 'shop_order.htm', 6, false),array('modifier', 'number_format', 'shop_order.htm', 175, false),array('modifier', 'count', 'shop_order.htm', 222, false),)), $this); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,6 +30,34 @@ smarty_core_load_plugins(array('plugins' => array(array('modifier', 'regex_repla
     <script>
         var weburl = "<?php echo $this->_tpl_vars['config']['weburl']; ?>
 ";
+    </script>
+    <script>
+        //检测用户是否为前一百用户,自动使用优惠码
+        window.onload = function () {
+            var url = "?m=product&s=admin_code&ajax=checkcode";
+            $.get(url, function (data) {
+                var obj = eval("(" + data + ")");
+                if (obj.status == 1 && obj.discont == 65) {
+                    //2.添加表单优惠码
+                    $("#discount").val(obj.code);
+                    //3.修改按钮名称
+                    $("#opt_code_but").hide();
+                    $("#opt_code").hide();
+                    $("#code_desc").html('您有一个' + obj.discont / 10 + '优惠');
+                    $("#code_desc").show();
+                    var oldprice1 = $("#price1").html();
+                    $("#_price1").val(oldprice1);
+                    var newprice1 = oldprice1 * obj.discont / 100;
+                    $("#price1").html(newprice1);
+                    var oldprice2 = $("#price2").html();
+                    $("#_price2").val(oldprice2);
+                    var oldprice3 = $("#price3").html();
+                    $("#_price3").val(oldprice3);
+                    var newprice3 = oldprice2 * 1 + newprice1 * 1;
+                    $("#price3").html(newprice3);
+                }
+            })
+        }
     </script>
 </head>
 <div id="shortcut">
@@ -141,25 +169,23 @@ smarty_core_load_plugins(array('plugins' => array(array('modifier', 'regex_repla
                     </p>
                 </div>
             </div>
-<script>
-function open_Module(name) {
+            <script>
+                function open_Module(name) {
 
-	$("#"+name+"_edit_action a").hide();
-	step_Openlight(name);
-	
-	var url = "?m=product&s=shop_order";
-	var pars = 'act='+name;
-	
-	$.post(url, pars,showResponse);
-	function showResponse(originalRequest)
-	{		
-		if(originalRequest)
-		{
-			$("#"+name).html(originalRequest);
-		}
-	}
-}
-</script>         
+                    $("#" + name + "_edit_action a").hide();
+                    step_Openlight(name);
+
+                    var url = "?m=product&s=shop_order";
+                    var pars = 'act=' + name;
+
+                    $.post(url, pars, showResponse);
+                    function showResponse(originalRequest) {
+                        if (originalRequest) {
+                            $("#" + name).html(originalRequest);
+                        }
+                    }
+                }
+            </script>
         </div>
         <div id="step-4" class="step">
             <div class="step-title">
@@ -254,7 +280,7 @@ _60X60.jpg">
                         <div>重量总计：<?php echo $this->_tpl_vars['cart']['weight']; ?>
 kg</div>
                     </div>
-                    <div  class="statistic">
+                    <div class="statistic">
                         <div class="list">
                             <span>共计<em><?php echo count($this->_tpl_vars['cart']['cart']['0']['prolist']); ?>
 </em> 大类产品，总产品金额：</span>
@@ -280,7 +306,7 @@ kg</div>
                 <strong>优惠码信息</strong>
                 <input id="opt_code" size="40">
                 <label id="code_desc" style="display:none"></label>
-                <button  id="opt_code_but" onclick="opt_code()" value="添加">添加</button>
+                <button id="opt_code_but" onclick="opt_code()" value="添加">添加</button>
             </div>
         </div>
         <div class="order_buttons" id="order_buttons">
@@ -317,30 +343,45 @@ kg</div>
         </div>
     </div>
 </div>
-<input type="hidden" id="_price1" />
-<input type="hidden" id="_price2" />
-<input type="hidden" id="_price3" />
+<input type="hidden" id="_price1"/>
+<input type="hidden" id="_price2"/>
+<input type="hidden" id="_price3"/>
 <script>
-    price1=$("#price1").html().replace(",",'')*1;
-    price2=$("#price2").html().replace(",",'')*1;
-    price3=(price1+price2).toFixed(2);
+    price1 = $("#price1").html().replace(",", '') * 1;
+    price2 = $("#price2").html().replace(",", '') * 1;
+    price3 = (price1 + price2).toFixed(2);
     $("#price3").html(price3);
-	d_price=$("#d_price").html().replace(",",'')*1;
+    d_price = $("#d_price").html().replace(",", '') * 1;
     $("#_price1").val(oldprice1);
-    var d_price = 500-price3;
-		
-    <?php if (! $this->_tpl_vars['consignee']['id']): ?>
+    var d_price = 500 - price3;
+
+    <
+    {
+        if !$consignee.id}
+    >
     open_Module("consignee");
-    <?php else: ?>
-    <?php if (! $this->_tpl_vars['invoice']['id']): ?>
+    <
+    {else
+    }
+    >
+    <
+    {
+        if !$invoice.id}
+    >
     open_Module("invoice");
-    <?php endif; ?>
-    <?php endif; ?>
+    <
+    {/
+        if}
+    >
+    <
+    {/
+        if}
+    >
 </script>
 <script>
     function opt_code() {
         var code = $("#discount").val();
-        if (code != null && code!= '') {//优惠码已添加,点击操作为删除操作
+        if (code != null && code != '') {//优惠码已添加,点击操作为删除操作
             //1.删除表单优惠码
             $("#discount").val("");
             //2.删除显示优惠码
@@ -357,39 +398,43 @@ kg</div>
             $("#price3").html(oldprice3);
         } else {//优惠码未添加,点击操作为添加错做
 //1.获取显示位置优惠码
-            code=$("#opt_code").val();
-            if (code != null && code!= ''){
-                var url = "?m=product&s=admin_code&ajax=code&code="+code;
-                $.get(url,function(data){
-                    if(data== 0){
+            code = $("#opt_code").val();
+            if (code != null && code != '') {
+                var url = "?m=product&s=admin_code&ajax=code&code=" + code;
+                $.get(url, function (data) {
+                    if (data == 0) {
                         alert('无效优惠码');
-                    }else if(data== -1){
+                    } else if (data == -1) {
                         alert('优惠码已锁定,请检查对应订单');
-                    }else if(data==-2){
+                    } else if (data == -1) {
                         alert('优惠码已使用,请检查对应订单');
-                    }else if(data==-3){
+                    } else if (data == -3) {
                         alert('优惠码已过期');
-                    }else if(data==-4){
+                    } else if (data == -4) {
                         alert('分享优惠码不可个人使用,请分享好友使用');
-                    }else if(data==-5){
+                    } else if (data == -5) {
                         alert('此优惠码属于其他用户');
-                    }else{
+                    } else if (data == -6) {
+                        alert('30天内,您不能使用您分享用户所产生的优惠码');
+                    } else if (data == -7) {
+                        alert('您已使用过此优惠码');
+                    } else {
                         //2.添加表单优惠码
                         $("#discount").val(code);
                         //3.修改按钮名称
                         $("#opt_code_but").text("删除");
                         $("#opt_code").hide();
-                        $("#code_desc").html('此优惠码'+code+'可享受'+data+'优惠');
+                        $("#code_desc").html('此优惠码' + code + '可享受' + data + '优惠');
                         $("#code_desc").show();
                         var oldprice1 = $("#price1").html();
                         $("#_price1").val(oldprice1);
-                        var newprice1 = oldprice1 * data/10;
+                        var newprice1 = oldprice1 * data / 10;
                         $("#price1").html(newprice1);
                         var oldprice2 = $("#price2").html();
                         $("#_price2").val(oldprice2);
                         var oldprice3 = $("#price3").html();
                         $("#_price3").val(oldprice3);
-                        var newprice3 = oldprice2*1+newprice1*1;
+                        var newprice3 = oldprice2 * 1 + newprice1 * 1;
                         $("#price3").html(newprice3);
 
                     }
@@ -407,139 +452,184 @@ kg</div>
 </div>
 
 <div style="width: 42px; position:fixed; top:0;right:0; border: 1px #ccc solid; background: #fff;">
-<style>
-#qe{width:146px; height:141px; position:fixed; top:200px; right:9%; background:#9F3; z-index:9999}
-#qe .code{width:141px; height:141px; background: #9F3; overflow:hidden;padding:2px;}
-#qe .close{position:absolute;top:-6px;right:-6px;}
-</style>
- <div id="qe" class="qe" style="display:none">
- <div style="margin: auto;"><a class="close" href="javascript:void(0);" onclick="hide();"><img src="image/close.png" alt="关闭" width="20px" height="20px"/></a></div>       
- <div class="code"><img src="image/phpqrcode.jpg" width="141" height="141" alt="" /></div> 
- </div>   
-	<div style="height: 388px;" class="rightbar">
-		<p style="margin-top: 0px;"><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-" class="mouseicon" title="首页"><em class="mousetext" style="display:none;">首页</em><img src="image/home.png" height="40px" width="40px" title="首页"></a></p>
-		<p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/main.php?m=member" class="mouseicon" title="个人中心"><em class="mousetext" style="display:none;">个人中心</em><img src="image/member.png" height="40px" width="40px" title="个人中心"></a></p>
-		<p><div style="width:20px; height:20px; margin-left: 20px; margin-bottom: -13px; color: #fff; background: url(images/car-num.png) no-repeat; line-height:20px; padding-left:6px;"><?php echo count($this->_tpl_vars['cart']['cart']['0']['prolist']); ?>
-</div><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/?m=product&s=shop_cart" class="mouseicon" title="购物车"><em class="mousetext" style="display:none;">购物车</em><img src="image/cart.png" height="40px" width="40px" title="购物车"></a></p>
-		<p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/main.php?m=points&s=admin_points" class="mouseicon" title="积分"><em class="mousetext" style="display:none;">积分</em><img src="image/score.png" height="40px" width="40px" title="积分"></a></p>
-		<p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
-/main.php?m=points&s=admin_points_goods" class="mouseicon" title="优惠券"><em class="mousetext" style="display:none;">优惠券</em><img src="image/coupon.png" height="40px" width="40px" title="优惠券"></a></p>
-        <p><a href="javascript:void(0);" onclick="show();" class="mouseicon" title="二维码"><em class="mousetext" style="display:none;">二维码</em><img src="image/phpqrcode.jpg" height="40px" width="40px" title="二维码"></a></p>
-		<p><a href="#top" class="mouseicon" title="回到顶部"><em class="mousetext" style="display:none;">回到顶部</em><img src="image/top.png" height="40px" width="40px"></a></p>
-<script type="text/javascript"> 
-var EX = {
-	addEvent:function(k,v){
-		var me = this;
-		if(me.addEventListener)
-		me.addEventListener(k, v, false);
-		else if(me.attachEvent)
-		me.attachEvent("on" + k, v);
-		else
-		me["on" + k] = v;
-	},
-	removeEvent:function(k,v){
-		var me = this;
-		if(me.removeEventListener)
-		me.removeEventListener(k, v, false);
-		else if(me.detachEvent)
-		me.detachEvent("on" + k, v);
-		else
-		me["on" + k] = null;
-	},
-	stop:function(evt){
-		evt = evt || window.event;
-		evt.stopPropagation?evt.stopPropagation():evt.cancelBubble=true;
-	}
-};
+    <style>
+        #qe {
+            width: 146px;
+            height: 141px;
+            position: fixed;
+            top: 200px;
+            right: 9%;
+            background: #9F3;
+            z-index: 9999
+        }
 
-document.getElementById('qe').onclick = EX.stop;
-var url = '#'; 
-function show(){ 
-	var o = document.getElementById('qe'); 
-	o.style.display = ""; 
-	setTimeout(function(){
-		EX.addEvent.call(document,'click',hide);
-	});
-}
-function hide(){ 
-	var o = document.getElementById('qe'); 
-	o.style.display = "none"; 
-	EX.removeEvent.call(document,'click',hide);
-} 
-</script>   
-</div>
+        #qe .code {
+            width: 141px;
+            height: 141px;
+            background: #9F3;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        #qe .close {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+        }
+    </style>
+    <div id="qe" class="qe" style="display:none">
+        <div style="margin: auto;"><a class="close" href="javascript:void(0);" onclick="hide();"><img
+                src="image/close.png" alt="关闭" width="20px" height="20px"/></a></div>
+        <div class="code"><img src="image/phpqrcode.jpg" width="141" height="141" alt=""/></div>
+    </div>
+    <div style="height: 388px;" class="rightbar">
+        <p style="margin-top: 0px;"><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+" class="mouseicon" title="首页"><em class="mousetext"
+                                                                                                  style="display:none;">首页</em><img
+                src="image/home.png" height="40px" width="40px" title="首页"></a></p>
+
+        <p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/main.php?m=member" class="mouseicon" title="个人中心"><em class="mousetext"
+                                                                                             style="display:none;">个人中心</em><img
+                src="image/member.png" height="40px" width="40px" title="个人中心"></a></p>
+
+        <p>
+
+        <div style="width:20px; height:20px; margin-left: 20px; margin-bottom: -13px; color: #fff; background: url(images/car-num.png) no-repeat; line-height:20px; padding-left:6px;">
+            <?php echo count($this->_tpl_vars['cart']['cart']['0']['prolist']); ?>
+
+        </div>
+        <a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/?m=product&s=shop_cart" class="mouseicon" title="购物车"><em class="mousetext"
+                                                                                              style="display:none;">购物车</em><img
+                src="image/cart.png" height="40px" width="40px" title="购物车"></a></p>
+        <p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/main.php?m=points&s=admin_points" class="mouseicon" title="积分"><em
+                class="mousetext" style="display:none;">积分</em><img src="image/score.png" height="40px" width="40px"
+                                                                    title="积分"></a></p>
+
+        <p><a href="<?php echo $this->_tpl_vars['config']['weburl']; ?>
+/main.php?m=points&s=admin_points_goods" class="mouseicon" title="优惠券"><em
+                class="mousetext" style="display:none;">优惠券</em><img src="image/coupon.png" height="40px" width="40px"
+                                                                     title="优惠券"></a></p>
+
+        <p><a href="javascript:void(0);" onclick="show();" class="mouseicon" title="二维码"><em class="mousetext"
+                                                                                             style="display:none;">二维码</em><img
+                src="image/phpqrcode.jpg" height="40px" width="40px" title="二维码"></a></p>
+
+        <p><a href="#top" class="mouseicon" title="回到顶部"><em class="mousetext" style="display:none;">回到顶部</em><img
+                src="image/top.png" height="40px" width="40px"></a></p>
+        <script type="text/javascript">
+            var EX = {
+                addEvent: function (k, v) {
+                    var me = this;
+                    if (me.addEventListener)
+                        me.addEventListener(k, v, false);
+                    else if (me.attachEvent)
+                        me.attachEvent("on" + k, v);
+                    else
+                        me["on" + k] = v;
+                },
+                removeEvent: function (k, v) {
+                    var me = this;
+                    if (me.removeEventListener)
+                        me.removeEventListener(k, v, false);
+                    else if (me.detachEvent)
+                        me.detachEvent("on" + k, v);
+                    else
+                        me["on" + k] = null;
+                },
+                stop: function (evt) {
+                    evt = evt || window.event;
+                    evt.stopPropagation ? evt.stopPropagation() : evt.cancelBubble = true;
+                }
+            };
+
+            document.getElementById('qe').onclick = EX.stop;
+            var url = '#';
+            function show() {
+                var o = document.getElementById('qe');
+                o.style.display = "";
+                setTimeout(function () {
+                    EX.addEvent.call(document, 'click', hide);
+                });
+            }
+            function hide() {
+                var o = document.getElementById('qe');
+                o.style.display = "none";
+                EX.removeEvent.call(document, 'click', hide);
+            }
+        </script>
+    </div>
 </div>
 </div>
 <script type="text/javascript">
-var Shop = {"url":{"region":"\/tools-selRegion.html"}};
-var __time_out = 1000;
-window.addEvent('domready',function(){
+    var Shop = {"url": {"region": "\/tools-selRegion.html"}};
+    var __time_out = 1000;
+    window.addEvent('domready', function () {
 
-    var ReferObj =new Object();
-    Object.append(ReferObj,{
-        serverTime:1446695556,
-        init:function(){
-            var FIRST_REFER=Cookie.read('S[FIRST_REFER]');
-            var NOW_REFER=Cookie.read('S[NOW_REFER]');
-            var nowDate=this.time=this.serverTime*1000;
-            if(!window.location.href.test('#r-')&&!document.referrer||document.referrer.test(document.domain))return;
-            if(window.location.href.test('#r-'))Cookie.dispose('S[N]');
-            if(!FIRST_REFER){
+        var ReferObj = new Object();
+        Object.append(ReferObj, {
+            serverTime: 1446695556,
+            init: function () {
+                var FIRST_REFER = Cookie.read('S[FIRST_REFER]');
+                var NOW_REFER = Cookie.read('S[NOW_REFER]');
+                var nowDate = this.time = this.serverTime * 1000;
+                if (!window.location.href.test('#r-') && !document.referrer || document.referrer.test(document.domain))return;
+                if (window.location.href.test('#r-'))Cookie.dispose('S[N]');
+                if (!FIRST_REFER) {
 
-                if(NOW_REFER){
-                    this.writeCookie('S[FIRST_REFER]',NOW_REFER,this.getTimeOut(JSON.decode(NOW_REFER).DATE));
-                }else{
-                    this.setRefer('S[FIRST_REFER]',__time_out);
+                    if (NOW_REFER) {
+                        this.writeCookie('S[FIRST_REFER]', NOW_REFER, this.getTimeOut(JSON.decode(NOW_REFER).DATE));
+                    } else {
+                        this.setRefer('S[FIRST_REFER]', __time_out);
+                    }
                 }
-            }
-            this.setRefer('S[NOW_REFER]',__time_out);
-            this.createGUID();
-        },
-        getUid:function(){
-            var lf=window.location.href,pos=lf.indexOf('#r-');
-            return pos!=-1?lf.substr(pos+4):'';
-        },
-        getRefer:function(){
-            return document.referrer?document.referrer:'';
-        },
-        setRefer:function(referName,timeout){
-            var uid=this.getUid(),referrer=this.getRefer();
-            var data={'ID':uid,'REFER':referrer,'DATE':this.time};
+                this.setRefer('S[NOW_REFER]', __time_out);
+                this.createGUID();
+            },
+            getUid: function () {
+                var lf = window.location.href, pos = lf.indexOf('#r-');
+                return pos != -1 ? lf.substr(pos + 4) : '';
+            },
+            getRefer: function () {
+                return document.referrer ? document.referrer : '';
+            },
+            setRefer: function (referName, timeout) {
+                var uid = this.getUid(), referrer = this.getRefer();
+                var data = {'ID': uid, 'REFER': referrer, 'DATE': this.time};
 
-            if('S[NOW_REFER]'==referName){
-                var refer=JSON.decode(Cookie.read('S[FIRST_REFER]'));
-                if(uid!=''&&refer&&refer.ID==''){
-                    var fdata={'ID':uid,'REFER':refer.REFER,'DATE':refer.DATE};
-                    this.writeCookie('S[FIRST_REFER]',JSON.encode(fdata),this.getTimeOut(refer.DATE));
-                }else if(uid==''){
-                    Object.append(data,{'ID':refer.ID});
+                if ('S[NOW_REFER]' == referName) {
+                    var refer = JSON.decode(Cookie.read('S[FIRST_REFER]'));
+                    if (uid != '' && refer && refer.ID == '') {
+                        var fdata = {'ID': uid, 'REFER': refer.REFER, 'DATE': refer.DATE};
+                        this.writeCookie('S[FIRST_REFER]', JSON.encode(fdata), this.getTimeOut(refer.DATE));
+                    } else if (uid == '') {
+                        Object.append(data, {'ID': refer.ID});
+                    }
                 }
+                Cookie.write(referName, JSON.encode(data), {duration: (__time_out || 15)});
+            },
+            getTimeOut: function (nowDate) {
+                var timeout = nowDate + __time_out * 24 * 3600 * 1000;
+                var date = new Date(timeout);
+                return date;
+            },
+            writeCookie: function (key, value, timeout) {
+                document.cookie = key + '=' + value + '; expires=' + timeout.toGMTString();
+            },
+            createGUID: function () {
+                var GUID = (function () {
+                    var S4 = function () {
+                        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+                    };
+                    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4()).toUpperCase();
+                })();
+                Cookie.write('S[N]', GUID, {duration: 3650});
             }
-            Cookie.write(referName,JSON.encode(data),{duration:(__time_out||15)});
-        },
-        getTimeOut:function(nowDate){
-            var timeout=nowDate+__time_out*24*3600*1000;
-            var date=new Date(timeout);
-            return date;
-        },
-        writeCookie:function(key,value,timeout){
-            document.cookie=key+ '=' + value+'; expires=' + timeout.toGMTString();
-        },
-        createGUID:function(){
-            var GUID = (function(){
-                var S4=function(){
-                    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-                };
-                return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4()).toUpperCase();
-            })();
-            Cookie.write('S[N]',GUID,{duration:3650});
-        }
+        });
+        ReferObj.init();
     });
-    ReferObj.init();
-});
-</script></body>
+</script>
+</body>
 </html>

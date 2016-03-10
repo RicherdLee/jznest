@@ -119,12 +119,13 @@ else {
                     if (!empty($code)) {
                         $sql = 'SELECT * FROM ' . CODE . " WHERE code = '" . $code . "'";
                         $db->query($sql);
-                        $flag = $db->fetchRow();
+                        $discode = $db->fetchRow();
+
                         //优惠码存在,且优惠码状态为可用(0表示不可用,1表示可用,2表示被锁定,3表示已使用)
-                        if (!empty($flag) && $flag['status'] == '1') {
+                        if (!empty($discode) && $discode['status'] < 2) {
                             //若过期时间为0,表示永不过期或者过期时间小于当前时间
-                            if ($flag['expire_time'] == 0 || $flag['expire_time'] > time()) {
-                                $discount_cost = $val['sumprice'] *  $flag['discont']/100;
+                            if ($discode['expire_time'] == 0 || $discode['expire_time'] > time()) {
+                                $discount_cost = $val['sumprice'] *  $discode['discont']/100;
                                 $neddupdatecode = ture;
                                 $codestatus = 2;
                             }else{
@@ -145,8 +146,16 @@ else {
 
                     $flag = $db->query($sql);
                     //更新优惠码状态
-                    $sql = 'UPDATE ' . CODE . ' SET status = 2 , opt_time=' . time().', order_id = '.$order_id.' WHERE code = "' . $code . '"';
-                    $db->query($sql);
+                    if($neddupdatecode){
+                        $code_type = $discode['code_type'];
+                        if( $code_type==1){
+                            $lock = 2;
+                        }else{
+                            $lock = $discode['lockstatus']+1;
+                        }
+                        $sql = 'UPDATE ' . CODE . ' SET lockstatus = '.$lock.' , opt_time=' . time().', order_id = '.$order_id.' WHERE code = "' . $code . '"';
+                        $db->query($sql);
+                    }
                     //--产品信息
                     foreach ($val['prolist'] as $key => $val) {
                         $sql = "INSERT INTO " . ORPRO . " (`order_id`,`buyer_id`,`pid`,`pcatid`,`name`,`pic`,`price`,`num`,`time`,`product_give`,`code`,`service`) VALUES ($order_id,$buid,$val[pid],'$val[catid]','$val[pname] $val[setmealname]','" . $val['pic'] . "','" . $val['price'] . "','" . $val['num'] . "','" . time() . "','$val[product_give_id]','$val[code]','$val[services]')";
@@ -188,6 +197,8 @@ else {
         }
     }
 }
+
+
 //=================================================
 $tpl->assign("config", $config);
 $tpl->assign("current", "product");
